@@ -19,11 +19,6 @@
       "prefix": "app",
       "styles": [
         "styles.css",
-        "./less/animations.less",
-        "./less/keys.less",
-        "./less/mixins.less",
-        "./less/reset.less",
-        "./less/variables.less",
         "./less/main.less"
       ],
       "scripts": [
