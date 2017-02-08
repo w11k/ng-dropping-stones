@@ -1,3 +1,81 @@
-<h1>
-  {{title}}
-</h1>
+<div class="dy-home">
+  <div di-game-menu></div>
+  <div class="row">
+    <div class="dy-game-title col-sm-7 col-xs-6">NgTetris</div>
+    <div class="dy-instructions col-sm-5 col-xs-6">
+      <!--{{ 'sub_title' | translate }}-->
+    </div>
+  </div>
+  <div class="dy-game-container row">
+    <div class="col-sm-4 dy-score-container">
+      <div data-ng-class="{'dy-section' : getScore() <= 0 && !isGameStart()}">
+        <div class="dy-best-score btn"
+              data-g-bind="getBestScore()">{{getBestScore()}}</div>
+        <div class="btn dy-speed-role"
+             (click)="setGameSpeed()"
+             data-ng-bind="getGameSpeed()">{{getGameSpeed()}}
+        </div>
+        <div class="dy-score btn"
+             *ngIf="getScore() > 0 || isGameStart()">{{getScore()}}
+        </div>
+        <!--<div class="btn dy-design-new-tetris"-->
+             <!--(click)="openDesignMenu()"-->
+             <!--data-ng-show="!isGameStart()">-->
+          <!--<i class="fa fa-puzzle-piece"></i>-->
+        <!--</div>-->
+      </div>
+    </div>
+    <!--<div class="col-sm-8">-->
+            <!--<span class="dy-mobile-score"-->
+                  <!--data-ng-bind="getScore()"-->
+                  <!--data-ng-hide="!isMobilePlay()">-->
+            <!--</span>-->
+      <!--<span class="dy-mobile-speed"-->
+            <!--data-ng-bind="getGameSpeed()"-->
+            <!--data-ng-hide="!isMobilePlay()">-->
+            <!--</span>-->
+      <!--<div class="dy-game-control">-->
+        <!--&lt;!&ndash; game board here &ndash;&gt;-->
+        <!--<div di-game-board></div>-->
+        <!--&lt;!&ndash; start button here &ndash;&gt;-->
+        <!--<div class="dy-game-start-btn">-->
+          <!--<div class="dy-game-start"-->
+               <!--data-ng-show="!isGameStart() && !isGameEnd()">-->
+            <!--<button class="dy-new-game-btn hollow dy-button"-->
+                    <!--(click)="startNewGame()">-->
+              <!--{{ 'new_game' | translate }}-->
+            <!--</button>-->
+          <!--</div>-->
+          <!--<div class="dy-game-over"-->
+               <!--data-ng-show="!isGameStart() && isGameEnd()">-->
+            <!--<div data-ng-show="isNewRecord()"-->
+                 <!--class="dy-new-record pulse">-->
+              <!--{{ 'new_record' | translate }}<br>-->
+              <!--<span data-ng-bind="getBestScore()"></span>-->
+            <!--</div>-->
+            <!--<div data-ng-show="!isNewRecord()"-->
+                 <!--class="dy-your-score">-->
+              <!--{{ 'your_score' | translate }}<br>-->
+              <!--<span data-ng-bind="getScore()"></span>-->
+            <!--</div>-->
+            <!--<p>{{ 'game_over' | translate }}</p>-->
+            <!--<div class="dy-game-restart">-->
+              <!--<button class="dy-new-game-btn hollow dy-button"-->
+                      <!--(click)="restartNewGame()">-->
+                <!--{{ 'try_again' | translate }}-->
+              <!--</button>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  </div>
+  <div class="dy-how-to-pause row">
+    <!--{{ 'press' | translate }} <span class="key light">ESC</span> {{ 'or' | translate }} <span class="key light">P</span> {{ 'pause_keys' | translate }}-->
+  </div>
+  <hr>
+  <p>
+    Angular 2 port, based on <a href="https://github.com/daihuaye" target="_blank">https://github.com/daihuaye</a>
+    <!--{{ 'created_by' | translate }} <a href="https://github.com/daihuaye" target="_blank">{{ 'author' | translate }}</a>. {{ 'game_description' | translate }} <a href="http://tetrisgame.heroku.com/" target="_blank">Tetris game</a>. {{ 'on_top_of' | translate }} <a href="https://angularjs.org/" target="_blank">{{'AngularJS' | translate}}</a>. {{ 'inspired_by' | translate }} <a href="http://ng2048.github.io/" target="_blank">ng-2048</a>.-->
+  </p>
+</div>

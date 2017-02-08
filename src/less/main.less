@@ -1,0 +1,71 @@
+/**
+ * This is the main application stylesheet. It should include or import all
+ * stylesheets used throughout the application as this is the only stylesheet in
+ * the Grunt configuration that is automatically processed.
+ */
+
+
+/**
+ * First, we include the Twitter Bootstrap LESS files. Only the ones used in the
+ * project should be imported as the rest are just wasting space.
+ */
+@import 'reset.less';
+
+@import "./../../node_modules/bootstrap-less/bootstrap/bootstrap.less";
+@import "./../../node_modules/lesshat/lesshat.less";
+
+/**
+ * This is our main variables file. We must include it last so we can overwrite any variable
+ * definitions in our imported stylesheets.
+ */
+
+@import 'variables.less';
+@import 'mixins.less';
+@import 'animations.less';
+@import 'keys.less';
+
+body {
+  background: #faf8ef;
+  font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+  font-weight: regular;
+  font-size: 18px;
+}
+
+.container {
+  width: @max-width;
+}
+
+.dy-top-0 {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+@media screen and (max-width: @max-width) {
+  .container {
+    width: @min-width;
+    margin: 0 auto;
+  }
+}
+
+/**
+ * Now that all app-wide styles have been applied, we can load the styles for
+ * all the submodules and components we are using.
+ *
+ * TODO: In a later version of this boilerplate, I'd like to automate this.
+ */
+
+//@import '../app/home/home.less';
+//
+//@import '../common/directives/diGameBoard/diGameBoard.less';
+//@import '../common/directives/diPiece/diPiece.less';
+//@import '../common/directives/diGameMenu/diGameMenu.less';
+//@import '../common/directives/diBootstrapSlider/diBootstrapSlider.less';
+//@import '../common/directives/diDesignPiece/diDesignPiece.less';
+//@import '../common/directives/diMobileController/diMobileController.less';
+//
+//@import '../app/home/home.mobile.less';
+//@import '../common/directives/diGameMenu/diGameMenu.mobile.less';
+//@import '../common/directives/diBootstrapSlider/diBootstrapSlider.mobile.less';
+//@import '../common/directives/diDesignPiece/diDesignPiece.mobile.less';
+
+
