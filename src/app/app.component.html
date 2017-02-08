@@ -1,4 +1,4 @@
-<div class="dy-home">
+<div class="dy-home container">
   <div di-game-menu></div>
   <div class="row">
     <div class="dy-game-title col-sm-7 col-xs-6">NgTetris</div>
@@ -9,20 +9,18 @@
   <div class="dy-game-container row">
     <div class="col-sm-4 dy-score-container">
       <div data-ng-class="{'dy-section' : getScore() <= 0 && !isGameStart()}">
-        <div class="dy-best-score btn"
-              data-g-bind="getBestScore()">{{getBestScore()}}</div>
+        <div class="dy-best-score btn">{{getBestScore()}}</div>
         <div class="btn dy-speed-role"
-             (click)="setGameSpeed()"
-             data-ng-bind="getGameSpeed()">{{getGameSpeed()}}
+             (click)="setGameSpeed()">{{getGameSpeed()}}
         </div>
         <div class="dy-score btn"
              *ngIf="getScore() > 0 || isGameStart()">{{getScore()}}
         </div>
-        <!--<div class="btn dy-design-new-tetris"-->
-             <!--(click)="openDesignMenu()"-->
-             <!--data-ng-show="!isGameStart()">-->
-          <!--<i class="fa fa-puzzle-piece"></i>-->
-        <!--</div>-->
+        <div class="btn dy-design-new-tetris"
+             (click)="openDesignMenu()"
+             *ngIf="!isGameStart()">
+          <i class="fa fa-puzzle-piece"></i>
+        </div>
       </div>
     </div>
     <!--<div class="col-sm-8">-->

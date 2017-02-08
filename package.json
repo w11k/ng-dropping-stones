@@ -33,6 +33,7 @@
     "@types/underscore": "^1.7.36",
     "bootstrap-less": "^3.3.8",
     "codelyzer": "~2.0.0-beta.1",
+    "font-awesome": "^4.7.0",
     "jasmine-core": "2.5.2",
     "jasmine-spec-reporter": "2.5.0",
     "karma": "1.2.0",
