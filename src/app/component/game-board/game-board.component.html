@@ -1,0 +1,8 @@
+<div class="dy-game-board">
+  <div class="dy-grid-container">
+    <div class="dy-grid-cell" *ngFor="let cell of getGridService()"
+         ngClass="getFilledClass(cell)">
+    </div>
+    <div di-piece></div>
+  </div>
+</div>
