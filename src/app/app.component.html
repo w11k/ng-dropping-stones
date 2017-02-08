@@ -3,7 +3,7 @@
   <div class="row">
     <div class="dy-game-title col-sm-7 col-xs-6">NgTetris</div>
     <div class="dy-instructions col-sm-5 col-xs-6">
-      <!--{{ 'sub_title' | translate }}-->
+      Instructions: LALALAL
     </div>
   </div>
   <div class="dy-game-container row">
@@ -23,50 +23,38 @@
         </div>
       </div>
     </div>
-    <!--<div class="col-sm-8">-->
-            <!--<span class="dy-mobile-score"-->
-                  <!--data-ng-bind="getScore()"-->
-                  <!--data-ng-hide="!isMobilePlay()">-->
-            <!--</span>-->
-      <!--<span class="dy-mobile-speed"-->
-            <!--data-ng-bind="getGameSpeed()"-->
-            <!--data-ng-hide="!isMobilePlay()">-->
-            <!--</span>-->
-      <!--<div class="dy-game-control">-->
-        <!--&lt;!&ndash; game board here &ndash;&gt;-->
-        <!--<div di-game-board></div>-->
-        <!--&lt;!&ndash; start button here &ndash;&gt;-->
-        <!--<div class="dy-game-start-btn">-->
-          <!--<div class="dy-game-start"-->
-               <!--data-ng-show="!isGameStart() && !isGameEnd()">-->
-            <!--<button class="dy-new-game-btn hollow dy-button"-->
-                    <!--(click)="startNewGame()">-->
-              <!--{{ 'new_game' | translate }}-->
-            <!--</button>-->
-          <!--</div>-->
-          <!--<div class="dy-game-over"-->
-               <!--data-ng-show="!isGameStart() && isGameEnd()">-->
-            <!--<div data-ng-show="isNewRecord()"-->
-                 <!--class="dy-new-record pulse">-->
-              <!--{{ 'new_record' | translate }}<br>-->
-              <!--<span data-ng-bind="getBestScore()"></span>-->
-            <!--</div>-->
-            <!--<div data-ng-show="!isNewRecord()"-->
-                 <!--class="dy-your-score">-->
-              <!--{{ 'your_score' | translate }}<br>-->
-              <!--<span data-ng-bind="getScore()"></span>-->
-            <!--</div>-->
-            <!--<p>{{ 'game_over' | translate }}</p>-->
-            <!--<div class="dy-game-restart">-->
-              <!--<button class="dy-new-game-btn hollow dy-button"-->
-                      <!--(click)="restartNewGame()">-->
-                <!--{{ 'try_again' | translate }}-->
-              <!--</button>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
+    <div class="col-sm-8">
+      <div class="dy-game-control">
+        <div di-game-board></div>
+        <div class="dy-game-start-btn">
+          <div class="dy-game-start" *ngIf="!isGameStart() && !isGameEnd()">
+            <button class="dy-new-game-btn hollow dy-button"
+                    (click)="startNewGame()">
+              New Game
+            </button>
+          </div>
+          <div class="dy-game-over" *ngIf="!isGameStart() && isGameEnd()">
+            <div data-ng-show="isNewRecord()"
+                 class="dy-new-record pulse">
+              New Record<br>
+              <span>{{getBestScore()}}</span>
+            </div>
+            <div data-ng-show="!isNewRecord()"
+                 class="dy-your-score">
+              Your Score<br>
+              <span>{{getScore()}}</span>
+            </div>
+            <p>Game Over</p>
+            <div class="dy-game-restart">
+              <button class="dy-new-game-btn hollow dy-button"
+                      (click)="restartNewGame()">
+                Try Again
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="dy-how-to-pause row">
     <!--{{ 'press' | translate }} <span class="key light">ESCAPE</span> {{ 'or' | translate }} <span class="key light">PAUSE</span> {{ 'pause_keys' | translate }}-->
