@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {LocalStoragePolyfillService} from "./local-storage-polyfill.service";
 import {GameData} from "../models/GameData.model";
-import {GameSpeed} from "../models/GameSpeed";
+import {GAMESPEED} from "../models/GameSpeed";
 
 @Injectable()
 export class GameDataService {
@@ -11,10 +11,10 @@ export class GameDataService {
     this.gameData = new GameData();
   }
 
-  getGameSpeed(): GameSpeed {
+  getGameSpeed(): GAMESPEED {
     return this.storagePolyfill.getGameSpeed();
   }
-  setGameSpeed(speed: GameSpeed) {
+  setGameSpeed(speed: GAMESPEED) {
     this.storagePolyfill.setGameSpeed(speed);
   }
   getBestScore(): number {
