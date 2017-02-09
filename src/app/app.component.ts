@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
   }
 
   gameOn() {
-    window.requestAnimationFrame(function () {
+    window.requestAnimationFrame(() => {
       this.gameOn();
     });
     if (!this.GameManager.isPause() && this.GameManager.isGameStart()) {

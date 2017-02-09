@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {GameDataService} from "./game-data.service";
-import {Cell} from "../models/Piece.model";
+import {Cell, Piece} from "../models/Piece.model";
 
 @Injectable()
 export class GridService {
@@ -58,7 +58,7 @@ export class GridService {
     this.grid = grid;
   }
 
-  insertPiece(piece, gameOver) {
+  insertPiece(piece: Piece, gameOver) {
     let coordArray = piece.getPieceCoordArray();
     for (let i = 0; i < coordArray.length; i++) {
       let pos = this.coordinatesToPosition(coordArray[i]);

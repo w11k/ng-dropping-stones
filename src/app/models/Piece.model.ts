@@ -148,6 +148,10 @@ export class Piece {
     }
     return isOk;
   }
+
+  getPieceCoordArray() {
+    return this.convertPatternToCoordinates();
+  }
 }
 
 export class Cell {
