@@ -83,4 +83,8 @@ export class GameDataService {
   getPatternLimit() {
     return this.gameData.patternLimit;
   }
+
+  getPieceWidthInPixel() {
+    return this.gameData.gameBoard.pieceWidthInPixel;
+  }
 }
