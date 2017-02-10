@@ -11,12 +11,14 @@ import {KeyboardService} from "./service/keyboard.service";
 import {LocalStoragePolyfillService} from "./service/local-storage-polyfill.service";
 import {GameBoardComponent} from "./component/game-board/game-board.component";
 import { GamePieceComponent } from './component/game-piece/game-piece.component';
+import { GameComponent } from './component/game/game.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GameBoardComponent,
     GamePieceComponent,
+    GameComponent,
   ],
   imports: [
     BrowserModule,
