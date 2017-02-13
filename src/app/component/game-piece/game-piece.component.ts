@@ -1,6 +1,4 @@
 import {Component, OnInit} from "@angular/core";
-import {GameDataService} from "../../service/game-data.service";
-import {GameManagerService} from "../../service/game-manager.service";
 
 import * as _ from "underscore";
 
@@ -11,10 +9,17 @@ import * as _ from "underscore";
 })
 export class GamePieceComponent implements OnInit {
 
-  private x: number = 0;
-  private y: number = 0;
+  private shape = [
+    [1,1],
+    [1,1]
+  ];
 
-  constructor(private gameData: GameDataService, private gameManager: GameManagerService) {
+  private topLeft = {
+    row: 0,
+    col: 4
+  };
+
+  constructor() {
   }
 
   ngOnInit() {
@@ -27,7 +32,7 @@ export class GamePieceComponent implements OnInit {
 //     getLeft: getLeft,
 //     getTop: getTop
 //   },
-
+/*
   // TODO: removed memoize function, maybe readd for speeeeeeeed
   private getX() {
     return this.getPositionX() * this.gameData.getPieceWidthInPixel() + this.gameData.getBoardWidth();
@@ -113,4 +118,5 @@ export class GamePieceComponent implements OnInit {
   getTop() {
     return this.getY();
   }
+  */
 }

@@ -26,33 +26,33 @@
     <div class="col-sm-8">
       <div class="dy-game-control">
         <game-board></game-board>
-        <div class="dy-game-start-btn">
-          <div class="dy-game-start" *ngIf="!isGameStart() && !isGameEnd()">
-            <button class="dy-new-game-btn hollow dy-button"
-                    (click)="startNewGame()">
-              New Game
-            </button>
-          </div>
-          <div class="dy-game-over" *ngIf="!isGameStart() && isGameEnd()">
-            <div data-ng-show="isNewRecord()"
-                 class="dy-new-record pulse">
-              New Record<br>
-              <span>{{getBestScore()}}</span>
-            </div>
-            <div data-ng-show="!isNewRecord()"
-                 class="dy-your-score">
-              Your Score<br>
-              <span>{{getScore()}}</span>
-            </div>
-            <p>Game Over</p>
-            <div class="dy-game-restart">
-              <button class="dy-new-game-btn hollow dy-button"
-                      (click)="restartNewGame()">
-                Try Again
-              </button>
-            </div>
-          </div>
-        </div>
+        <!--<div class="dy-game-start-btn">-->
+          <!--<div class="dy-game-start" *ngIf="!isGameStart() && !isGameEnd()">-->
+            <!--<button class="dy-new-game-btn hollow dy-button"-->
+                    <!--(click)="startNewGame()">-->
+              <!--New Game-->
+            <!--</button>-->
+          <!--</div>-->
+          <!--<div class="dy-game-over" *ngIf="!isGameStart() && isGameEnd()">-->
+            <!--<div data-ng-show="isNewRecord()"-->
+                 <!--class="dy-new-record pulse">-->
+              <!--New Record<br>-->
+              <!--<span>{{getBestScore()}}</span>-->
+            <!--</div>-->
+            <!--<div data-ng-show="!isNewRecord()"-->
+                 <!--class="dy-your-score">-->
+              <!--Your Score<br>-->
+              <!--<span>{{getScore()}}</span>-->
+            <!--</div>-->
+            <!--<p>Game Over</p>-->
+            <!--<div class="dy-game-restart">-->
+              <!--<button class="dy-new-game-btn hollow dy-button"-->
+                      <!--(click)="restartNewGame()">-->
+                <!--Try Again-->
+              <!--</button>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
       </div>
     </div>
   </div>

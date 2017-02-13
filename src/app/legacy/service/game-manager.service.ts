@@ -293,4 +293,12 @@ export class GameManagerService {
       }
     }
   }
+
+  startNewGame() {
+    this.createNewPiece();
+    this.setGameStart();
+//    this.keyboardService.on(function (key) {
+//      this.GameManager.move(key);
+//    });
+  }
 }
