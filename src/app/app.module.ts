@@ -4,8 +4,9 @@ import {FormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 import {AppComponent} from "./app.component";
 import {GameBoardComponent} from "./component/game-board/game-board.component";
-import { GamePieceComponent } from './component/game-piece/game-piece.component';
-import { GameComponent } from './component/game/game.component';
+import {GamePieceComponent} from './component/game-piece/game-piece.component';
+import {GameComponent} from './component/game/game.component';
+import {GameService} from "./service/game.service";
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { GameComponent } from './component/game/game.component';
     FormsModule,
     HttpModule,
   ],
-  providers: [],
+  providers: [GameService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

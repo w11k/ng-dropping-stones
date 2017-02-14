@@ -1,10 +1,17 @@
-<div class="dy-piece dy-piece-ready">
-  <ul class="dy-piece-ul"
-      ngClass="getClassForShape()">
-    <li data-ng-repeat="i in vm.pieces"
-        class="dy-piece-li"
-        ngClass="{'dy-pattern': checkPattern(i)} + getColor()">
-        <!--ngStyle="getColor()"> -->
-    </li>
+<!--<div class="dy-piece dy-piece-ready">-->
+  <!--<ul class="dy-piece-ul"-->
+      <!--ngClass="getClassForShape()">-->
+    <!--<li data-ng-repeat="i in vm.pieces"-->
+        <!--class="dy-piece-li"-->
+        <!--ngClass="{'dy-pattern': checkPattern(i)} + getColor()">-->
+        <!--&lt;!&ndash;ngStyle="getColor()"> &ndash;&gt;-->
+    <!--</li>-->
+  <!--</ul>-->
+<!--</div>-->
+
+
+<div class="dy-piece dy-piece-ready" [ngStyle]="getStyle()">
+  <ul class="dy-piece-ul dy-O">
+    <li  *ngFor="let cell of pieceBlock" class="dy-piece-li dy-pattern"></li>
   </ul>
 </div>

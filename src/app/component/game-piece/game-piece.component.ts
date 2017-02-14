@@ -9,20 +9,24 @@ import * as _ from "underscore";
 })
 export class GamePieceComponent implements OnInit {
 
-  private shape = [
-    [1,1],
-    [1,1]
+  private pieceBlock = [
+    1, 1, 0, 0,
+    1, 1, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0
   ];
-
-  private topLeft = {
-    row: 0,
-    col: 4
-  };
 
   constructor() {
   }
 
   ngOnInit() {
+  }
+
+  getStyle() {
+    return {
+      top: "0px",
+      left: "10px"
+    }
   }
 
 //   options = {
