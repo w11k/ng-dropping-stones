@@ -1,42 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {GameService} from "../../service/game.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'game-board',
   templateUrl: './game-board.component.html',
   styleUrls: ['./game-board.component.less']
 })
-export class GameBoardComponent implements OnInit {
+export class GameBoardComponent implements OnInit, OnDestroy {
 
-  constructor() { }
+  private landedGrid: Array<Array<number>>;
+  private landedGridSubscription: Subscription;
+
+
+  constructor(private gameService: GameService) { }
 
   ngOnInit() {
+    this.landedGridSubscription = this.gameService.getLandedGameGrid().subscribe(landedGrid => this.landedGrid = landedGrid);
   }
 
-  getGridService() {
-      let grid = [
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 1, 1, 1, 0, 0, 0, 0, 0, 0],
-        [0, 1, 0, 1, 0, 0, 0, 1, 0, 0],
-        [0, 1, 0, 1, 0, 0, 1, 1, 0, 0],
-        [0, 1, 1, 1, 0, 1, 1, 1, 0, 0]
-      ];
-
-     return grid;
+  ngOnDestroy() {
+    this.landedGridSubscription.unsubscribe();
   }
 
   getFilledClass(cell) {

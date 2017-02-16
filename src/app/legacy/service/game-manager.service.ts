@@ -36,7 +36,7 @@ export class GameManagerService {
     // };
     //
     // // grid
-    // this.game.data.grid = this.gridService.getGridService();
+    // this.game.data.grid = this.gridService.getLandedGameGrid();
     //
     // // scroe
     // this.game.data.score = this.gameDataService.getScore();

@@ -1,25 +1,28 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, OnDestroy} from "@angular/core";
 
 import * as _ from "underscore";
+import {GameService} from "../../service/game.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'game-piece',
   templateUrl: './game-piece.component.html',
   styleUrls: ['./game-piece.component.less']
 })
-export class GamePieceComponent implements OnInit {
+export class GamePieceComponent implements OnInit, OnDestroy {
 
-  private pieceBlock = [
-    1, 1, 0, 0,
-    1, 1, 0, 0,
-    0, 0, 0, 0,
-    0, 0, 0, 0
-  ];
+  private movingPiece: Array<number>;
+  private movingPieceSubscription: Subscription;
 
-  constructor() {
+  constructor(private gameService: GameService) {
   }
 
   ngOnInit() {
+    this.movingPieceSubscription = this.gameService.getMovingPiece().subscribe(movingPiece => this.movingPiece = movingPiece);
+  }
+
+  ngOnDestroy() {
+    this.movingPieceSubscription.unsubscribe();
   }
 
   getStyle() {
