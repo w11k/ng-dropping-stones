@@ -23,17 +23,8 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     this.landedGridSubscription.unsubscribe();
   }
 
-  getFilledClass(cell) {
-    let pieceClass ="dy-grid-cell";
-    switch (cell) {
-      case 1:
-        pieceClass += " dy-O-filled";
-        break;
-      case 0:
-      default:
-    }
-    // console.log(pieceClass);
-    return pieceClass;
+  isFilled(cell: number) {
+    return cell == 1 ? true: false;
   }
   /*
 

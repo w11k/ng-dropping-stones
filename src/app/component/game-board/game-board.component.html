@@ -2,7 +2,8 @@
   <div class="dy-grid-container">
     <div *ngFor="let row of landedGrid">
       <div *ngFor="let cell of row"
-         [class]="getFilledClass(cell)">
+         class="dy-grid-cell"
+         [class.dy-O-filled]="isFilled(cell)">
         <!-- draw gamecells  -->
       </div>
     </div>

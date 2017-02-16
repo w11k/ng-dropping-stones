@@ -32,6 +32,10 @@ export class GamePieceComponent implements OnInit, OnDestroy {
     }
   }
 
+  isFilled(cell: number) {
+    return cell == 1 ? true : false;
+  }
+
 //   options = {
 //     pieces: _.range(16),
 //     checkPattern: checkPattern,
