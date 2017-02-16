@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Subject, Observable, ReplaySubject} from "rxjs";
 import {MovingPiece, PotentialPosition} from "./model/moving-piece.model";
 import {Style} from "./model/style.model";
+import {MoveEvents} from "./game.constants";
 
 @Injectable()
 export class GameService {
@@ -114,5 +115,46 @@ export class GameService {
         }
       }
     }
+  }
+
+  handleUserMoveEvent(moveEvent: MoveEvents) {
+    switch(moveEvent) {
+      case MoveEvents.DOWN:
+        this.rotatePieceRight();
+        break;
+      case MoveEvents.UP:
+        this.rotatePieceLeft();
+        break;
+      case MoveEvents.RIGHT:
+        this.movePieceRight();
+        break;
+      case MoveEvents.LEFT:
+        this.movePieceLeft();
+        break;
+      case MoveEvents.DROP:
+        this.dropPiece();
+        break;
+      default: //nothing to do
+    }
+  }
+
+  private rotatePieceRight() {
+    console.log("rotate piece right");
+  }
+
+  private rotatePieceLeft() {
+    console.log("rotate piece left");
+  }
+
+  private movePieceRight() {
+    console.log("move piece right");
+  }
+
+  private movePieceLeft() {
+    console.log("move piece left");
+  }
+
+  private dropPiece() {
+    console.log("Drop piece");
   }
 }

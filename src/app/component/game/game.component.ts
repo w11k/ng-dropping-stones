@@ -1,7 +1,8 @@
 ///<reference path="../../service/game.service.ts"/>
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, HostListener} from "@angular/core";
 
 import {GameService} from "../../service/game.service";
+import {MoveEvents} from "../../service/game.constants";
 
 @Component({
   selector: 'game',
@@ -14,7 +15,6 @@ export class GameComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.keyboardService.init();
     this.newGame();
   }
 
@@ -28,5 +28,32 @@ export class GameComponent implements OnInit {
   private newGame() {
     this.gameService.newGame();
     this.gameOn(0)
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeyInput($event) {
+    switch($event.code) {
+      case "ArrowLeft":
+        $event.preventDefault();
+        this.gameService.handleUserMoveEvent(MoveEvents.LEFT);
+        break;
+      case "ArrowRight":
+        $event.preventDefault();
+        this.gameService.handleUserMoveEvent(MoveEvents.RIGHT);
+        break;
+      case "ArrowUp":
+        $event.preventDefault();
+        this.gameService.handleUserMoveEvent(MoveEvents.UP);
+        break;
+      case "ArrowDown":
+        $event.preventDefault();
+        this.gameService.handleUserMoveEvent(MoveEvents.DOWN);
+        break;
+      case "Space":
+        $event.preventDefault();
+        this.gameService.handleUserMoveEvent(MoveEvents.DROP);
+        break;
+      default:
+    }
   }
 }
