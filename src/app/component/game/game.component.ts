@@ -43,11 +43,11 @@ export class GameComponent implements OnInit {
         break;
       case "ArrowUp":
         $event.preventDefault();
-        this.gameService.handleUserMoveEvent(MoveEvents.UP);
+        this.gameService.handleUserMoveEvent(MoveEvents.ROTATE_COUNTER_CLOCKWISE);
         break;
       case "ArrowDown":
         $event.preventDefault();
-        this.gameService.handleUserMoveEvent(MoveEvents.DOWN);
+        this.gameService.handleUserMoveEvent(MoveEvents.ROTATE_CLOCKWISE);
         break;
       case "Space":
         $event.preventDefault();
