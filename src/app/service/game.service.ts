@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Subject, Observable, ReplaySubject} from "rxjs";
-import {MovingPiece} from "./model/moving-piece.model";
+import {MovingPiece, PotentialPosition} from "./model/moving-piece.model";
 import {Style} from "./model/style.model";
 
 @Injectable()
@@ -71,12 +71,14 @@ export class GameService {
     if(progress > this.gameSpeed * 100) {
 
       // check collision
-      let collision = this.checkPossibleCollision(this.movingPiece);
+      let potentialPosition = new PotentialPosition(this.movingPiece.row + 1, this.movingPiece.col);
+      let collision = this.checkPossibleCollision(potentialPosition);
 
       if(collision) {
+        this.addPieceToLandedGrid(this.movingPiece);
         this.movingPiece = new MovingPiece();
       } else {
-        this.movingPiece.row = this.movingPiece.possibleNewRow();
+        this.movingPiece.row = potentialPosition.row;
       }
       // draw new stuff
       this.landedGridSubject.next(this.landedGrid);
@@ -87,17 +89,15 @@ export class GameService {
     }
   }
 
-  private checkPossibleCollision(actualPiece: MovingPiece): boolean {
-    for (let row = 0; row < actualPiece.shape.length; row++) {
-      for (let col = 0; col < actualPiece.shape[row].length; col++) {
-        if (actualPiece.shape[row][col] != 0) {
-          if (row + actualPiece.possibleNewRow() >= this.landedGrid.length) {
+  private checkPossibleCollision(possibleNextPosition: PotentialPosition): boolean {
+    for (let row = 0; row < this.movingPiece.shape.length; row++) {
+      for (let col = 0; col < this.movingPiece.shape[row].length; col++) {
+        if (this.movingPiece.shape[row][col] != 0) {
+          if (row + possibleNextPosition.row >= this.landedGrid.length) {
             //this block would be below the playing field
-            this.addPieceToLandedGrid(actualPiece);
             return true;
-          } else if (this.landedGrid[row + actualPiece.possibleNewRow()][col + actualPiece.col] != 0) {
+          } else if (this.landedGrid[row + possibleNextPosition.row][col + possibleNextPosition.col] != 0) {
             // collision with already landed element
-            this.addPieceToLandedGrid(actualPiece);
             return true;
           }
         }

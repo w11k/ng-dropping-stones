@@ -3,7 +3,8 @@ import {GAME_CELL_SIZE, GAME_BOARDER_SIZE} from "../game.constants";
 export class MovingPiece {
 
   private _shape: Array<Array<number>> = [
-    [1, 1],
+    [0, 1],
+    [0, 1],
     [1, 1]
   ];
 
@@ -34,14 +35,14 @@ export class MovingPiece {
     this._row = value;
   }
 
-  public possibleNewRow() {
-    return this._row + 1;
-  }
-
   public calculateStyle(): Style {
     let top = this.row * GAME_CELL_SIZE;
     let left = GAME_BOARDER_SIZE + GAME_CELL_SIZE * this.col;
 
     return new Style(top, left)
   }
+}
+
+export class PotentialPosition {
+  constructor(public row: number, public col: number) {}
 }
