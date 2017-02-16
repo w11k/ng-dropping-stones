@@ -1,6 +1,6 @@
+///<reference path="../../service/game.service.ts"/>
 import {Component, OnInit} from "@angular/core";
 
-import * as _ from "underscore";
 import {GameService} from "../../service/game.service";
 
 @Component({
@@ -20,20 +20,21 @@ export class GameComponent implements OnInit {
     this.newGame();
   }
 
-  private setupGameLoop() {
-    return _.throttle(this.gameService.gameLoop, 600, {
-      leading: false,
-      trailing: false
-    });
-  }
+  // private setupGameLoop = () => {
+  //   return _.throttle(this.gameService.gameLoop, 600, {
+  //     leading: false,
+  //     trailing: false
+  //   });
+  // };
 
-  private loop = this.setupGameLoop();
+  // private loop = this.setupGameLoop();
 
-  private gameOn() {
-    window.requestAnimationFrame(() => {
-      this.gameOn();
+  private gameOn(timestamp: number) {
+    window.requestAnimationFrame((timestamp) => {
+      this.gameOn(timestamp);
     });
-    this.loop();
+    // this.loop();
+    this.gameService.gameLoop(timestamp);
 //    if (!this.GameManager.isPause() && this.GameManager.isGameStart()) {
 //      this.gameLoop();
 //    }
@@ -41,7 +42,7 @@ export class GameComponent implements OnInit {
 
   private newGame() {
     this.gameService.newGame();
-    this.gameOn()
+    this.gameOn(0)
   }
 
   restartNewGame() {

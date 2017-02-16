@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {Subject, Observable, ReplaySubject} from "rxjs";
-import {isNumber} from "util";
 
 @Injectable()
 export class GameService {
@@ -35,15 +34,23 @@ export class GameService {
     0, 0, 0, 0
   ];
 
+  private gameSpeed: number = 10;
+  private lastTimestamp: number = 0;
+
+  private movingPieceStyle: Style = new Style(0, 10);
+
   private landedGridSubject: Subject<Array<Array<number>>>;
   private movingPieceSubject: Subject<Array<number>>;
+  private movingPieceStyleSubject: Subject<Style>;
 
   constructor() {
     this.landedGridSubject = new ReplaySubject<Array<Array<number>>>();
     this.movingPieceSubject = new ReplaySubject<Array<number>>();
+    this.movingPieceStyleSubject = new ReplaySubject<Style>();
 
     this.landedGridSubject.next(this.landedGrid);
     this.movingPieceSubject.next(this.movingPiece);
+    this.movingPieceStyleSubject.next(this.movingPieceStyle);
   }
 
   public getLandedGameGrid(): Observable<Array<Array<number>>> {
@@ -54,12 +61,31 @@ export class GameService {
     return this.movingPieceSubject.asObservable();
   }
 
+  getMovingPieceStyle(): Observable<Style> {
+    return this.movingPieceStyleSubject.asObservable();
+  }
+
   public newGame() {
     // reset old game
   }
 
-  public gameLoop() {
-    // update stuff
-    console.log("gameLoop");
+  public gameLoop(timestamp: number) {
+
+    let progress = timestamp - this.lastTimestamp;
+
+    if(progress > this.gameSpeed * 100) {
+      // update stuff
+      this.movingPieceStyle.top = this.movingPieceStyle.top + 25;
+
+      // draw new stuff
+      this.movingPieceStyleSubject.next(this.movingPieceStyle);
+
+      this.lastTimestamp = timestamp;
+      console.log("gameLoop");
+    }
   }
+}
+
+export class Style {
+  constructor(public top: number, public left: number) {}
 }

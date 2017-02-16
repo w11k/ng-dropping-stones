@@ -1,15 +1,16 @@
 @import "./../../../less/main";
 
-.dy-piece-ready {
-  .transition(top, @cssAnimateTimeout, linear);
-  top: 0;
-  left: 10px;
-}
-
-.dy-piece {
+:host {
   position: absolute;
   top: 0;
   left: 0;
+
+  //.dy-piece-ready {
+    .transition(top, @cssAnimateTimeout, linear);
+    top: 0;
+    left: 10px;
+  //}
+
   .dy-piece-ul {
     .size(4 * @game-cell-size);
   }
