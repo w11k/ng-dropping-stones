@@ -1,3 +1,3 @@
-<ul class="dy-piece-ul dy-O">
-  <li  *ngFor="let cell of movingPiece" class="dy-piece-li" [class.dy-pattern]="isFilled(cell)"></li>
+<ul class="dy-piece-ul dy-O" *ngFor="let rows of movingPiece">
+  <li  *ngFor="let cell of rows" class="dy-piece-li" [class.dy-pattern]="isFilled(cell)"></li>
 </ul>
