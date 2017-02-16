@@ -74,7 +74,7 @@ export class GameService {
 
       // check collision
       let potentialPosition = new PotentialPosition(this.movingPiece.row + 1, this.movingPiece.col);
-      let collision = this.checkPossibleCollision(potentialPosition);
+      let collision = this.checkPossibleMoveCollision(potentialPosition);
 
       if(collision) {
         this.addPieceToLandedGrid(this.movingPiece);
@@ -111,20 +111,34 @@ export class GameService {
     }
   }
 
-  private checkPossibleCollision(possibleNextPosition: PotentialPosition): boolean {
-    for (let row = 0; row < this.movingPiece.shape.length; row++) {
-      for (let col = 0; col < this.movingPiece.shape[row].length; col++) {
-        if (this.movingPiece.shape[row][col] != 0) {
-          if (row + possibleNextPosition.row >= this.landedGrid.length) {
-            //this block would be below the playing field
-            return true;
-          } else if(col + possibleNextPosition.col < 0) {
+  private checkPossibleMoveCollision(possibleNextPosition: PotentialPosition): boolean {
+    let shape = this.movingPiece.shape;
+    let pieceCol = possibleNextPosition.col;
+    let pieceRow = possibleNextPosition.row;
+    return this.checkPossibleCollision(shape, pieceRow, pieceCol);
+  }
+
+  private checkPossibleRotationCollision(potentialShape: Array<Array<number>>): boolean {
+    let shape = potentialShape;
+    let pieceCol = this.movingPiece.col;
+    let pieceRow = this.movingPiece.row ;
+    return this.checkPossibleCollision(shape, pieceRow, pieceCol);
+  }
+
+  private checkPossibleCollision(shape: Array<Array<number>>, pieceRow: number, pieceCol: number): boolean {
+    for (let row = 0; row < shape.length; row++) {
+      for (let col = 0; col < shape[row].length; col++) {
+        if (shape[row][col] != 0) {
+          if (col + pieceCol < 0) {
             //this block would be to the left of the playing field
             return true;
-          } else if(col + possibleNextPosition.col >= this.landedGrid[0].length) {
+          } else if (col + pieceCol >= this.landedGrid[0].length) {
             //this block would be to the right of the playing field
             return true;
-          } else if (this.landedGrid[row + possibleNextPosition.row][col + possibleNextPosition.col] != 0) {
+          } else if (row + pieceRow >= this.landedGrid.length) {
+            //this block would be below the playing field
+            return true;
+          } else if (this.landedGrid[row + pieceRow][col + pieceCol] != 0) {
             // collision with already landed element
             return true;
           }
@@ -133,6 +147,7 @@ export class GameService {
     }
     return false;
   }
+
 
   private addPieceToLandedGrid(actualPiece: MovingPiece) {
     for (let row = 0; row < actualPiece.shape.length; row++) {
@@ -164,31 +179,9 @@ export class GameService {
     }
   }
 
-  private checkPossibleRotationCollision(potentialShape: Array<Array<number>>): boolean {
-    for (var row = 0; row < potentialShape.length; row++) {
-      for (var col = 0; col < potentialShape[row].length; col++) {
-        if (potentialShape[row][col] != 0) {
-          if (col + this.movingPiece.col < 0) {
-            //this block would be to the left of the playing field
-            return true;
-          } else if (col + this.movingPiece.col >= this.landedGrid[0].length) {
-            //this block would be to the right of the playing field
-            return true;
-          } else if (row + this.movingPiece.row >= this.landedGrid.length) {
-            //this block would be below the playing field
-            return true;
-          } else if (this.landedGrid[row + this.movingPiece.row][col + this.movingPiece.col] != 0) {
-            // collision with already landed element
-            return true;
-          }
-        }
-      }
-    }
-  }
-
   private movePieceRight() {
     let potentialPosition = new PotentialPosition(this.movingPiece.row, this.movingPiece.col + 1);
-    let collision = this.checkPossibleCollision(potentialPosition);
+    let collision = this.checkPossibleMoveCollision(potentialPosition);
     if(!collision) {
       this.movingPiece.col = potentialPosition.col;
       this.redrawMovingPiece();
@@ -197,7 +190,7 @@ export class GameService {
 
   private movePieceLeft() {
     let potentialPosition = new PotentialPosition(this.movingPiece.row, this.movingPiece.col - 1);
-    let collision = this.checkPossibleCollision(potentialPosition);
+    let collision = this.checkPossibleMoveCollision(potentialPosition);
     if(!collision) {
       this.movingPiece.col = potentialPosition.col;
       this.redrawMovingPiece();
