@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Subject, Observable, ReplaySubject} from "rxjs";
+import {isNumber} from "util";
 
 @Injectable()
 export class GameService {
@@ -15,29 +16,6 @@ export class GameService {
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 1, 1, 1, 0, 0, 0, 0, 0, 0],
-    [0, 1, 0, 1, 0, 0, 0, 1, 0, 0],
-    [0, 1, 0, 1, 0, 0, 1, 1, 0, 0],
-    [0, 1, 1, 1, 0, 1, 1, 1, 0, 0]
-  ];
-
-  private landedGrid2: Array<Array<number>> = [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 1, 1, 1, 1, 0, 0],
-    [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -66,10 +44,6 @@ export class GameService {
 
     this.landedGridSubject.next(this.landedGrid);
     this.movingPieceSubject.next(this.movingPiece);
-
-    setTimeout(() =>
-      this.landedGridSubject.next(this.landedGrid2),
-      50000);
   }
 
   public getLandedGameGrid(): Observable<Array<Array<number>>> {
@@ -80,4 +54,12 @@ export class GameService {
     return this.movingPieceSubject.asObservable();
   }
 
+  public newGame() {
+    // reset old game
+  }
+
+  public gameLoop() {
+    // update stuff
+    console.log("gameLoop");
+  }
 }

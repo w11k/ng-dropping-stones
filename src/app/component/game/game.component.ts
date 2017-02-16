@@ -1,6 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 
 import * as _ from "underscore";
+import {GameService} from "../../service/game.service";
 
 @Component({
   selector: 'game',
@@ -8,42 +9,39 @@ import * as _ from "underscore";
   styleUrls: ['./game.component.less']
 })
 export class GameComponent implements OnInit {
-  //private loop: any;
+  //private gameLoop: any;
 
-  constructor() {
+  constructor(private gameService: GameService) {
   }
 
   ngOnInit() {
-    // this.loop = this.setUpGameLoop();
+    // this.gameLoop = this.setUpGameLoop();
     // this.keyboardService.init();
-    // this.newGame();
+    this.newGame();
   }
 
-
-
-  setUpGameLoop() {
-//    return _.throttle(this.gameLoop, this.GameManager.getGameSpeed(), {
-//      leading: false,
-//      trailing: false
-//    });
+  private setupGameLoop() {
+    return _.throttle(this.gameService.gameLoop, 600, {
+      leading: false,
+      trailing: false
+    });
   }
 
-  gameLoop() {
-//    this.GameManager.moveCurrentPiece();
-//    this.GameManager.updateGhostPiece();
-  }
+  private loop = this.setupGameLoop();
 
-  gameOn() {
-/*    window.requestAnimationFrame(() => {
+  private gameOn() {
+    window.requestAnimationFrame(() => {
       this.gameOn();
     });
-    if (!this.GameManager.isPause() && this.GameManager.isGameStart()) {
-      this.loop();
-    }*/
+    this.loop();
+//    if (!this.GameManager.isPause() && this.GameManager.isGameStart()) {
+//      this.gameLoop();
+//    }
   }
 
-  newGame() {
-//    this.GameManager.newGame();
+  private newGame() {
+    this.gameService.newGame();
+    this.gameOn()
   }
 
   restartNewGame() {
@@ -99,7 +97,7 @@ export class GameComponent implements OnInit {
    });
 
    $scope.$on('BootstrapSlider.Speed', function() {
-   loop = setUpGameLoop();
+   gameLoop = setUpGameLoop();
    });
    */
 }

@@ -32,7 +32,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
       case 0:
       default:
     }
-    console.log(pieceClass);
+    // console.log(pieceClass);
     return pieceClass;
   }
   /*
