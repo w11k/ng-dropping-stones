@@ -3,7 +3,7 @@ import {Subject, Observable, ReplaySubject} from "rxjs";
 import {MovingPiece, PotentialPosition} from "./model/pieces/moving-piece.model";
 import {Style} from "./model/style.model";
 import {MoveEvents} from "./game.constants";
-import {LPiece} from "./model/pieces/lpiece.model";
+import {PieceService} from "./piece.service";
 
 @Injectable()
 export class GameService {
@@ -33,7 +33,7 @@ export class GameService {
 
   private EMPTY_ROW: Array<number> = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-  private movingPiece: MovingPiece = new LPiece();
+  private movingPiece: MovingPiece;
 
   private gameSpeed: number = 10;
   private lastTimestamp: number = 0;
@@ -42,10 +42,12 @@ export class GameService {
   private movingPieceSubject: Subject<Array<Array<number>>>;
   private movingPieceStyleSubject: Subject<Style>;
 
-  constructor() {
+  constructor(private pieceService: PieceService) {
     this.landedGridSubject = new ReplaySubject<Array<Array<number>>>();
     this.movingPieceSubject = new ReplaySubject<Array<Array<number>>>();
     this.movingPieceStyleSubject = new ReplaySubject<Style>();
+
+    this.movingPiece = pieceService.getNewPiece();
 
     this.landedGridSubject.next(this.landedGrid);
     this.movingPieceSubject.next(this.movingPiece.shape);
@@ -81,7 +83,7 @@ export class GameService {
       if(collision) {
         this.addPieceToLandedGrid(this.movingPiece);
         this.removeCompleteLines();
-        this.movingPiece = new LPiece();
+        this.movingPiece = this.pieceService.getNewPiece();
       } else {
         this.movingPiece.row = potentialPosition.row;
       }
