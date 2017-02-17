@@ -212,7 +212,13 @@ export class GameService {
   }
 
   private dropPiece() {
-    console.log("Drop piece");
+    let potentialPosition = new PotentialPosition(this.movingPiece.row + 2, this.movingPiece.col);
+    let collision = this.checkPossibleMoveCollision(potentialPosition);
+
+    if(!collision) {
+      this.movingPiece.row = this.movingPiece.row + 1;
+      this.redrawMovingPiece();
+    }
   }
 
   private redrawMovingPiece() {
