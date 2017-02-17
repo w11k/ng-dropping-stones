@@ -28,8 +28,10 @@ export class GameService {
     [0, 1, 1, 1, 0, 0, 1, 0, 0, 0],
     [0, 1, 1, 1, 0, 0, 1, 0, 0, 1],
     [0, 1, 1, 1, 0, 0, 1, 0, 0, 1],
-    [1, 1, 1, 1, 0, 0, 1, 0, 1, 1]
+    [1, 1, 1, 1, 0, 0, 1, 1, 1, 1]
   ];
+
+  private EMPTY_ROW: Array<number> = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
   private movingPiece: MovingPiece = new LPiece();
 
@@ -78,6 +80,7 @@ export class GameService {
 
       if(collision) {
         this.addPieceToLandedGrid(this.movingPiece);
+        this.removeCompleteLines();
         this.movingPiece = new LPiece();
       } else {
         this.movingPiece.row = potentialPosition.row;
@@ -148,6 +151,17 @@ export class GameService {
     return false;
   }
 
+  private removeCompleteLines() {
+    for (let rowIndex = 0; rowIndex < this.landedGrid.length; rowIndex++) {
+      let row = this.landedGrid[rowIndex];
+      if (row.filter((cell) => cell == 0).length == 0) {
+        // row doenst contain 0 values -> row is complete
+        this.landedGrid.splice(rowIndex, 1);
+        this.landedGrid.unshift(this.EMPTY_ROW);
+        // TODO: increase speed, count score
+      }
+    }
+  }
 
   private addPieceToLandedGrid(actualPiece: MovingPiece) {
     for (let row = 0; row < actualPiece.shape.length; row++) {
