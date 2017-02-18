@@ -1,4 +1,4 @@
-import {Style} from "../style.model";
+import {PiecePosition} from "../piece-position.model";
 import {GAME_CELL_SIZE, GAME_BOARDER_SIZE} from "../../game.constants";
 export class MovingPiece {
 
@@ -33,11 +33,11 @@ export class MovingPiece {
     this._row = value;
   }
 
-  public calculateStyle(): Style {
+  public calculateStyle(): PiecePosition {
     let top = this.row * GAME_CELL_SIZE;
     let left = GAME_BOARDER_SIZE + GAME_CELL_SIZE * this.col;
 
-    return new Style(top, left)
+    return new PiecePosition(top, left)
   }
 
   public rotateClockwise() {

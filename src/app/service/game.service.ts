@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Subject, Observable, ReplaySubject} from "rxjs";
 import {MovingPiece, PotentialPosition} from "./model/pieces/moving-piece.model";
-import {Style} from "./model/style.model";
+import {PiecePosition} from "./model/piece-position.model";
 import {MoveEvents} from "./game.constants";
 import {PieceService} from "./piece.service";
 
@@ -39,18 +39,20 @@ export class GameService {
   private lastTimestamp: number = 0;
 
   private landedGridSubject: Subject<Array<Array<number>>>;
-  private movingPieceSubject: Subject<Array<Array<number>>>;
-  private movingPieceStyleSubject: Subject<Style>;
+
+  // two subjects, because we want to draw the piece only once, but move often
+  private movingPieceShapeSubject: Subject<Array<Array<number>>>;
+  private movingPieceStyleSubject: Subject<PiecePosition>;
 
   constructor(private pieceService: PieceService) {
     this.landedGridSubject = new ReplaySubject<Array<Array<number>>>();
-    this.movingPieceSubject = new ReplaySubject<Array<Array<number>>>();
-    this.movingPieceStyleSubject = new ReplaySubject<Style>();
+    this.movingPieceShapeSubject = new ReplaySubject<Array<Array<number>>>();
+    this.movingPieceStyleSubject = new ReplaySubject<PiecePosition>();
 
     this.movingPiece = pieceService.getNewPiece();
 
     this.landedGridSubject.next(this.landedGrid);
-    this.movingPieceSubject.next(this.movingPiece.shape);
+    this.movingPieceShapeSubject.next(this.movingPiece.shape);
     this.movingPieceStyleSubject.next(this.movingPiece.calculateStyle());
   }
 
@@ -58,11 +60,11 @@ export class GameService {
     return this.landedGridSubject.asObservable();
   }
 
-  public getMovingPiece(): Observable<Array<Array<number>>> {
-    return this.movingPieceSubject.asObservable();
+  public getMovingPieceShape(): Observable<Array<Array<number>>> {
+    return this.movingPieceShapeSubject.asObservable();
   }
 
-  getMovingPieceStyle(): Observable<Style> {
+  getMovingPiecePosition(): Observable<PiecePosition> {
     return this.movingPieceStyleSubject.asObservable();
   }
 
@@ -225,6 +227,6 @@ export class GameService {
 
   private redrawMovingPiece() {
     this.movingPieceStyleSubject.next(this.movingPiece.calculateStyle());
-    this.movingPieceSubject.next(this.movingPiece.shape);
+    this.movingPieceShapeSubject.next(this.movingPiece.shape);
   }
 }

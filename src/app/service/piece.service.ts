@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {MovingPiece} from "./model/pieces/moving-piece.model";
-import {BlockPiece} from "./model/pieces/blockpiece.model";
-import {LPiece} from "./model/pieces/lpiece.model";
+import {BlockPiece} from "./model/pieces/block-piece.model";
+import {LPiece} from "./model/pieces/l-piece.model";
 import {Subject, ReplaySubject, Observable} from "rxjs";
 
 @Injectable()
