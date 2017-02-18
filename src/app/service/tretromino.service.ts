@@ -33,6 +33,7 @@ export class TretrominoService {
   getNewTretromino(): Tretromino {
     let newMovingPiece: Tretromino = this.nextRandomTretromino;
     this.generateNewRandomPiece();
+    newMovingPiece.col = 4;
     return newMovingPiece;
   }
 

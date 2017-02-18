@@ -5,7 +5,7 @@ export class Tretromino {
   private _shape: Array<Array<number>>;
   private rotationMatrix: Array<Array<Array<number>>>;
   private actualRotation: number =0;
-  private _col: number = 4;
+  private _col: number = 0;
   private _row: number = 0;
 
   constructor(rotationMatrix: Array<Array<Array<number>>>) {
