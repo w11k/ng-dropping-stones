@@ -7,6 +7,8 @@ import {OTretromino} from "./model/pieces/o-tetromino.model";
 import {TTretromino} from "./model/pieces/t-tretomino.model";
 import {ITretromino} from "./model/pieces/i-tetromino.model";
 import {JTretromino} from "./model/pieces/j-tetromino.model";
+import {STretromino} from "./model/pieces/s-tetromino.model";
+import {ZTretromino} from "./model/pieces/z-tetromino.model";
 
 @Injectable()
 export class TretrominoService {
@@ -38,7 +40,7 @@ export class TretrominoService {
   }
 
   private generateNewRandomPiece() {
-    let randomNumber = this.getRandomNumber(0, 4);
+    let randomNumber = this.getRandomNumber(0, 7);
 
     switch (randomNumber) {
       case 0:
@@ -56,7 +58,12 @@ export class TretrominoService {
       case 4:
         this.nextRandomTretromino = new TTretromino();
         break;
-
+      case 5:
+        this.nextRandomTretromino = new STretromino();
+        break;
+      case 6:
+        this.nextRandomTretromino = new ZTretromino();
+        break;
     }
 
     this.nextRandomTretrominoShapeSubject.next(this.nextRandomTretromino.shape);
