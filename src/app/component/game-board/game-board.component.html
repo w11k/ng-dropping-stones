@@ -7,6 +7,6 @@
         <!-- draw gamecells  -->
       </div>
     </div>
-    <game-piece></game-piece>
+    <game-piece [pieceShapeObservable]="getMovingPieceShape()" [piecePositionObservable]="getMovingPiecePosition()"></game-piece>
   </div>
 </div>

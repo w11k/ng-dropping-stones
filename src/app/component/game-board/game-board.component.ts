@@ -1,6 +1,7 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {GameService} from "../../service/game.service";
-import {Subscription} from "rxjs";
+import {Subscription, Observable} from "rxjs";
+import {PiecePosition} from "../../service/model/piece-position.model";
 
 @Component({
   selector: 'game-board',
@@ -25,5 +26,13 @@ export class GameBoardComponent implements OnInit, OnDestroy {
 
   isFilled(cell: number) {
     return cell == 1 ? true: false;
+  }
+
+  getMovingPieceShape(): Observable<Array<Array<number>>> {
+    return this.gameService.getMovingPieceShape();
+  }
+
+  getMovingPiecePosition(): Observable<PiecePosition> {
+    return this.gameService.getMovingPiecePosition();
   }
 }

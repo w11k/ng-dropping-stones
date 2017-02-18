@@ -1,5 +1,5 @@
-<div>
-  Show Score,
-  Next Piece,
-  Level
-</div>
+<ul>
+  <li><game-piece [piecePositionObservable]="getNextPiecePostion()" [pieceShapeObservable]="getNextPieceShape()"></game-piece></li>
+  <li>Score:</li>
+  <li>Level:</li>
+</ul>

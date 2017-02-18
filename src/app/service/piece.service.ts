@@ -3,22 +3,28 @@ import {MovingPiece} from "./model/pieces/moving-piece.model";
 import {BlockPiece} from "./model/pieces/block-piece.model";
 import {LPiece} from "./model/pieces/l-piece.model";
 import {Subject, ReplaySubject, Observable} from "rxjs";
+import {PiecePosition} from "./model/piece-position.model";
 
 @Injectable()
 export class PieceService {
 
   private nextRandomPiece: MovingPiece;
-  private nextRandomPieceSubject: Subject<MovingPiece>;
+  private nextRandomPieceShapeSubject: Subject<Array<Array<number>>>;
+  private nextRandomPiecePositionSubject: Subject<PiecePosition>;
 
   constructor() {
-    this.generateNewRandomPiece();
-    this.nextRandomPieceSubject = new ReplaySubject<MovingPiece>();
+    this.nextRandomPieceShapeSubject = new ReplaySubject<Array<Array<number>>>();
+    this.nextRandomPiecePositionSubject = new ReplaySubject<PiecePosition>();
 
-    this.nextRandomPieceSubject.next(this.nextRandomPiece);
+    this.generateNewRandomPiece();
   }
 
-  getRandomPiece(): Observable<MovingPiece> {
-    return this.nextRandomPieceSubject.asObservable();
+  getNextPieceShape(): Observable<Array<Array<number>>> {
+    return this.nextRandomPieceShapeSubject.asObservable();
+  }
+
+  getNextPiecePosition(): Observable<PiecePosition> {
+    return this.nextRandomPiecePositionSubject.asObservable();
   }
 
   getNewPiece(): MovingPiece {
@@ -38,6 +44,9 @@ export class PieceService {
         this.nextRandomPiece = new BlockPiece();
         break;
     }
+
+    this.nextRandomPieceShapeSubject.next(this.nextRandomPiece.shape);
+    this.nextRandomPiecePositionSubject.next(this.nextRandomPiece.calculateStyle());
   }
 
   // min inclusive, max exclusive

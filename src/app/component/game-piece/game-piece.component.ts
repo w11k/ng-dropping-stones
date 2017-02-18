@@ -1,7 +1,7 @@
-import {Component, OnInit, OnDestroy, HostBinding} from "@angular/core";
+import {Component, OnInit, OnDestroy, HostBinding, Input} from "@angular/core";
 
-import {GameService} from "../../service/game.service";
-import {Subscription} from "rxjs";
+import {Subscription, Observable} from "rxjs";
+import {PiecePosition} from "../../service/model/piece-position.model";
 
 @Component({
   selector: 'game-piece',
@@ -13,16 +13,19 @@ export class GamePieceComponent implements OnInit, OnDestroy {
   @HostBinding("style.top") top: string = "0px";
   @HostBinding("style.left") left: string = "10px";
 
+  @Input("pieceShapeObservable") pieceShapeObservable: Observable<Array<Array<number>>>;
+  @Input("piecePositionObservable") piecePositionObservable: Observable<PiecePosition>;
+
   private pieceShape: Array<Array<number>>;
   private pieceShapeSubscription: Subscription;
   private piecePositionSubscription: Subscription;
 
-  constructor(private gameService: GameService) {
+  constructor() {
   }
 
   ngOnInit() {
-    this.pieceShapeSubscription = this.gameService.getMovingPieceShape().subscribe(movingPiece => this.pieceShape = movingPiece);
-    this.piecePositionSubscription = this.gameService.getMovingPiecePosition().subscribe(style => {
+    this.pieceShapeSubscription = this.pieceShapeObservable.subscribe(movingPiece => this.pieceShape = movingPiece);
+    this.piecePositionSubscription = this.piecePositionObservable.subscribe(style => {
       this.top = style.top + 'px';
       this.left = style.left + 'px';
     });
