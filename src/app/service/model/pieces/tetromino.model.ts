@@ -1,6 +1,6 @@
-import {PiecePosition} from "../piece-position.model";
 import {GAME_CELL_SIZE, GAME_BOARDER_SIZE} from "../../game.constants";
-export class MovingPiece {
+import {TretrominoPosition} from "../tretromino-position.model";
+export class Tretromino {
 
   private _shape: Array<Array<number>>;
   private rotationMatrix: Array<Array<Array<number>>>;
@@ -33,11 +33,11 @@ export class MovingPiece {
     this._row = value;
   }
 
-  public calculateStyle(): PiecePosition {
+  public calculateStyle(): TretrominoPosition {
     let top = this.row * GAME_CELL_SIZE;
     let left = GAME_BOARDER_SIZE + GAME_CELL_SIZE * this.col;
 
-    return new PiecePosition(top, left)
+    return new TretrominoPosition(top, left)
   }
 
   public rotateClockwise() {
@@ -77,8 +77,4 @@ export class MovingPiece {
     }
     return newRotation;
   }
-}
-
-export class PotentialPosition {
-  constructor(public row: number, public col: number) {}
 }

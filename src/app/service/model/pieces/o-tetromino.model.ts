@@ -1,5 +1,5 @@
-import {MovingPiece} from "./moving-piece.model";
-export class BlockPiece extends MovingPiece {
+import {Tretromino} from "./tetromino.model";
+export class OTretromino extends Tretromino {
   constructor() {
     super(ROTATIONS_MATRIX);
   }

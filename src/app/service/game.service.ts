@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import {Subject, Observable, ReplaySubject} from "rxjs";
-import {MovingPiece, PotentialPosition} from "./model/pieces/moving-piece.model";
-import {PiecePosition} from "./model/piece-position.model";
 import {MoveEvents} from "./game.constants";
-import {PieceService} from "./piece.service";
+import {Tretromino} from "./model/pieces/tetromino.model";
+import {TretrominoPosition} from "./model/tretromino-position.model";
+import {TretrominoService} from "./tretromino.service";
+import {PotentialPosition} from "./model/potential-position.model";
 
 @Injectable()
 export class GameService {
@@ -24,16 +25,16 @@ export class GameService {
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 1, 1, 0, 0, 1, 0, 0, 0],
-    [0, 1, 1, 1, 0, 0, 1, 0, 0, 0],
-    [0, 1, 1, 1, 0, 0, 1, 0, 0, 1],
-    [0, 1, 1, 1, 0, 0, 1, 0, 0, 1],
-    [1, 1, 1, 1, 0, 0, 1, 1, 1, 1]
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   ];
 
   private EMPTY_ROW: Array<number> = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-  private movingPiece: MovingPiece;
+  private movingTretromino: Tretromino;
 
   private gameSpeed: number = 10;
   private lastTimestamp: number = 0;
@@ -41,31 +42,31 @@ export class GameService {
   private landedGridSubject: Subject<Array<Array<number>>>;
 
   // two subjects, because we want to draw the piece only once, but move often
-  private movingPieceShapeSubject: Subject<Array<Array<number>>>;
-  private movingPieceStyleSubject: Subject<PiecePosition>;
+  private movingTretrominoShapeSubject: Subject<Array<Array<number>>>;
+  private movingTretrominoStyleSubject: Subject<TretrominoPosition>;
 
-  constructor(private pieceService: PieceService) {
+  constructor(private tretrominoService: TretrominoService) {
     this.landedGridSubject = new ReplaySubject<Array<Array<number>>>();
-    this.movingPieceShapeSubject = new ReplaySubject<Array<Array<number>>>();
-    this.movingPieceStyleSubject = new ReplaySubject<PiecePosition>();
+    this.movingTretrominoShapeSubject = new ReplaySubject<Array<Array<number>>>();
+    this.movingTretrominoStyleSubject = new ReplaySubject<TretrominoPosition>();
 
-    this.movingPiece = pieceService.getNewPiece();
+    this.movingTretromino = tretrominoService.getNewTretromino();
 
     this.landedGridSubject.next(this.landedGrid);
-    this.movingPieceShapeSubject.next(this.movingPiece.shape);
-    this.movingPieceStyleSubject.next(this.movingPiece.calculateStyle());
+    this.movingTretrominoShapeSubject.next(this.movingTretromino.shape);
+    this.movingTretrominoStyleSubject.next(this.movingTretromino.calculateStyle());
   }
 
   public getLandedGameGrid(): Observable<Array<Array<number>>> {
     return this.landedGridSubject.asObservable();
   }
 
-  public getMovingPieceShape(): Observable<Array<Array<number>>> {
-    return this.movingPieceShapeSubject.asObservable();
+  public getMovingTretrominoShape(): Observable<Array<Array<number>>> {
+    return this.movingTretrominoShapeSubject.asObservable();
   }
 
-  getMovingPiecePosition(): Observable<PiecePosition> {
-    return this.movingPieceStyleSubject.asObservable();
+  public getMovingTretrominoPosition(): Observable<TretrominoPosition> {
+    return this.movingTretrominoStyleSubject.asObservable();
   }
 
   public newGame() {
@@ -79,19 +80,19 @@ export class GameService {
     if(progress > this.gameSpeed * 100) {
 
       // check collision
-      let potentialPosition = new PotentialPosition(this.movingPiece.row + 1, this.movingPiece.col);
+      let potentialPosition = new PotentialPosition(this.movingTretromino.row + 1, this.movingTretromino.col);
       let collision = this.checkPossibleMoveCollision(potentialPosition);
 
       if(collision) {
-        this.addPieceToLandedGrid(this.movingPiece);
+        this.addTretrominoToLandedGrid(this.movingTretromino);
         this.removeCompleteLines();
-        this.movingPiece = this.pieceService.getNewPiece();
+        this.movingTretromino = this.tretrominoService.getNewTretromino();
       } else {
-        this.movingPiece.row = potentialPosition.row;
+        this.movingTretromino.row = potentialPosition.row;
       }
       // draw new stuff
       this.landedGridSubject.next(this.landedGrid);
-      this.redrawMovingPiece();
+      this.redrawMovingTretromino();
 
       this.lastTimestamp = timestamp;
     }
@@ -100,26 +101,26 @@ export class GameService {
   handleUserMoveEvent(moveEvent: MoveEvents) {
     switch(moveEvent) {
       case MoveEvents.ROTATE_CLOCKWISE:
-        this.rotatePieceClockWise();
+        this.rotateTretromnioClockWise();
         break;
       case MoveEvents.ROTATE_COUNTER_CLOCKWISE:
-        this.rotatePieceCounterClockWise();
+        this.rotateTretrominoCounterClockWise();
         break;
       case MoveEvents.RIGHT:
-        this.movePieceRight();
+        this.moveTretrominoRight();
         break;
       case MoveEvents.LEFT:
-        this.movePieceLeft();
+        this.moveTretrominoLeft();
         break;
       case MoveEvents.DROP:
-        this.dropPiece();
+        this.dropTretromino();
         break;
       default: //nothing to do
     }
   }
 
   private checkPossibleMoveCollision(possibleNextPosition: PotentialPosition): boolean {
-    let shape = this.movingPiece.shape;
+    let shape = this.movingTretromino.shape;
     let pieceCol = possibleNextPosition.col;
     let pieceRow = possibleNextPosition.row;
     return this.checkPossibleCollision(shape, pieceRow, pieceCol);
@@ -127,8 +128,8 @@ export class GameService {
 
   private checkPossibleRotationCollision(potentialShape: Array<Array<number>>): boolean {
     let shape = potentialShape;
-    let pieceCol = this.movingPiece.col;
-    let pieceRow = this.movingPiece.row ;
+    let pieceCol = this.movingTretromino.col;
+    let pieceRow = this.movingTretromino.row ;
     return this.checkPossibleCollision(shape, pieceRow, pieceCol);
   }
 
@@ -167,7 +168,7 @@ export class GameService {
     }
   }
 
-  private addPieceToLandedGrid(actualPiece: MovingPiece) {
+  private addTretrominoToLandedGrid(actualPiece: Tretromino) {
     for (let row = 0; row < actualPiece.shape.length; row++) {
       for (let col = 0; col < actualPiece.shape[row].length; col++) {
         if (actualPiece.shape[row][col] != 0) {
@@ -177,56 +178,56 @@ export class GameService {
     }
   }
 
-  private rotatePieceClockWise() {
-    let potentialShape = this.movingPiece.getPotentialClockwiseShape();
+  private rotateTretromnioClockWise() {
+    let potentialShape = this.movingTretromino.getPotentialClockwiseShape();
     let collision = this.checkPossibleRotationCollision(potentialShape);
 
     if(!collision) {
-      this.movingPiece.rotateClockwise();
-      this.redrawMovingPiece();
+      this.movingTretromino.rotateClockwise();
+      this.redrawMovingTretromino();
     }
   }
 
-  private rotatePieceCounterClockWise() {
-    let potentialShape = this.movingPiece.getPotentialCounterClockwiseShape();
+  private rotateTretrominoCounterClockWise() {
+    let potentialShape = this.movingTretromino.getPotentialCounterClockwiseShape();
     let collision = this.checkPossibleRotationCollision(potentialShape);
 
     if(!collision) {
-      this.movingPiece.rotateCounterClockwise();
-      this.redrawMovingPiece();
+      this.movingTretromino.rotateCounterClockwise();
+      this.redrawMovingTretromino();
     }
   }
 
-  private movePieceRight() {
-    let potentialPosition = new PotentialPosition(this.movingPiece.row, this.movingPiece.col + 1);
+  private moveTretrominoRight() {
+    let potentialPosition = new PotentialPosition(this.movingTretromino.row, this.movingTretromino.col + 1);
     let collision = this.checkPossibleMoveCollision(potentialPosition);
     if(!collision) {
-      this.movingPiece.col = potentialPosition.col;
-      this.redrawMovingPiece();
+      this.movingTretromino.col = potentialPosition.col;
+      this.redrawMovingTretromino();
     }
   }
 
-  private movePieceLeft() {
-    let potentialPosition = new PotentialPosition(this.movingPiece.row, this.movingPiece.col - 1);
+  private moveTretrominoLeft() {
+    let potentialPosition = new PotentialPosition(this.movingTretromino.row, this.movingTretromino.col - 1);
     let collision = this.checkPossibleMoveCollision(potentialPosition);
     if(!collision) {
-      this.movingPiece.col = potentialPosition.col;
-      this.redrawMovingPiece();
+      this.movingTretromino.col = potentialPosition.col;
+      this.redrawMovingTretromino();
     }
   }
 
-  private dropPiece() {
-    let potentialPosition = new PotentialPosition(this.movingPiece.row + 2, this.movingPiece.col);
+  private dropTretromino() {
+    let potentialPosition = new PotentialPosition(this.movingTretromino.row + 2, this.movingTretromino.col);
     let collision = this.checkPossibleMoveCollision(potentialPosition);
 
     if(!collision) {
-      this.movingPiece.row = this.movingPiece.row + 1;
-      this.redrawMovingPiece();
+      this.movingTretromino.row = this.movingTretromino.row + 1;
+      this.redrawMovingTretromino();
     }
   }
 
-  private redrawMovingPiece() {
-    this.movingPieceStyleSubject.next(this.movingPiece.calculateStyle());
-    this.movingPieceShapeSubject.next(this.movingPiece.shape);
+  private redrawMovingTretromino() {
+    this.movingTretrominoStyleSubject.next(this.movingTretromino.calculateStyle());
+    this.movingTretrominoShapeSubject.next(this.movingTretromino.shape);
   }
 }

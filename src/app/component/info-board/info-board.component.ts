@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable} from "rxjs";
-import {PiecePosition} from "../../service/model/piece-position.model";
-import {PieceService} from "../../service/piece.service";
+import {TretrominoService} from "../../service/tretromino.service";
+import {TretrominoPosition} from "../../service/model/tretromino-position.model";
 
 @Component({
   selector: 'game-info-board',
@@ -10,16 +10,16 @@ import {PieceService} from "../../service/piece.service";
 })
 export class InfoBoardComponent implements OnInit {
 
-  constructor(private pieceService: PieceService) { }
+  constructor(private tretrominoService: TretrominoService) { }
 
   ngOnInit() {
   }
 
   getNextPieceShape(): Observable<Array<Array<number>>> {
-    return this.pieceService.getNextPieceShape();
+    return this.tretrominoService.getNextTretrominoShape();
   }
 
-  getNextPiecePostion(): Observable<PiecePosition> {
-    return this.pieceService.getNextPiecePosition();
+  getNextPiecePostion(): Observable<TretrominoPosition> {
+    return this.tretrominoService.getNextTretrominoPosition();
   }
 }
