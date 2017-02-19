@@ -3,6 +3,7 @@ import {GameService} from "../../service/game.service";
 import {Subscription, Observable} from "rxjs";
 import {TretrominoPosition} from "../../service/model/tretromino-position.model";
 import {Tretromino} from "../../service/model/tretrominos/tetromino.model";
+import {TretrominoType} from "../../service/game.constants";
 
 @Component({
   selector: 'game-board',
@@ -25,8 +26,34 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     this.landedGridSubscription.unsubscribe();
   }
 
-  isFilled(cell: number) {
-    return cell == 1 ? true: false;
+  getCssClass(cell: number) {
+    let cssClass = "dy-grid-cell";
+
+    switch (cell) {
+      case TretrominoType.ITYPE:
+        cssClass = cssClass + " dy-I";
+        break;
+      case TretrominoType.JTYPE:
+        cssClass = cssClass + " dy-J";
+        break;
+      case TretrominoType.LTYPE:
+        cssClass = cssClass + " dy-L";
+        break;
+      case TretrominoType.OTYPE:
+        cssClass = cssClass + " dy-O";
+        break;
+      case TretrominoType.STYPE:
+        cssClass = cssClass + " dy-S";
+        break;
+      case TretrominoType.TTYPE:
+        cssClass = cssClass + " dy-T";
+        break;
+      case TretrominoType.ZTYPE:
+        cssClass = cssClass + " dy-Z";
+        break;
+    }
+
+    return cssClass;
   }
 
   getMovingPiece(): Observable<Tretromino> {

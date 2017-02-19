@@ -167,7 +167,7 @@ export class GameService {
     for (let row = 0; row < actualPiece.shape.length; row++) {
       for (let col = 0; col < actualPiece.shape[row].length; col++) {
         if (actualPiece.shape[row][col] != 0) {
-          this.landedGrid[row + actualPiece.row][col + actualPiece.col] = actualPiece.shape[row][col];
+          this.landedGrid[row + actualPiece.row][col + actualPiece.col] = actualPiece.type.valueOf();
         }
       }
     }

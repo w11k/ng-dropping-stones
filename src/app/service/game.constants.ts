@@ -9,11 +9,11 @@ export enum MoveEvents {
 }
 
 export enum TretrominoType {
-  OTYPE,
-  ITYPE,
-  JTYPE,
-  LTYPE,
-  STYPE,
-  TTYPE,
-  ZTYPE,
+  OTYPE = 1,
+  ITYPE = 2,
+  JTYPE = 3,
+  LTYPE = 4,
+  STYPE = 5,
+  TTYPE = 6,
+  ZTYPE = 7,
 }
