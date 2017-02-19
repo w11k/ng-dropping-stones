@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Subject, Observable, ReplaySubject} from "rxjs";
 import {MoveEvents} from "./game.constants";
-import {Tretromino} from "./model/pieces/tetromino.model";
+import {Tretromino} from "./model/tretrominos/tetromino.model";
 import {TretrominoPosition} from "./model/tretromino-position.model";
 import {TretrominoService} from "./tretromino.service";
 import {PotentialPosition} from "./model/potential-position.model";

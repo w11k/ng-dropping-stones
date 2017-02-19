@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import {Subject, ReplaySubject, Observable} from "rxjs";
-import {Tretromino} from "./model/pieces/tetromino.model";
+import {Tretromino} from "./model/tretrominos/tetromino.model";
 import {TretrominoPosition} from "./model/tretromino-position.model";
-import {LTretromino} from "./model/pieces/l-tetromino.model";
-import {OTretromino} from "./model/pieces/o-tetromino.model";
-import {TTretromino} from "./model/pieces/t-tretomino.model";
-import {ITretromino} from "./model/pieces/i-tetromino.model";
-import {JTretromino} from "./model/pieces/j-tetromino.model";
-import {STretromino} from "./model/pieces/s-tetromino.model";
-import {ZTretromino} from "./model/pieces/z-tetromino.model";
+import {LTretromino} from "./model/tretrominos/l-tetromino.model";
+import {OTretromino} from "./model/tretrominos/o-tetromino.model";
+import {TTretromino} from "./model/tretrominos/t-tretomino.model";
+import {ITretromino} from "./model/tretrominos/i-tetromino.model";
+import {JTretromino} from "./model/tretrominos/j-tetromino.model";
+import {STretromino} from "./model/tretrominos/s-tetromino.model";
+import {ZTretromino} from "./model/tretrominos/z-tetromino.model";
 
 @Injectable()
 export class TretrominoService {

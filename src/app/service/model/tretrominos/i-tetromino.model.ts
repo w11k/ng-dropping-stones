@@ -6,9 +6,9 @@ export class ITretromino extends Tretromino {
 }
 
 const ROTATIONS_MATRIX = [
+  [[1,1,1,1]],
   [[1],
     [1],
     [1],
-    [1]],
-  [[1,1,1,1]]
+    [1]]
 ];
