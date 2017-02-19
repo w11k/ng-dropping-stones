@@ -152,13 +152,15 @@ export class GameService {
   }
 
   private removeCompleteLines() {
+    // TODO: Problems with multiLines ... first find index and than remove?
+    // TODO: increase speed, count score
+
     for (let rowIndex = 0; rowIndex < this.landedGrid.length; rowIndex++) {
       let row = this.landedGrid[rowIndex];
       if (row.filter((cell) => cell == 0).length == 0) {
         // row doenst contain 0 values -> row is complete
         this.landedGrid.splice(rowIndex, 1);
         this.landedGrid.unshift(this.EMPTY_ROW);
-        // TODO: increase speed, count score
       }
     }
   }
