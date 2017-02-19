@@ -225,6 +225,10 @@ export class GameService {
   }
 
   private dropTretromino() {
+    if(this.movingTretromino.row == 0) {
+      return;
+    }
+
     let potentialPosition = new PotentialPosition(this.movingTretromino.row + 2, this.movingTretromino.col);
     let collision = this.checkPossibleMoveCollision(potentialPosition);
 
