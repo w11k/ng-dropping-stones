@@ -1,7 +1,8 @@
 import {Tretromino} from "./tetromino.model";
+import {TretrominoType} from "../../game.constants";
 export class ITretromino extends Tretromino {
   constructor() {
-    super(ROTATIONS_MATRIX);
+    super(ROTATIONS_MATRIX, TretrominoType.ITYPE);
   }
 }
 

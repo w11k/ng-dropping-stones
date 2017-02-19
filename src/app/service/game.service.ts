@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {Subject, Observable, ReplaySubject} from "rxjs";
 import {MoveEvents} from "./game.constants";
 import {Tretromino} from "./model/tretrominos/tetromino.model";
-import {TretrominoPosition} from "./model/tretromino-position.model";
 import {TretrominoService} from "./tretromino.service";
 import {PotentialPosition} from "./model/potential-position.model";
 
@@ -41,32 +40,24 @@ export class GameService {
 
   private landedGridSubject: Subject<Array<Array<number>>>;
 
-  // two subjects, because we want to draw the piece only once, but move often
-  private movingTretrominoShapeSubject: Subject<Array<Array<number>>>;
-  private movingTretrominoStyleSubject: Subject<TretrominoPosition>;
+  private movingTretrominoSubject: Subject<Tretromino>;
 
   constructor(private tretrominoService: TretrominoService) {
     this.landedGridSubject = new ReplaySubject<Array<Array<number>>>();
-    this.movingTretrominoShapeSubject = new ReplaySubject<Array<Array<number>>>();
-    this.movingTretrominoStyleSubject = new ReplaySubject<TretrominoPosition>();
+    this.movingTretrominoSubject = new ReplaySubject<Tretromino>();
 
     this.movingTretromino = tretrominoService.getNewTretromino();
 
     this.landedGridSubject.next(this.landedGrid);
-    this.movingTretrominoShapeSubject.next(this.movingTretromino.shape);
-    this.movingTretrominoStyleSubject.next(this.movingTretromino.calculateStyle());
+    this.movingTretrominoSubject.next(this.movingTretromino);
   }
 
   public getLandedGameGrid(): Observable<Array<Array<number>>> {
     return this.landedGridSubject.asObservable();
   }
 
-  public getMovingTretrominoShape(): Observable<Array<Array<number>>> {
-    return this.movingTretrominoShapeSubject.asObservable();
-  }
-
-  public getMovingTretrominoPosition(): Observable<TretrominoPosition> {
-    return this.movingTretrominoStyleSubject.asObservable();
+  public getMovingTretromino(): Observable<Tretromino> {
+    return this.movingTretrominoSubject.asObservable();
   }
 
   public newGame() {
@@ -240,7 +231,6 @@ export class GameService {
   }
 
   private redrawMovingTretromino() {
-    this.movingTretrominoStyleSubject.next(this.movingTretromino.calculateStyle());
-    this.movingTretrominoShapeSubject.next(this.movingTretromino.shape);
+    this.movingTretrominoSubject.next(this.movingTretromino);
   }
 }

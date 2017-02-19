@@ -1,16 +1,14 @@
-import {GAME_CELL_SIZE, GAME_BOARDER_SIZE} from "../../game.constants";
+import {GAME_CELL_SIZE, GAME_BOARDER_SIZE, TretrominoType} from "../../game.constants";
 import {TretrominoPosition} from "../tretromino-position.model";
 export class Tretromino {
 
   private _shape: Array<Array<number>>;
-  private rotationMatrix: Array<Array<Array<number>>>;
   private actualRotation: number =0;
   private _col: number = 0;
   private _row: number = 0;
 
-  constructor(rotationMatrix: Array<Array<Array<number>>>) {
+  constructor(private rotationMatrix: Array<Array<Array<number>>>, public type: TretrominoType) {
     this._shape = rotationMatrix[this.actualRotation];
-    this.rotationMatrix = rotationMatrix;
   }
 
   get shape(): Array<Array<number>> {
@@ -33,7 +31,7 @@ export class Tretromino {
     this._row = value;
   }
 
-  public calculateStyle(): TretrominoPosition {
+  public calculatePosition(): TretrominoPosition {
     let top = this.row * GAME_CELL_SIZE;
     let left = GAME_BOARDER_SIZE + GAME_CELL_SIZE * this.col;
 

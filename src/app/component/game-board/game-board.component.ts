@@ -2,6 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {GameService} from "../../service/game.service";
 import {Subscription, Observable} from "rxjs";
 import {TretrominoPosition} from "../../service/model/tretromino-position.model";
+import {Tretromino} from "../../service/model/tretrominos/tetromino.model";
 
 @Component({
   selector: 'game-board',
@@ -28,11 +29,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     return cell == 1 ? true: false;
   }
 
-  getMovingPieceShape(): Observable<Array<Array<number>>> {
-    return this.gameService.getMovingTretrominoShape();
-  }
-
-  getMovingPiecePosition(): Observable<TretrominoPosition> {
-    return this.gameService.getMovingTretrominoPosition();
+  getMovingPiece(): Observable<Tretromino> {
+    return this.gameService.getMovingTretromino();
   }
 }

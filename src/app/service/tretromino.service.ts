@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Subject, ReplaySubject, Observable} from "rxjs";
 import {Tretromino} from "./model/tretrominos/tetromino.model";
-import {TretrominoPosition} from "./model/tretromino-position.model";
 import {LTretromino} from "./model/tretrominos/l-tetromino.model";
 import {OTretromino} from "./model/tretrominos/o-tetromino.model";
 import {TTretromino} from "./model/tretrominos/t-tretomino.model";
@@ -14,29 +13,22 @@ import {ZTretromino} from "./model/tretrominos/z-tetromino.model";
 export class TretrominoService {
 
   private nextRandomTretromino: Tretromino;
-  private nextRandomTretrominoShapeSubject: Subject<Array<Array<number>>>;
-  private nextRandomTretrominoPositionSubject: Subject<TretrominoPosition>;
+  private nextRandomTretrominoSubject: Subject<Tretromino>;
 
   constructor() {
-    this.nextRandomTretrominoShapeSubject = new ReplaySubject<Array<Array<number>>>();
-    this.nextRandomTretrominoPositionSubject = new ReplaySubject<TretrominoPosition>();
-
+    this.nextRandomTretrominoSubject = new ReplaySubject<Tretromino>();
     this.generateNewRandomPiece();
   }
 
-  getNextTretrominoShape(): Observable<Array<Array<number>>> {
-    return this.nextRandomTretrominoShapeSubject.asObservable();
-  }
-
-  getNextTretrominoPosition(): Observable<TretrominoPosition> {
-    return this.nextRandomTretrominoPositionSubject.asObservable();
-  }
-
-  getNewTretromino(): Tretromino {
+  public getNewTretromino(): Tretromino {
     let newMovingPiece: Tretromino = this.nextRandomTretromino;
     this.generateNewRandomPiece();
     newMovingPiece.col = 4;
     return newMovingPiece;
+  }
+
+  public getNextTretromino(): Observable<Tretromino> {
+    return this.nextRandomTretrominoSubject.asObservable();
   }
 
   private generateNewRandomPiece() {
@@ -66,8 +58,7 @@ export class TretrominoService {
         break;
     }
 
-    this.nextRandomTretrominoShapeSubject.next(this.nextRandomTretromino.shape);
-    this.nextRandomTretrominoPositionSubject.next(this.nextRandomTretromino.calculateStyle());
+    this.nextRandomTretrominoSubject.next(this.nextRandomTretromino);
   }
 
   // min inclusive, max exclusive

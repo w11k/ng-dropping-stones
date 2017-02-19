@@ -7,3 +7,13 @@ export enum MoveEvents {
   RIGHT,
   DROP
 }
+
+export enum TretrominoType {
+  OTYPE,
+  ITYPE,
+  JTYPE,
+  LTYPE,
+  STYPE,
+  TTYPE,
+  ZTYPE,
+}

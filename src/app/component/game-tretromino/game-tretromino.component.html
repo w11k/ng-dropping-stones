@@ -1,3 +1,3 @@
-<ul class="dy-piece-ul dy-O" *ngFor="let rows of tretrominoShape">
+<ul [class]="cssForTretromino()" *ngFor="let rows of tretrominoShape">
   <li  *ngFor="let cell of rows" class="dy-piece-li" [class.dy-pattern]="isFilled(cell)"></li>
 </ul>
