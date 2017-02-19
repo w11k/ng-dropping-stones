@@ -25,9 +25,9 @@ export class GameTretrominoComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.tretrominoShapeSubscription = this.tretrominoShapeObservable.subscribe(movingPiece => this.tretrominoShape = movingPiece);
-    this.tretrominoPositionSubscription = this.tretrominoPositionObservable.subscribe(style => {
-      this.top = style.top + 'px';
-      this.left = style.left + 'px';
+    this.tretrominoPositionSubscription = this.tretrominoPositionObservable.subscribe(position => {
+      this.top = position.top + 'px';
+      this.left = position.left + 'px';
     });
   }
 

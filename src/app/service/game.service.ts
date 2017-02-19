@@ -183,6 +183,7 @@ export class GameService {
   }
 
   private isGameOver(): boolean {
+    // TODO: check if next tretromino can fit!? maybe turn it?
     return this.landedGrid[0].filter(values => values > 0).length > 0;
   }
 
@@ -229,7 +230,7 @@ export class GameService {
       return;
     }
 
-    let potentialPosition = new PotentialPosition(this.movingTretromino.row + 2, this.movingTretromino.col);
+    let potentialPosition = new PotentialPosition(this.movingTretromino.row + 1, this.movingTretromino.col);
     let collision = this.checkPossibleMoveCollision(potentialPosition);
 
     if(!collision) {
