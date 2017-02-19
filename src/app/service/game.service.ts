@@ -95,10 +95,14 @@ export class GameService {
       this.redrawMovingTretromino();
 
       this.lastTimestamp = timestamp;
+
+      if(this.isGameOver()) {
+        console.log("game over");
+      }
     }
   }
 
-  handleUserMoveEvent(moveEvent: MoveEvents) {
+  public handleUserMoveEvent(moveEvent: MoveEvents) {
     switch(moveEvent) {
       case MoveEvents.ROTATE_CLOCKWISE:
         this.rotateTretromnioClockWise();
@@ -176,6 +180,10 @@ export class GameService {
         }
       }
     }
+  }
+
+  private isGameOver(): boolean {
+    return this.landedGrid[0].filter(values => values > 0).length > 0;
   }
 
   private rotateTretromnioClockWise() {
