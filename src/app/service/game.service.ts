@@ -4,6 +4,7 @@ import {MoveEvents} from "./game.constants";
 import {Tretromino} from "./model/tretrominos/tetromino.model";
 import {TretrominoService} from "./tretromino.service";
 import {PotentialPosition} from "./model/potential-position.model";
+import {Score} from "./model/score.model";
 
 @Injectable()
 export class GameService {
@@ -31,25 +32,25 @@ export class GameService {
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   ];
 
-  private EMPTY_ROW: Array<number> = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-
   private movingTretromino: Tretromino;
 
-  private gameSpeed: number = 10;
   private lastTimestamp: number = 0;
+  private actualScore: Score = new Score();
 
   private landedGridSubject: Subject<Array<Array<number>>>;
-
+  private actualScoreSubject: Subject<Score>;
   private movingTretrominoSubject: Subject<Tretromino>;
 
   constructor(private tretrominoService: TretrominoService) {
     this.landedGridSubject = new ReplaySubject<Array<Array<number>>>();
     this.movingTretrominoSubject = new ReplaySubject<Tretromino>();
+    this.actualScoreSubject = new ReplaySubject<Score>();
 
     this.movingTretromino = tretrominoService.getNewTretromino();
 
     this.landedGridSubject.next(this.landedGrid);
     this.movingTretrominoSubject.next(this.movingTretromino);
+    this.actualScoreSubject.next(this.actualScore);
   }
 
   public getLandedGameGrid(): Observable<Array<Array<number>>> {
@@ -60,6 +61,10 @@ export class GameService {
     return this.movingTretrominoSubject.asObservable();
   }
 
+  public getActualScore(): Observable<Score> {
+    return this.actualScoreSubject.asObservable();
+  }
+
   public newGame() {
     // reset old game
   }
@@ -68,7 +73,7 @@ export class GameService {
 
     let progress = timestamp - this.lastTimestamp;
 
-    if(progress > this.gameSpeed * 100) {
+    if(progress > 1000 / this.actualScore.getGameSpeed()) {
 
       // check collision
       let potentialPosition = new PotentialPosition(this.movingTretromino.row + 1, this.movingTretromino.col);
@@ -84,6 +89,7 @@ export class GameService {
       // draw new stuff
       this.landedGridSubject.next(this.landedGrid);
       this.redrawMovingTretromino();
+      this.actualScoreSubject.next(this.actualScore);
 
       this.lastTimestamp = timestamp;
 
@@ -124,7 +130,7 @@ export class GameService {
   private checkPossibleRotationCollision(potentialShape: Array<Array<number>>): boolean {
     let shape = potentialShape;
     let pieceCol = this.movingTretromino.col;
-    let pieceRow = this.movingTretromino.row ;
+    let pieceRow = this.movingTretromino.row;
     return this.checkPossibleCollision(shape, pieceRow, pieceCol);
   }
 
@@ -152,17 +158,19 @@ export class GameService {
   }
 
   private removeCompleteLines() {
-    // TODO: Problems with multiLines ... first find index and than remove?
-    // TODO: increase speed, count score
+    let fullLines: number = 0;
 
     for (let rowIndex = 0; rowIndex < this.landedGrid.length; rowIndex++) {
       let row = this.landedGrid[rowIndex];
       if (row.filter((cell) => cell == 0).length == 0) {
         // row doenst contain 0 values -> row is complete
         this.landedGrid.splice(rowIndex, 1);
-        this.landedGrid.unshift(this.EMPTY_ROW);
+        this.landedGrid.unshift([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+        fullLines++;
       }
     }
+
+    this.actualScore.increaseScore(fullLines);
   }
 
   private addTretrominoToLandedGrid(actualPiece: Tretromino) {
