@@ -110,7 +110,7 @@ export class GameService {
   public handleUserMoveEvent(moveEvent: MoveEvents) {
     switch(moveEvent) {
       case MoveEvents.ROTATE_CLOCKWISE:
-        this.rotateTretromnioClockWise();
+        this.rotateTretrominoClockWise();
         break;
       case MoveEvents.ROTATE_COUNTER_CLOCKWISE:
         this.rotateTretrominoCounterClockWise();
@@ -138,6 +138,13 @@ export class GameService {
   private checkPossibleRotationCollision(potentialShape: Array<Array<number>>): boolean {
     let shape = potentialShape;
     let pieceCol = this.movingTretromino.col;
+    let pieceRow = this.movingTretromino.row;
+    return this.checkPossibleCollision(shape, pieceRow, pieceCol);
+  }
+
+  private checkPossibleRotationCollisionWithPossibleCol(potentialShape: Array<Array<number>>, possibleCol: number): boolean {
+    let shape = potentialShape;
+    let pieceCol = possibleCol;
     let pieceRow = this.movingTretromino.row;
     return this.checkPossibleCollision(shape, pieceRow, pieceCol);
   }
@@ -196,23 +203,38 @@ export class GameService {
     return this.landedGrid[0].filter(values => values > 0).length > 0;
   }
 
-  private rotateTretromnioClockWise() {
+  private rotateTretrominoClockWise() {
     let potentialShape = this.movingTretromino.getPotentialClockwiseShape();
     let collision = this.checkPossibleRotationCollision(potentialShape);
 
     if(!collision) {
       this.movingTretromino.rotateClockwise();
       this.redrawMovingTretromino();
+    } else {
+      this.checkRightBorderRotateCollision(potentialShape);
     }
   }
 
   private rotateTretrominoCounterClockWise() {
     let potentialShape = this.movingTretromino.getPotentialCounterClockwiseShape();
     let collision = this.checkPossibleRotationCollision(potentialShape);
-
     if(!collision) {
       this.movingTretromino.rotateCounterClockwise();
       this.redrawMovingTretromino();
+    } else {
+      this.checkRightBorderRotateCollision(potentialShape);
+    }
+  }
+
+  private checkRightBorderRotateCollision(potentialShape: Array<Array<number>>) {
+    if(this.movingTretromino.col + potentialShape[0].length >= this.landedGrid[0].length) {
+      let potentialNewCol = potentialShape[0].length;
+      let rightRotationCollision = this.checkPossibleRotationCollisionWithPossibleCol(potentialShape, potentialNewCol);
+      if(!rightRotationCollision) {
+        this.movingTretromino.rotateClockwise();
+        this.movingTretromino.col = this.landedGrid[0].length - potentialShape[0].length;
+        this.redrawMovingTretromino();
+      }
     }
   }
 
