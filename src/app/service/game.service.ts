@@ -37,17 +37,20 @@ export class GameService {
   private lastTimestamp: number = 0;
   private actualScore: Score = new Score();
 
+  private gameOverSubject: Subject<boolean>;
   private landedGridSubject: Subject<Array<Array<number>>>;
   private actualScoreSubject: Subject<Score>;
   private movingTretrominoSubject: Subject<Tretromino>;
 
   constructor(private tretrominoService: TretrominoService) {
+    this.gameOverSubject = new ReplaySubject<boolean>();
     this.landedGridSubject = new ReplaySubject<Array<Array<number>>>();
     this.movingTretrominoSubject = new ReplaySubject<Tretromino>();
     this.actualScoreSubject = new ReplaySubject<Score>();
 
     this.movingTretromino = tretrominoService.getNewTretromino();
 
+    this.gameOverSubject.next(false);
     this.landedGridSubject.next(this.landedGrid);
     this.movingTretrominoSubject.next(this.movingTretromino);
     this.actualScoreSubject.next(this.actualScore);
@@ -65,8 +68,13 @@ export class GameService {
     return this.actualScoreSubject.asObservable();
   }
 
+  public getGameOver(): Observable<boolean> {
+    return this.gameOverSubject.asObservable();
+  }
+
   public newGame() {
     // reset old game
+    this.gameOverSubject.next(false);
   }
 
   public gameLoop(timestamp: number) {
@@ -94,7 +102,7 @@ export class GameService {
       this.lastTimestamp = timestamp;
 
       if(this.isGameOver()) {
-        console.log("game over");
+        this.gameOverSubject.next(true);
       }
     }
   }
