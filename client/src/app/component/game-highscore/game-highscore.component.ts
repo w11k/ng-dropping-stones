@@ -28,30 +28,24 @@ export class GameHighscoreComponent implements OnInit {
 
   ngOnInit() {
     this.gamepadAvailable = this.gamepadService.gamePadAvailable();
-    console.log(this.gamepadAvailable);
+    // console.log("gamepad available");
+    // console.log(this.gamepadAvailable);
 
     let score = this.highscoreService.getPlayerScore() || new Score();
     this.playerName = score.name;
 
-    // this.gameService
-    //   .getActualScore()
-    //   .first()
-    //   .subscribe((score: Score) => {
-    //     this.playerName = score.name;
-
-
     this.highscoreService
       .getHighscoreForToday()
       .subscribe((scores: Highscore[]) => {
-        console.log('today scores');
-        console.log(scores);
+        // console.log('today scores');
+        // console.log(scores);
         this.highscore = scores;
 
         this.highscoreService
           .getHighscoreAlltime()
           .subscribe((scores: Highscore[]) => {
-            console.log('alltime scores');
-            console.log(scores);
+            // console.log('alltime scores');
+            // console.log(scores);
             this.highscoreAlltime = scores;
 
             this.getCurrentPlayerHighscorePosition();

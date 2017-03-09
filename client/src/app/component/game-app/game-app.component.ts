@@ -54,7 +54,7 @@ export class GameAppComponent implements OnInit {
     this.highscoreService
       .playerNameExists(this.model.name)
       .subscribe((res) => {
-        console.log(res);
+        // console.log(res);
         if (!_.isEmpty(res)) {
           this.nameExists = true;
         } else {

@@ -18,7 +18,7 @@ export class HighscoreLocalStorageService implements IHighscoreService {
 
   constructor(private gameService: GameService,
               private http: Http) {
-    console.log("init ls highscore");
+    // console.log("init ls highscore");
   }
 
   public saveHighscore(): Observable<any> {
@@ -28,8 +28,8 @@ export class HighscoreLocalStorageService implements IHighscoreService {
       .getActualScore()
       .first()
       .map(score => {
-        console.log('savehighscore');
-        console.log(score);
+        // console.log('savehighscore');
+        // console.log(score);
         this.actualScore = score;
         let array = this.getHighscoreFromLocalStorage();
         array.push(score.getData());
@@ -48,7 +48,7 @@ export class HighscoreLocalStorageService implements IHighscoreService {
     let startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     let obj = this.getHighscoreFromLocalStorage();
 
-    obj = _.filter(obj, (item, key) => {
+    obj = _.filter(obj, (item) => {
       return new Date(item.createdAt) > startOfToday
     });
     this.highscoreTodaySubject.next(obj);

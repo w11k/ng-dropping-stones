@@ -30,7 +30,7 @@ export class InfoBoardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.scoreSubscription = this.gameService.getActualScore().subscribe((score) => {
-      console.log(score);
+      // console.log(score);
       this.name = score.name;
       this.level = score.level;
       this.score = score.score;

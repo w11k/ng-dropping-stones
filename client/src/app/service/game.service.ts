@@ -100,8 +100,8 @@ export class GameService {
   }
 
   public setName(name) {
-    console.log('name');
-    console.log(name);
+    // console.log('name');
+    // console.log(name);
     this.actualScore.name = name;
   }
 
@@ -110,7 +110,7 @@ export class GameService {
   }
 
   public resetGame() {
-    console.log("reset game");
+    // console.log("reset game");
     this.landedGrid = this.deepClone(this.emptyLandedGrid);
     this.actualScore = new Score();
     this.actualScoreSubject = new ReplaySubject();
