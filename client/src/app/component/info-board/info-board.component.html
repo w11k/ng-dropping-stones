@@ -1,0 +1,24 @@
+<game-tretromino style="position:relative" [tretrominoObservable]="getNextTretromino()">
+</game-tretromino>
+<h3>Scores</h3>
+<ul>
+  <li><b>Score:</b> {{score}}</li>
+  <li><b>Level:</b> {{level}}</li>
+  <li><b>Lines:</b> {{lines}}</li>
+</ul>
+
+<div *ngIf="!gamepadAvailable">
+  <h3>Controls</h3>
+  <ul>
+    <li><b>Escape</b> - New Game</li>
+    <li>&nbsp;</li>
+    <li><b>Space</b> - Drop</li>
+    <li><b>Arrow Up</b> - Rotate</li>
+    <li><b>Arrow Left</b> - Left</li>
+    <li><b>Arrow Right</b> - Right</li>
+  </ul>
+</div>
+
+<div *ngIf="gamepadAvailable" class="blueBg info-bord">
+  <img src="assets/img/howto.png" class="info-board howto-img">
+</div>

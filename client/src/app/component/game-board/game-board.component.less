@@ -1,0 +1,53 @@
+@import "./../../../less/main";
+
+.dy-game-board {
+  position: relative;
+  background: @game-board-color;
+  padding-top: 10px;
+  .size(@game-board-width, @game-board-height);
+  .dy-grid-container {
+    position: absolute;
+    z-index: 1;
+    margin: 0 auto;
+    padding-right: @game-side-border;
+    padding-left: @game-side-border;
+  }
+  .dy-grid-cell {
+    background: @game-grid-color;
+    .border-radius(3px);
+    .size(@game-cell-size);
+    float: left;
+    border: 1px solid @game-board-color;
+  }
+  .dy-L {
+    background-color: @L-color;
+    color: @L-inner-color;
+  }
+  .dy-O {
+    background-color: @O-color;
+    color: @O-inner-color;
+  }
+  .dy-I {
+    background-color: @I-color;
+    color: @I-inner-color;
+  }
+  .dy-T {
+    background-color: @T-color;
+    color: @T-inner-color;
+  }
+  .dy-J {
+    background-color: @J-color;
+    color: @J-inner-color;
+  }
+  .dy-S {
+    background-color: @S-color;
+    color: @S-inner-color;
+  }
+  .dy-Z {
+    background-color: @Z-color;
+    color: @Z-inner-color;
+  }
+  .dy-ghost-piece {
+    .box-shadow(0px 0px 0px 3px @ghost-piece-color inset);
+  }
+}

@@ -1,0 +1,30 @@
+<div class="dy-config container">
+  <h1>Configuration</h1>
+
+  <form (ngSubmit)="onSubmit()" #configForm="ngForm">
+
+    <div class="form-group">
+      <label>How many lines for next level? (Default: 10)</label>
+      <input type="number" class="form-control" id="INC_LEVEL_PER_LINE"
+             required
+             [(ngModel)]="model.INC_LEVEL_PER_LINE" name="INC_LEVEL_PER_LINE"
+             #name="ngModel">
+    </div>
+    <div class="form-group">
+      <label>Game speed modifier (Default: 1)</label>
+      <input type="number" class="form-control" id="GAME_SPEED_MODIFIER"
+             required
+             [(ngModel)]="model.GAME_SPEED_MODIFIER" name="GAME_SPEED_MODIFIER"
+             #name="ngModel">
+    </div>
+    <div class="form-group">
+      <label>Initial block move interval [ms] (Default: 500)</label>
+      <input type="number" class="form-control" id="INITIAL_MOVE_INTERVAL"
+             required
+             [(ngModel)]="model.INITIAL_MOVE_INTERVAL" name="INITIAL_MOVE_INTERVAL"
+             #name="ngModel">
+    </div>
+    <button type="submit" class="btn orange">Save</button>
+
+  </form>
+</div>

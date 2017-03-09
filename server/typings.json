@@ -1,0 +1,27 @@
+{
+  "name": "server",
+  "globalDependencies": {
+    "bluebird": "registry:dt/bluebird#3.0.0+20160907110115",
+    "body-parser": "github:DefinitelyTyped/DefinitelyTyped/body-parser/body-parser.d.ts#9a2c50ea846ee6ae36feaea0accc77ae7b08a748",
+    "cors": "github:DefinitelyTyped/DefinitelyTyped/cors/cors.d.ts#27d7b56688bfeba9c6fc1ce0ecb611d929982d44",
+    "es6-shim": "registry:dt/es6-shim#0.31.2+20160602141504",
+    "express": "github:DefinitelyTyped/DefinitelyTyped/express/express.d.ts#27d7b56688bfeba9c6fc1ce0ecb611d929982d44",
+    "form-data": "registry:dt/form-data#0.0.0+20160724024111",
+    "fs-extra": "registry:dt/fs-extra#0.0.0+20160907105211",
+    "jsonwebtoken": "registry:dt/jsonwebtoken#0.0.0+20160720062725",
+    "mime": "registry:dt/mime#0.0.0+20160316155526",
+    "mongodb": "registry:dt/mongodb#2.1.0+20160602142941",
+    "mongoose": "registry:dt/mongoose#4.5.9+20160826204928",
+    "morgan": "github:DefinitelyTyped/DefinitelyTyped/morgan/morgan.d.ts#4566a913a3667dc627851d0f7f38ffcd0e7cf6ea",
+    "node": "registry:dt/node#6.0.0+20160909174046",
+    "request": "registry:dt/request#0.0.0+20160726020908",
+    "request-promise": "registry:dt/request-promise#3.0.0+20160906190103",
+    "rx": "npm:rx/ts/rx.all.d.ts",
+    "serve-static": "github:DefinitelyTyped/DefinitelyTyped/serve-static/serve-static.d.ts#27d7b56688bfeba9c6fc1ce0ecb611d929982d44",
+    "winston": "registry:dt/winston#0.0.0+20160417152829"
+  },
+  "dependencies": {
+    "lodash": "github:typed-typings/npm-lodash#65781ee6b25562ee9b5913043a3ba249acfcee17",
+    "moment": "github:typed-typings/npm-moment#a4075cd50e63efbedd850f654594f293ab81a385"
+  }
+}

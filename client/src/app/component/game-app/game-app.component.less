@@ -1,0 +1,58 @@
+@import "./../../../less/main";
+
+.config {
+  padding-right: 48px;
+  padding-left: 48px;
+  > a {
+    color: black;
+    &:hover, &:focus {
+      color: black;
+    }
+  }
+}
+
+.dy-app {
+  padding: 20px 0;
+}
+
+.jumbotron {
+  background-color: @cc-darkblue;
+  padding: 28px;
+  margin-bottom: 0;
+}
+
+.howto {
+  position: relative;
+  color: white;
+  width: 900px;
+  padding: 20px 0;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+
+  h1 {
+    margin-bottom: 50px;
+  }
+
+  i, p {
+    text-align: center;
+    margin-bottom: 5px;
+  }
+
+  #move-left {
+    position: absolute;
+    left: -20px;
+    top: 44%;
+  }
+
+  #move-right {
+    position: absolute;
+    right: -25px;
+    top: 44%;
+  }
+
+  .fa-arrows {
+    padding-top: 35px;
+    font-size: 10em;
+  }
+}

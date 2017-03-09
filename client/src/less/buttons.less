@@ -1,0 +1,85 @@
+//@import "../variables";
+
+.btn.orange {
+  width: 100%;
+  background: @cc-orange;
+  border-color: @cc-orange;
+  color: #fff;
+  font-weight: bold;;
+
+  &:hover,
+  &:active {
+    background: darken(@cc-orange, 11%);
+    border-color: darken(@cc-orange, 11%);
+  }
+  &:focus {
+    color: @cc-darkblue;
+  }
+}
+
+.btn.white {
+  background: @cc-darkblue;
+  border-color: #fff;
+  color: #fff;
+
+  &:hover,
+  &:active {
+    background: darken(#fff, 10%);
+  }
+  &:focus {
+    color: @cc-darkblue;
+  }
+}
+
+.btn.gray {
+  background: darken(@cc-light-gray, 15%);
+  border-color: darken(@cc-light-gray, 15%);
+  color: @text-gray;
+
+  &:hover,
+  &:active {
+    background: darken(@cc-light-gray, 18%);
+    color: @cc-darkblue;
+
+  }
+  &:focus {
+    color: @cc-darkblue;
+  }
+}
+
+.btn.black {
+  background: black;
+  border-color: black;
+  color: white;
+
+  &:hover,
+  &:active {
+    background: lighten(black, 15%);
+    color: white;
+
+  }
+  &:focus {
+    color: white;
+  }
+}
+
+.btn {
+  color: @cc-darkblue;
+}
+
+.btn-lg {
+  padding: 6px 14px;
+  font-size: 17px;
+}
+
+.same-space {
+  //all buttons same space.
+  // usually </p>  before button (10px) + this:
+  //margin-top:25px;
+  //&:before {
+  //  content:'';
+  //  display: block;
+  //  height: 150px;
+  //}
+  // staged, doesnt wokr
+}

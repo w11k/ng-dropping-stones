@@ -1,0 +1,75 @@
+/**
+ * This is the main application stylesheet. It should include or import all
+ * stylesheets used throughout the application as this is the only stylesheet in
+ * the Grunt configuration that is automatically processed.
+ */
+/**
+ * First, we include the Twitter Bootstrap LESS files. Only the ones used in the
+ * project should be imported as the rest are just wasting space.
+ */
+@import 'reset.less';
+@import "./../../node_modules/bootstrap-less/bootstrap/bootstrap.less";
+@import "./../../node_modules/lesshat/lesshat.less";
+/**
+ * This is our main variables file. We must include it last so we can overwrite any variable
+ * definitions in our imported stylesheets.
+ */
+@import 'variables.less';
+@import 'mixins.less';
+@import 'animations.less';
+@import 'keys.less';
+@import 'buttons.less';
+@import 'header.less';
+
+@fa-font-path: "./../../node_modules/font-awesome/fonts";
+@import "./../../node_modules/font-awesome/less/font-awesome.less";
+
+body {
+  background: @cc-darkblue;
+  color: white;
+  font-family: 'aller', sans-serif;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  font-size: 18px;
+  font-weight: 300;
+}
+
+section {
+  padding: 30px 0 40px 0;
+  background-color: @cc-light-gray;
+  color: @cc-darkblue;
+}
+
+.blueBg {
+  background-color: @cc-darkblue;
+  color: white;
+
+  a {
+    color: @cc-orange;
+    &:hover, &:focus {
+      color: @cc-orange;
+    }
+  }
+}
+
+.container {
+  width: @max-width;
+}
+
+.dy-top-0 {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+label {
+  font-weight: normal;
+}
+
+@media screen and (max-width: @max-width) {
+  .container {
+    width: @min-width;
+    margin: 0 auto;
+  }
+}
+

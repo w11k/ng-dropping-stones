@@ -1,0 +1,51 @@
+<section>
+  <div class="dy-highscore">
+    <div class="col-md-6">
+      <h3>Today's Highscore</h3>
+      <p *ngIf="currentPlayerPositionToday > 0">Your Position: <b>{{currentPlayerPositionToday}}</b></p>
+      <div class="highscore">
+        <div class="row highscore-list">
+          <div class="col-md-3 highscore-item"><b>Name</b></div>
+          <div class="col-md-3 highscore-item"><b>Score</b></div>
+          <div class="col-md-3 highscore-item"><b>Lines</b></div>
+          <div class="col-md-3 highscore-item"><b>Level</b></div>
+        </div>
+        <div class="row highscore-list" *ngFor="let item of highscore | slice:0:10"
+             [ngClass]="{'current-player': item.name === playerName}">
+          <div class="col-md-3 highscore-item">{{item.name}}</div>
+          <div class="col-md-3 highscore-item">{{item.score}}</div>
+          <div class="col-md-3 highscore-item">{{item.lines}}</div>
+          <div class="col-md-3 highscore-item">{{item.level}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <h3>All-Time Highscore</h3>
+      <p *ngIf="currentPlayerPositionAlltime > 0">Your Position: <b>{{currentPlayerPositionAlltime}}</b></p>
+      <div class="highscore">
+        <div class="row highscore-list">
+          <div class="col-md-3 highscore-item"><b>Name</b></div>
+          <div class="col-md-3 highscore-item"><b>Score</b></div>
+          <div class="col-md-3 highscore-item"><b>Lines</b></div>
+          <div class="col-md-3 highscore-item"><b>Level</b></div>
+        </div>
+        <div class="row highscore-list" *ngFor="let item of highscoreAlltime | slice:0:10"
+             [ngClass]="{'current-player': item.name === playerName}">
+          <div class="col-md-3 highscore-item">{{item.name}}</div>
+          <div class="col-md-3 highscore-item">{{item.score}}</div>
+          <div class="col-md-3 highscore-item">{{item.lines}}</div>
+          <div class="col-md-3 highscore-item">{{item.level}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="container" *ngIf="!gamepadAvailable">
+  <h3>Controls</h3>
+  <ul>
+    <li><b>Escape</b> - New Game</li>
+  </ul>
+</div>
+<div class="highscore howto blueBg" *ngIf="gamepadAvailable">
+  <img class="img-responsive" src="assets/img/howto.png">
+</div>

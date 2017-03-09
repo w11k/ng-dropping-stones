@@ -1,0 +1,141 @@
+/**
+ * These are the variables used throughout the application. This is where
+ * overwrites that are not specific to components should be maintained.
+ */
+
+/**
+ * Typography-related.
+ */
+
+@sansFontFamily: 'Roboto', sans-serif;
+
+@font-face {
+  font-family: "Clear Sans";
+  //src: url("fonts/ClearSans-Light-webfont.eot");
+  //src: url("fonts/ClearSans-Light-webfont.eot?#iefix") format("embedded-opentype"),
+  //     url("fonts/ClearSans-Light-webfont.svg#clear_sans_lightregular") format("svg"),
+  //     url("fonts/ClearSans-Light-webfont.woff") format("woff");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Clear Sans";
+  //src: url("fonts/ClearSans-Regular-webfont.eot");
+  //src: url("fonts/ClearSans-Regular-webfont.eot?#iefix") format("embedded-opentype"),
+  //     url("fonts/ClearSans-Regular-webfont.svg#clear_sansregular") format("svg"),
+  //     url("fonts/ClearSans-Regular-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Clear Sans";
+  //src: url("fonts/ClearSans-Bold-webfont.eot");
+  //src: url("fonts/ClearSans-Bold-webfont.eot?#iefix") format("embedded-opentype"),
+  //     url("fonts/ClearSans-Bold-webfont.svg#clear_sansbold") format("svg"),
+  //     url("fonts/ClearSans-Bold-webfont.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
+
+
+h1,h2,h3,h4,h5,h6, strong {
+  &.cc {
+    &:after {
+      content: "</>";
+      padding-left:3px;
+      font-weight: bold;
+    }
+    &.orange {
+      &:after {
+        color:@cc-orange !important;
+      }
+    }
+  }
+}
+
+// font family
+@score-font: 'Shadows Into Light', cursive;
+
+// game variable
+@max-width: 600px;
+@min-width: 320px;
+@game-board-width: 270px;
+@game-board-height: 520px;
+@game-column: 10;
+@game-side-border: 10px;
+@cssAnimateTimeout: .3s;
+@game-cell-size: (@game-board-width - 2 * @game-side-border) / @game-column;
+
+//@game-board-color: #bbaaa0;
+//@game-grid-color: rgba(238,228,218,.35);
+//@ghost-piece-color: #776e65;
+
+@game-board-color: #c3c3c3;
+@game-grid-color: #e2e2e2;
+@ghost-piece-color: #776e65;
+
+//@L-color: #92e1fc;
+//@L-inner-color: #6495ed;
+//@O-color: #92e4b5;
+//@O-inner-color: #008b8b;
+//@I-color: #f05f5f;
+//@I-inner-color: #DEB887;
+//@T-color: #fbe5a2;
+//@T-inner-color: #b8860b;
+//@J-color: #fb9fa8;
+//@J-inner-color: #7b3f00;
+//@S-color: #f59563;
+//@S-inner-color: #990000;
+//@Z-color: #fefdfd;
+//@Z-inner-color: #a9a9a9;
+
+@L-color: #ee5d26;
+@L-inner-color: lighten(#ee5d26, 20%);
+@O-color: #26ee5d;
+@O-inner-color: lighten(#26ee5d, 20%);
+@I-color: #5d26ee;
+@I-inner-color: lighten(#5d26ee, 20%);
+@T-color: #ee5d26;
+@T-inner-color: lighten(#ee5d26, 20%);
+@J-color: #eec126;
+@J-inner-color: lighten(#eec126, 20%);
+@S-color: #ee2653;
+@S-inner-color: lighten(#ee2653, 20%);
+@Z-color: #26b7ee;
+@Z-inner-color: lighten(#26b7ee, 20%);
+
+// thecodecampus colors
+@yellow: #333;
+
+@cc-orange: #ee5d26;
+
+@cc-darkblue: #252734;
+
+@cc-light-gray: #E9E9E9;
+@text-gray: lighten(@cc-light-gray, 55%);
+@cc-text-gray: #646464;
+@cc-dark-gray: #B3B3B3;
+@cc-darker-blue: #1A1A24;
+@cc-text-green: #47a843;
+
+@cc-calendar-customRequest: #D8D6D7;
+@cc-calendar-list-odd: #E2E2E2;
+@cc-calendar-list-even: #ECECEC;
+
+//Overwrite Bootstrap default font path
+@border-radius-base: 0px;
+@border-radius-large: 0px;
+@border-radius-small: 0px;
+
+// Navbar toggle
+@navbar-default-toggle-hover-bg: @cc-darkblue; //#ddd;
+@navbar-default-toggle-icon-bar-bg: #fff; //#888;
+@navbar-default-toggle-border-color: none; //#ddd;
+
+//Carousel
+@carousel-control-color: lighten(@cc-light-gray, 10%);
+@carousel-text-shadow: none;
+
+@grid-float-breakpoint: 960px;
