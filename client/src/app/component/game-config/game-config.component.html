@@ -6,7 +6,7 @@
   <form (ngSubmit)="onPasswordSubmit()" #passwordForm="ngForm" *ngIf="!unlocked">
 
     <div class="form-group">
-      <label>Please enter Password</label>
+      <label>Please enter password</label>
       <input type="password" class="form-control" id="pw"
              required autofocus autocomplete="off"
              [(ngModel)]="passwordInput.pw" name="pw"
