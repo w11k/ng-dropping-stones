@@ -37,7 +37,7 @@ export class GameService {
   private landedGrid: Array<Array<number>> = this.deepClone(this.emptyLandedGrid);
 
   private movingTretromino: Tretromino;
-  private initalMoveInterval: number = 500;
+  private initalMoveInterval: number = 400;
 
   private lastTimestamp: number = 0;
   private actualScore: Score = new Score();
@@ -177,6 +177,10 @@ export class GameService {
       case InputEvents.NEWGAME:
         this.newGame(true, true);
         this.router.navigateByUrl('');
+        break;
+      case InputEvents.SHOWHIGHSCORE:
+        this.newGame(true, true);
+        this.router.navigateByUrl('/highscore');
         break;
       default: //nothing to do
     }

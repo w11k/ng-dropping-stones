@@ -39,6 +39,10 @@ export class HighscoreService implements IHighscoreService {
       .catch(this.handleError);
   }
 
+  public getHighestHighscore(): any {
+
+  }
+
   extractData(res: Response) {
     let body = res.json();
     return body || {};

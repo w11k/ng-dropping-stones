@@ -1,9 +1,12 @@
 <section id="start">
+
   <div class="pull-right config">
     <a [routerLink]="'/config'"><i class="fa fa-2x fa-gear" aria-hidden="true"></i></a>
   </div>
 
   <div class="dy-app container">
+    <a [routerLink]="'/highscore'">Show Highscore</a>
+
     <h1>Enter your name</h1>
     <form (ngSubmit)="onSubmit()" #nameForm="ngForm">
       <div class="form-group">

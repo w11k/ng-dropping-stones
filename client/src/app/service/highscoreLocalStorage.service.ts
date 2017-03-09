@@ -12,6 +12,7 @@ export class HighscoreLocalStorageService implements IHighscoreService {
 
   highscoreTodaySubject = new ReplaySubject();
   highscoreAlltimeSubject = new ReplaySubject();
+  highestHighScoreSubject = new ReplaySubject();
 
   playerNameExistsSubject = new Subject();
 
@@ -55,8 +56,13 @@ export class HighscoreLocalStorageService implements IHighscoreService {
     return this.highscoreAlltimeSubject.asObservable();
   }
 
-  private getHighscoreFromLocalStorage(): Highscore[] {
+  public getHighestHighscore() {
+    let obj = this.getHighscoreFromLocalStorage();
+    this.highestHighScoreSubject.next(obj[0]);
+    return this.highestHighScoreSubject.asObservable();
+  };
 
+  private getHighscoreFromLocalStorage(): Highscore[] {
     return this.extractDataAndSort(JSON.parse(localStorage.getItem('ng2Tetris-Highscore')));
   }
 

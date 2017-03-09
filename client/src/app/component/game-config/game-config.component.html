@@ -1,7 +1,22 @@
 <div class="dy-config container">
   <h1>Configuration</h1>
+  <a [routerLink]="''">Back</a>
+  <br/>
+  <br/>
+  <form (ngSubmit)="onPasswordSubmit()" #passwordForm="ngForm" *ngIf="!unlocked">
 
-  <form (ngSubmit)="onSubmit()" #configForm="ngForm">
+    <div class="form-group">
+      <label>Please enter Password</label>
+      <input type="password" class="form-control" id="pw"
+             required autofocus autocomplete="off"
+             [(ngModel)]="passwordInput.pw" name="pw"
+             #name="ngModel">
+    </div>
+    <button type="submit" class="btn orange">Ok</button>
+
+  </form>
+
+  <form (ngSubmit)="onSubmit()" #configForm="ngForm" *ngIf="unlocked">
 
     <div class="form-group">
       <label>How many lines for next level? (Default: 10)</label>

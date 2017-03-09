@@ -9,6 +9,11 @@ import {Router} from "@angular/router";
   styleUrls: ['./game-config.component.less']
 })
 export class GameConfigComponent implements OnInit {
+  pw: string = 'ui-router';
+  unlocked: boolean = false;
+  passwordInput: {
+    pw?: string;
+  } = {};
   model: {
     INC_LEVEL_PER_LINE?: number,
     GAME_SPEED_MODIFIER?: number
@@ -30,5 +35,11 @@ export class GameConfigComponent implements OnInit {
   onSubmit() {
     this.gameService.setGameOptions(this.model.INC_LEVEL_PER_LINE, this.model.GAME_SPEED_MODIFIER, this.model.INITIAL_MOVE_INTERVAL);
     this.router.navigateByUrl('');
+  }
+
+  onPasswordSubmit() {
+    if(this.passwordInput.pw === this.pw) {
+      this.unlocked = true;
+    }
   }
 }

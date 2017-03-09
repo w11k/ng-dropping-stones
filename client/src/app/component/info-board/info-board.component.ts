@@ -4,6 +4,8 @@ import {TretrominoService} from "../../service/tretromino.service";
 import {Tretromino} from "../../service/model/tretrominos/tetromino.model";
 import {GameService} from "../../service/game.service";
 import {GamepadService} from "../../service/gamepad.service";
+import {HighscoreService} from "../../service/highscore.service";
+import {Highscore} from "../../service/model/score.model";
 
 @Component({
   selector: 'game-info-board',
@@ -12,6 +14,7 @@ import {GamepadService} from "../../service/gamepad.service";
 })
 export class InfoBoardComponent implements OnInit, OnDestroy {
   gamepadAvailable: Boolean;
+  highscore:Highscore;
 
   private scoreSubscription: Subscription;
   private level: number = 0;
@@ -20,7 +23,8 @@ export class InfoBoardComponent implements OnInit, OnDestroy {
 
   constructor(private tretrominoService: TretrominoService,
               private gameService: GameService,
-              private gamepadService: GamepadService) {
+              private gamepadService: GamepadService,
+              private highscoreService: HighscoreService) {
   }
 
   ngOnInit() {
@@ -28,6 +32,12 @@ export class InfoBoardComponent implements OnInit, OnDestroy {
       this.level = score.level;
       this.score = score.score;
       this.lines = score.lines;
+
+      this.highscoreService.getHighestHighscore().subscribe(
+        (highscore) => {
+          this.highscore = highscore;
+        }
+      );
 
       this.gamepadAvailable = this.gamepadService.gamePadAvailable();
     });

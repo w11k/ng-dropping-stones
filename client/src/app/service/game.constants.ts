@@ -10,7 +10,8 @@ export enum InputEvents {
   DROP,
   DROPDOWN,
 
-  NEWGAME
+  NEWGAME,
+  SHOWHIGHSCORE
 }
 
 export enum TretrominoType {

@@ -1,6 +1,12 @@
 <game-tretromino style="position:relative" [tretrominoObservable]="getNextTretromino()">
 </game-tretromino>
-<h3>Scores</h3>
+<h3>Highscore</h3>
+<ul>
+  <li><b>Score:</b> {{highscore.score}}</li>
+  <li><b>Level:</b> {{highscore.level}}</li>
+  <li><b>Lines:</b> {{highscore.lines}}</li>
+</ul>
+<h3>Your Score</h3>
 <ul>
   <li><b>Score:</b> {{score}}</li>
   <li><b>Level:</b> {{level}}</li>

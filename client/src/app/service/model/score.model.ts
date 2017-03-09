@@ -18,7 +18,7 @@ export class Score {
   private _createdAt: Date = new Date();
 
   private _incLevelPerLine: number = 10; // increase level every X lines
-  private _gameSpeedModifier: number = 1;  // game speed
+  private _gameSpeedModifier: number = 2;  // game speed
 
   public increaseScore(completedLines: number) { // more points for more completed lines
     let points = 0;

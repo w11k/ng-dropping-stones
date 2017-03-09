@@ -7,7 +7,7 @@ import {Subject} from "rxjs";
 export class GamepadService {
   gamepad_count: number = 2;     // number of available gamepads
   axisInputThrottle: number = 100; // time in ms before a second click will be applied
-  buttonInputThrottle: number = 100;
+  buttonInputThrottle: number = 300;
 
   private buttonInputSubject = new Subject();
   private axisInputSubject = new Subject();
@@ -45,7 +45,7 @@ export class GamepadService {
       .subscribe(
         (x: any) => {
           this.mapButtonInput(x);
-          // console.log('Next: ' + x);
+          console.log('Next: ' + x);
         });
 
     let buttonAxisSubscription = this.axisInputSubject
@@ -54,7 +54,7 @@ export class GamepadService {
       .subscribe(
         (x: any) => {
           this.mapAxisInput(x.axis, x.value);
-          // console.log('Next: ' + x.axis + ' ' + x.value);
+          console.log('Next: ' + x.axis + ' ' + x.value);
         });
 
   }
@@ -94,6 +94,9 @@ export class GamepadService {
     switch (button) {
       case 7:
         this.gameService.handleUserMoveEvent(InputEvents.NEWGAME);
+        break;
+      case 6:
+        this.gameService.handleUserMoveEvent(InputEvents.SHOWHIGHSCORE);
         break;
       case 5:
         this.gameService.handleUserMoveEvent(InputEvents.DROPDOWN);
