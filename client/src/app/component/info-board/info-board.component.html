@@ -1,5 +1,7 @@
-<game-tretromino style="position:relative" [tretrominoObservable]="getNextTretromino()">
-</game-tretromino>
+<div style="height: 50px">
+  <game-tretromino style="position:relative" [tretrominoObservable]="getNextTretromino()">
+  </game-tretromino>
+</div>
 <h3>Highscore</h3>
 <ul *ngIf="highscore">
   <li><b>Score:</b> {{highscore.score}}</li>
