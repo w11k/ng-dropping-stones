@@ -20,11 +20,14 @@ export class HighscoreService implements IHighscoreService {
       .getActualScore()
       .first()
       .map(score => {
-        console.log(score.getData());
         return this.http.post('/api/highscore/add', score.getData())
           .map(this.extractData)
           .catch(this.handleError);
       });
+  }
+
+  public getPlayerScore() {
+    return this.actualScore;
   }
 
   public getHighscoreForToday(): Observable<any> {

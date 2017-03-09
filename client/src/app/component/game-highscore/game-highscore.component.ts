@@ -30,35 +30,38 @@ export class GameHighscoreComponent implements OnInit {
     this.gamepadAvailable = this.gamepadService.gamePadAvailable();
     console.log(this.gamepadAvailable);
 
-    this.gameService
-      .getActualScore()
-      .first()
-      .subscribe((score: Score) => {
-        this.playerName = score.name;
+    let score = this.highscoreService.getPlayerScore() || new Score();
+    this.playerName = score.name;
 
+    // this.gameService
+    //   .getActualScore()
+    //   .first()
+    //   .subscribe((score: Score) => {
+    //     this.playerName = score.name;
+
+
+    this.highscoreService
+      .getHighscoreForToday()
+      .subscribe((scores: Highscore[]) => {
+        console.log('today scores');
+        console.log(scores);
+        this.highscore = scores;
 
         this.highscoreService
-          .getHighscoreForToday()
+          .getHighscoreAlltime()
           .subscribe((scores: Highscore[]) => {
-            // console.log('today scores');
-            // console.log(scores);
-            this.highscore = scores;
+            console.log('alltime scores');
+            console.log(scores);
+            this.highscoreAlltime = scores;
 
-            this.highscoreService
-              .getHighscoreAlltime()
-              .subscribe((scores: Highscore[]) => {
-                // console.log('alltime scores');
-                // console.log(scores);
-                this.highscoreAlltime = scores;
+            this.getCurrentPlayerHighscorePosition();
 
-                this.getCurrentPlayerHighscorePosition();
-
-                if (this.gamepadService.gamePadAvailable()) {
-                  this.initGamepadPolling(0);
-                }
-              });
+            if (this.gamepadService.gamePadAvailable()) {
+              this.initGamepadPolling(0);
+            }
           });
       });
+    // });
   }
 
   initGamepadPolling(timestamp: number) {

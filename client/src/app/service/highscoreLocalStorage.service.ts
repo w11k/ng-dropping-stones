@@ -28,6 +28,8 @@ export class HighscoreLocalStorageService implements IHighscoreService {
       .getActualScore()
       .first()
       .map(score => {
+        console.log('savehighscore');
+        console.log(score);
         this.actualScore = score;
         let array = this.getHighscoreFromLocalStorage();
         array.push(score.getData());
@@ -35,6 +37,10 @@ export class HighscoreLocalStorageService implements IHighscoreService {
 
         return subject;
       });
+  }
+
+  public getPlayerScore() {
+    return this.actualScore;
   }
 
   public getHighscoreForToday(): Observable<any> {
