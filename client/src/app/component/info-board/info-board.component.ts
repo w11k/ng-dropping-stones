@@ -17,6 +17,7 @@ export class InfoBoardComponent implements OnInit, OnDestroy {
   highscore:Highscore;
 
   private scoreSubscription: Subscription;
+  private name: string = '';
   private level: number = 0;
   private score: number = 0;
   private lines: number = 0;
@@ -29,6 +30,7 @@ export class InfoBoardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.scoreSubscription = this.gameService.getActualScore().subscribe((score) => {
+      this.name = score.name;
       this.level = score.level;
       this.score = score.score;
       this.lines = score.lines;

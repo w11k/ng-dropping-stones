@@ -1,13 +1,14 @@
 <game-tretromino style="position:relative" [tretrominoObservable]="getNextTretromino()">
 </game-tretromino>
 <h3>Highscore</h3>
-<ul>
+<ul *ngIf="highscore">
   <li><b>Score:</b> {{highscore.score}}</li>
   <li><b>Level:</b> {{highscore.level}}</li>
   <li><b>Lines:</b> {{highscore.lines}}</li>
 </ul>
 <h3>Your Score</h3>
 <ul>
+  <li><b>Name:</b> {{name}}</li>
   <li><b>Score:</b> {{score}}</li>
   <li><b>Level:</b> {{level}}</li>
   <li><b>Lines:</b> {{lines}}</li>
