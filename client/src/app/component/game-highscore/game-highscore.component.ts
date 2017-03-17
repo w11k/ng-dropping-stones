@@ -67,7 +67,7 @@ export class GameHighscoreComponent implements OnInit {
 
   getCurrentPlayerHighscorePosition() {
     this.currentPlayerPositionToday = (_.findIndex(this.highscore, {name: this.playerName}) + 1);
-    this.currentPlayerPositionAlltime = _.findIndex(this.highscore, {name: this.playerName}) + 1;
+    this.currentPlayerPositionAlltime = (_.findIndex(this.highscoreAlltime, {name: this.playerName}) + 1);
   }
 
   @HostListener('window:keydown', ['$event'])
