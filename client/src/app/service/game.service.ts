@@ -37,7 +37,7 @@ export class GameService {
   private landedGrid: Array<Array<number>> = this.deepClone(this.emptyLandedGrid);
 
   private movingTretromino: Tretromino;
-  private initalMoveInterval: number = 400;
+  private initalMoveInterval: number = 200;
 
   private lastTimestamp: number = 0;
   private actualScore: Score = new Score();
@@ -143,7 +143,7 @@ export class GameService {
         this.removeCompleteLines();
         this.movingTretromino = this.tretrominoService.getNewTretromino();
       } else {
-        this.movingTretromino.row = potentialPosition.row; // todo uncomment
+        this.movingTretromino.row = potentialPosition.row;
       }
       // draw new stuff
       this.landedGridSubject.next(this.landedGrid);
@@ -180,7 +180,8 @@ export class GameService {
         break;
       case InputEvents.NEWGAME:
         this.newGame(true, true);
-        this.router.navigateByUrl('');
+        // this.router.navigateByUrl('');
+        window.location.href = '/';
         break;
       case InputEvents.SHOWHIGHSCORE:
         this.newGame(true, true);
