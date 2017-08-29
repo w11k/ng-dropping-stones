@@ -16,7 +16,7 @@ export class TretrominoService {
   private nextRandomTretrominoSubject: Subject<Tretromino>;
 
   constructor() {
-    this.nextRandomTretrominoSubject = new ReplaySubject<Tretromino>();
+    this.nextRandomTretrominoSubject = new ReplaySubject<Tretromino>(1);
     this.generateNewRandomPiece();
   }
 

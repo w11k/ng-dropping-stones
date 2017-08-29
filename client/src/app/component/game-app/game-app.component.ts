@@ -5,13 +5,14 @@ import {GamepadService} from "../../service/gamepad.service";
 import {Router} from "@angular/router";
 import {HighscoreService} from "../../service/highscore.service";
 import * as _ from "lodash";
+import {Subscription} from "rxjs/Subscription";
 
 @Component({
   selector: 'game-app',
   templateUrl: './game-app.component.html',
   styleUrls: ['./game-app.component.less']
 })
-export class GameAppComponent implements OnInit {
+export class GameAppComponent implements OnInit, OnDestroy {
   model: {
     name: string,
     email: string
@@ -20,7 +21,7 @@ export class GameAppComponent implements OnInit {
     email: ''
   };
   nameExists: boolean = false;
-
+  private playerNameExistsSubscription: Subscription;
   constructor(private router: Router,
               private gameService: GameService,
               private gamepadService: GamepadService,
@@ -51,7 +52,7 @@ export class GameAppComponent implements OnInit {
   }
 
   playerNameExists() {
-    this.highscoreService
+    this.playerNameExistsSubscription = this.highscoreService
       .playerNameExists(this.model.name)
       .subscribe((res) => {
         // console.log(res);
@@ -61,5 +62,10 @@ export class GameAppComponent implements OnInit {
           this.nameExists = false;
         }
       });
+  }
+
+  ngOnDestroy(): void {
+    this.playerNameExistsSubscription.unsubscribe();
+    console.log("game-app destroyed");
   }
 }

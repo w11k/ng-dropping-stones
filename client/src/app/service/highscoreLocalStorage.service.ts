@@ -10,9 +10,9 @@ import {IHighscoreService} from "./model/IHighscoreService";
 export class HighscoreLocalStorageService implements IHighscoreService {
   actualScore: Score;
 
-  highscoreTodaySubject = new ReplaySubject();
-  highscoreAlltimeSubject = new ReplaySubject();
-  highestHighScoreSubject = new ReplaySubject();
+  highscoreTodaySubject = new ReplaySubject(1);
+  highscoreAlltimeSubject = new ReplaySubject(1);
+  highestHighScoreSubject = new ReplaySubject(1);
 
   playerNameExistsSubject = new Subject();
 

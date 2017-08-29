@@ -17,6 +17,7 @@ export class InfoBoardComponent implements OnInit, OnDestroy {
   highscore:Highscore;
 
   private scoreSubscription: Subscription;
+  private highscoreSubscription: Subscription;
   private name: string = '';
   private level: number = 0;
   private score: number = 0;
@@ -36,7 +37,7 @@ export class InfoBoardComponent implements OnInit, OnDestroy {
       this.score = score.score;
       this.lines = score.lines;
 
-      this.highscoreService.getHighestHighscore().subscribe(
+      this.highscoreSubscription = this.highscoreService.getHighestHighscore().subscribe(
         (highscore) => {
           this.highscore = highscore;
         }
@@ -47,11 +48,13 @@ export class InfoBoardComponent implements OnInit, OnDestroy {
 
   }
 
-  ngOnDestroy() {
-    this.scoreSubscription.unsubscribe();
-  }
-
   getNextTretromino(): Observable<Tretromino> {
     return this.tretrominoService.getNextTretromino();
+  }
+
+  ngOnDestroy() {
+    this.scoreSubscription.unsubscribe();
+    this.highscoreSubscription.unsubscribe();
+    console.log("info-board destroyed");
   }
 }

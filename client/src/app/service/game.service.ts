@@ -50,11 +50,11 @@ export class GameService {
 
   constructor(private tretrominoService: TretrominoService,
               private router: Router) {
-    this.gameOverSubject = new ReplaySubject<boolean>();
-    this.gameStoppedSubject = new ReplaySubject<boolean>();
-    this.landedGridSubject = new ReplaySubject<Array<Array<number>>>();
-    this.movingTretrominoSubject = new ReplaySubject<Tretromino>();
-    this.actualScoreSubject = new ReplaySubject<Score>();
+    this.gameOverSubject = new ReplaySubject<boolean>(1);
+    this.gameStoppedSubject = new ReplaySubject<boolean>(1);
+    this.landedGridSubject = new ReplaySubject<Array<Array<number>>>(1);
+    this.movingTretrominoSubject = new ReplaySubject<Tretromino>(1);
+    this.actualScoreSubject = new ReplaySubject<Score>(1);
 
     this.movingTretromino = tretrominoService.getNewTretromino();
 
@@ -113,7 +113,7 @@ export class GameService {
     // console.log("reset game");
     this.landedGrid = this.deepClone(this.emptyLandedGrid);
     this.actualScore = new Score();
-    this.actualScoreSubject = new ReplaySubject();
+    this.actualScoreSubject = new ReplaySubject(1);
     this.movingTretromino = this.tretrominoService.getNewTretromino();
     this.tretrominoService.getNextTretromino();
     this.gameOverSubject.next(false);
@@ -180,8 +180,8 @@ export class GameService {
         break;
       case InputEvents.NEWGAME:
         this.newGame(true, true);
-        // this.router.navigateByUrl('');
-        window.location.href = '/';
+        this.router.navigateByUrl('/');
+        // window.location.href = '/';
         break;
       case InputEvents.SHOWHIGHSCORE:
         this.newGame(true, true);

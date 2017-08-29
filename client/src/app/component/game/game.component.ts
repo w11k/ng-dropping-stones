@@ -16,6 +16,9 @@ export class GameComponent implements OnInit, OnDestroy {
   private gameStopped:boolean = false;
   private gameOverSubscription: Subscription;
   private gameStoppedSubscription:Subscription;
+  private actualStoreSubscription: Subscription;
+  private saveHighScoreSubscription: Subscription;
+  private saveHighScoreDoneSubscription: Subscription;
 
 
   constructor(private gameService: GameService,
@@ -25,14 +28,10 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.gameService.getActualScore().subscribe(actualScore => actualScore.name === '' ? this.router.navigateByUrl(''): null);
+    this.actualStoreSubscription = this.gameService.getActualScore().subscribe(actualScore => actualScore.name === '' ? this.router.navigateByUrl(''): null);
     this.gameOverSubscription = this.gameService.getGameOver().subscribe(gameOver => this.gameOver = gameOver);
     this.gameStoppedSubscription = this.gameService.getGameStopped().subscribe(gameStopped => this.gameStopped = gameStopped);
     this.newGame();
-  }
-
-  ngOnDestroy() {
-    this.gameOverSubscription.unsubscribe();
   }
 
   private gameOn(timestamp: number) {
@@ -59,10 +58,10 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   private gameOverFn() {
-    this.highscoreService
+    this.saveHighScoreSubscription = this.highscoreService
       .saveHighscore()
       .subscribe((x) => {
-        x.subscribe((y) => {});
+        this.saveHighScoreDoneSubscription = x.subscribe((y) => {});
         this.gameService.resetGame();
         this.router.navigateByUrl('/highscore')
 
@@ -72,5 +71,14 @@ export class GameComponent implements OnInit, OnDestroy {
   @HostListener('window:keydown', ['$event'])
   handleKeyInput($event) {
     this.gamepadService.handleKeyboardInput($event);
+  }
+
+  ngOnDestroy() {
+    this.actualStoreSubscription.unsubscribe();
+    this.gameOverSubscription.unsubscribe();
+    this.gameStoppedSubscription.unsubscribe();
+    this.saveHighScoreDoneSubscription.unsubscribe();
+    this.saveHighScoreSubscription.unsubscribe();
+    console.log("game component destroyed");
   }
 }
