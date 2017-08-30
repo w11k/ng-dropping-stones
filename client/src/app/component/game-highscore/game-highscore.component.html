@@ -1,46 +1,43 @@
 <section>
   <div class="dy-highscore">
 
-    <div class="row">
-      <div class="col-md-12">
-        <img class="gif center-block" src="assets/img/IMG_3897.gif">
-      </div>
+    <div class="col-md-4">
+      <img class="gif center-block img-responsive" src="assets/img/ng-stones-cropped.gif">
     </div>
-
-    <div class="col-md-6">
+    <div class="col-md-4">
       <h3>Today's Highscore</h3>
       <p *ngIf="currentPlayerPositionToday > 0">Your Position: <b>{{currentPlayerPositionToday}}</b></p>
       <div class="highscore">
         <div class="row highscore-list">
-          <div class="col-md-3 highscore-item"><b>Name</b></div>
+          <div class="col-md-4 highscore-item"><b>Name</b></div>
           <div class="col-md-3 highscore-item"><b>Score</b></div>
-          <div class="col-md-3 highscore-item"><b>Lines</b></div>
+          <div class="col-md-2 highscore-item"><b>Lines</b></div>
           <div class="col-md-3 highscore-item"><b>Level</b></div>
         </div>
         <div class="row highscore-list" *ngFor="let item of highscore | slice:0:10"
              [ngClass]="{'current-player': item.name === playerName}">
-          <div class="col-md-3 highscore-item">{{item.name}}</div>
+          <div class="col-md-4 highscore-item">{{item.name}}</div>
           <div class="col-md-3 highscore-item">{{item.score}}</div>
-          <div class="col-md-3 highscore-item">{{item.lines}}</div>
+          <div class="col-md-2 highscore-item">{{item.lines}}</div>
           <div class="col-md-3 highscore-item">{{item.level}}</div>
         </div>
       </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
       <h3>All-Time Highscore</h3>
       <p *ngIf="currentPlayerPositionAlltime > 0">Your Position: <b>{{currentPlayerPositionAlltime}}</b></p>
       <div class="highscore">
         <div class="row highscore-list">
-          <div class="col-md-3 highscore-item"><b>Name</b></div>
-          <div class="col-md-3 highscore-item"><b>Score</b></div>
-          <div class="col-md-3 highscore-item"><b>Lines</b></div>
+          <div class="col-md-5 highscore-item"><b>Name</b></div>
+          <div class="col-md-2 highscore-item"><b>Score</b></div>
+          <div class="col-md-2 highscore-item"><b>Lines</b></div>
           <div class="col-md-3 highscore-item"><b>Level</b></div>
         </div>
         <div class="row highscore-list" *ngFor="let item of highscoreAlltime | slice:0:10"
              [ngClass]="{'current-player': item.name === playerName}">
-          <div class="col-md-3 highscore-item">{{item.name}}</div>
-          <div class="col-md-3 highscore-item">{{item.score}}</div>
-          <div class="col-md-3 highscore-item">{{item.lines}}</div>
+          <div class="col-md-5 highscore-item">{{item.name}}</div>
+          <div class="col-md-2 highscore-item">{{item.score}}</div>
+          <div class="col-md-2 highscore-item">{{item.lines}}</div>
           <div class="col-md-3 highscore-item">{{item.level}}</div>
         </div>
       </div>
