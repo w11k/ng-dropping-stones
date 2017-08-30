@@ -6,6 +6,7 @@ import {TretrominoService} from "./tretromino.service";
 import {PotentialPosition} from "./model/potential-position.model";
 import {Score} from "./model/score.model";
 import {Router} from "@angular/router";
+import {ConfigService, GameConfig} from "./config.service";
 
 @Injectable()
 export class GameService {
@@ -49,12 +50,16 @@ export class GameService {
   private movingTretrominoSubject: Subject<Tretromino>;
 
   constructor(private tretrominoService: TretrominoService,
-              private router: Router) {
+              private router: Router,
+              private configService:ConfigService) {
+    console.log("gameservice init");
+    this.configService.init(this.getGameOptions());
     this.gameOverSubject = new ReplaySubject<boolean>(1);
     this.gameStoppedSubject = new ReplaySubject<boolean>(1);
     this.landedGridSubject = new ReplaySubject<Array<Array<number>>>(1);
     this.movingTretrominoSubject = new ReplaySubject<Tretromino>(1);
     this.actualScoreSubject = new ReplaySubject<Score>(1);
+    this.setGameOptions(this.configService.getGameConfig());
 
     this.movingTretromino = tretrominoService.getNewTretromino();
 
@@ -65,17 +70,19 @@ export class GameService {
     this.actualScoreSubject.next(this.actualScore);
   }
 
-  public setGameOptions(incLevelPerLine, gameSpeedModifier, initalMoveInterval) {
-    this.actualScore.incLevelPerLine = incLevelPerLine;
-    this.actualScore.gameSpeedModifier = gameSpeedModifier;
-    this.initalMoveInterval = initalMoveInterval;
+  public setGameOptions(config: GameConfig) {
+    console.log("setGameOptions", config);
+    this.actualScore.incLevelPerLine = config.incLevelPerLine;
+    this.actualScore.gameSpeedModifier = config.gameSpeedModifier;
+    this.initalMoveInterval = config.initalMoveInterval;
   }
 
   public getGameOptions() {
     return {
       'incLevelPerLine': this.actualScore.incLevelPerLine,
       'gameSpeedModifier': this.actualScore.gameSpeedModifier,
-      'initalMoveInterval': this.initalMoveInterval
+      'initalMoveInterval': this.initalMoveInterval,
+      'forceReload': false
     }
   }
 
@@ -180,8 +187,12 @@ export class GameService {
         break;
       case InputEvents.NEWGAME:
         this.newGame(true, true);
-        this.router.navigateByUrl('/');
-        // window.location.href = '/';
+        console.log(this.configService.getGameConfig().forceReload);
+        if (this.configService.getGameConfig().forceReload) {
+          window.location.href = '/';
+        } else {
+          this.router.navigateByUrl('/');
+        }
         break;
       case InputEvents.SHOWHIGHSCORE:
         this.newGame(true, true);

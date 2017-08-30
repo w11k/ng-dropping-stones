@@ -75,10 +75,18 @@ export class GameComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.actualStoreSubscription.unsubscribe();
-    this.gameOverSubscription.unsubscribe();
-    this.gameStoppedSubscription.unsubscribe();
-    this.saveHighScoreDoneSubscription.unsubscribe();
-    this.saveHighScoreSubscription.unsubscribe();
+    if (this.gameOverSubscription) {
+      this.gameOverSubscription.unsubscribe();
+    }
+    if (this.gameStoppedSubscription) {
+      this.gameStoppedSubscription.unsubscribe()
+    }
+    if (this.saveHighScoreDoneSubscription) {
+      this.saveHighScoreDoneSubscription.unsubscribe()
+    }
+    if (this.saveHighScoreSubscription) {
+      this.saveHighScoreSubscription.unsubscribe()
+    }
     console.log("game component destroyed");
   }
 }

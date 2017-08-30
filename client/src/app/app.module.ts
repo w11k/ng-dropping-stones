@@ -17,6 +17,7 @@ import {HighscoreService} from "./service/highscore.service";
 import {GameConfigComponent} from "./component/game-config/game-config.component";
 import {HighscoreLocalStorageService} from "./service/highscoreLocalStorage.service";
 import {environment} from "../environments/environment";
+import {ConfigService} from "./service/config.service";
 
 export function injectHighscoreService(any: any, dependencies: any) {
   if (environment.rpi) {
@@ -47,6 +48,7 @@ export function injectHighscoreService(any: any, dependencies: any) {
     GameService,
     TretrominoService,
     GamepadService,
+    ConfigService,
     {
   // inject different services
       provide: HighscoreService,

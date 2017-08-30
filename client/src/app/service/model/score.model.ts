@@ -1,4 +1,3 @@
-import {GAME_SPEED_MODIFIER} from "../game.constants";
 export interface Highscore {
   name: string;
   email: string;

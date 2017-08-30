@@ -26,18 +26,30 @@
              #name="ngModel">
     </div>
     <div class="form-group">
-      <label>Game speed modifier (Default: 1)</label>
+      <label>Game speed modifier (Default: 2)</label>
       <input type="number" class="form-control" id="GAME_SPEED_MODIFIER"
              required
              [(ngModel)]="model.GAME_SPEED_MODIFIER" name="GAME_SPEED_MODIFIER"
              #name="ngModel">
     </div>
     <div class="form-group">
-      <label>Initial block move interval [ms] (Default: 500)</label>
+      <label>Initial block move interval [ms] (Default: 200)</label>
       <input type="number" class="form-control" id="INITIAL_MOVE_INTERVAL"
              required
              [(ngModel)]="model.INITIAL_MOVE_INTERVAL" name="INITIAL_MOVE_INTERVAL"
              #name="ngModel">
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-2">
+          <input type="checkbox" class="form-control" id="FORCE_RELOAD"
+                 [(ngModel)]="model.FORCE_RELOAD" name="FORCE_RELOAD"
+                 #name="ngModel">
+        </div>
+        <div class="col-md-10">
+          <label>Force hard reload of application when new game is started</label>
+        </div>
+      </div>
     </div>
     <button type="submit" class="btn orange">Save</button>
 
