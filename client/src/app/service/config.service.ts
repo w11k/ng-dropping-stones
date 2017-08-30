@@ -13,19 +13,15 @@ export class ConfigService {
   private config: GameConfig;
 
   constructor() {
-    console.log("constructor configService");
   }
 
   init(config) {
-    console.log("init configService with", config);
     this.defaultConfig = config;
     this.config = this.loadDataFromLocalStorage();
-    console.log(this.config);
     this.saveGameOptions(this.config);
   }
 
   saveGameOptions(config: GameConfig): void {
-    console.log("save", config);
     this.config = config;
     localStorage.setItem("ng2Tetris-Config", JSON.stringify(config));
   }

@@ -18,7 +18,6 @@ export class HighscoreLocalStorageService implements IHighscoreService {
 
   constructor(private gameService: GameService,
               private http: Http) {
-    // console.log("init ls highscore");
   }
 
   public saveHighscore(): Observable<any> {
@@ -28,8 +27,6 @@ export class HighscoreLocalStorageService implements IHighscoreService {
       .getActualScore()
       .first()
       .map(score => {
-        // console.log('savehighscore');
-        // console.log(score);
         this.actualScore = score;
         let array = this.getHighscoreFromLocalStorage();
         array.push(score.getData());

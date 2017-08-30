@@ -35,7 +35,6 @@ export class GameTretrominoComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.tretrominoSubscription.unsubscribe();
-    console.log("game-tetromino destroyed");
   }
 
   isFilled(cell: number) {

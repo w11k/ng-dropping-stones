@@ -87,6 +87,5 @@ export class GameComponent implements OnInit, OnDestroy {
     if (this.saveHighScoreSubscription) {
       this.saveHighScoreSubscription.unsubscribe()
     }
-    console.log("game component destroyed");
   }
 }

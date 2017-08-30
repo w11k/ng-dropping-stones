@@ -45,7 +45,6 @@ export class GamepadService {
       .subscribe(
         (x: any) => {
           this.mapButtonInput(x);
-          console.log('Next: ' + x);
         });
 
     let buttonAxisSubscription = this.axisInputSubject
@@ -54,13 +53,11 @@ export class GamepadService {
       .subscribe(
         (x: any) => {
           this.mapAxisInput(x.axis, x.value);
-          console.log('Next: ' + x.axis + ' ' + x.value);
         });
 
   }
 
   handleKeyboardInput($event) {
-    // console.log($event.code);
     switch ($event.code) {
       case "ArrowLeft":
         $event.preventDefault();

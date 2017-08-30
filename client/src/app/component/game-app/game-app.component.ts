@@ -55,7 +55,6 @@ export class GameAppComponent implements OnInit, OnDestroy {
     this.playerNameExistsSubscription = this.highscoreService
       .playerNameExists(this.model.name)
       .subscribe((res) => {
-        // console.log(res);
         if (!_.isEmpty(res)) {
           this.nameExists = true;
         } else {
@@ -66,6 +65,5 @@ export class GameAppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.playerNameExistsSubscription.unsubscribe();
-    console.log("game-app destroyed");
   }
 }

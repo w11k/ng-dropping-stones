@@ -38,15 +38,11 @@ export class GameHighscoreComponent implements OnInit, OnDestroy {
     this.highscoreForTodaySubscription = this.highscoreService
       .getHighscoreForToday()
       .subscribe((scores: Highscore[]) => {
-        // console.log('today scores');
-        // console.log(scores);
         this.highscore = scores;
 
         this.highscoreAlltimeSubscription = this.highscoreService
           .getHighscoreAlltime()
           .subscribe((scores: Highscore[]) => {
-            // console.log('alltime scores');
-            // console.log(scores);
             this.highscoreAlltime = scores;
 
             this.getCurrentPlayerHighscorePosition();
@@ -78,6 +74,5 @@ export class GameHighscoreComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.highscoreAlltimeSubscription.unsubscribe();
     this.highscoreForTodaySubscription.unsubscribe();
-    console.log("game-highscore destroyed");
   }
 }

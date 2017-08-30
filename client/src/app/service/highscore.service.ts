@@ -12,7 +12,6 @@ export class HighscoreService implements IHighscoreService {
 
   constructor(private gameService: GameService,
               private http: Http) {
-    // console.log("HighscoreService init");
   }
 
   public saveHighscore(): Observable<any> {

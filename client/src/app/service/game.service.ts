@@ -52,7 +52,6 @@ export class GameService {
   constructor(private tretrominoService: TretrominoService,
               private router: Router,
               private configService:ConfigService) {
-    console.log("gameservice init");
     this.configService.init(this.getGameOptions());
     this.gameOverSubject = new ReplaySubject<boolean>(1);
     this.gameStoppedSubject = new ReplaySubject<boolean>(1);
@@ -71,7 +70,6 @@ export class GameService {
   }
 
   public setGameOptions(config: GameConfig) {
-    console.log("setGameOptions", config);
     this.actualScore.incLevelPerLine = config.incLevelPerLine;
     this.actualScore.gameSpeedModifier = config.gameSpeedModifier;
     this.initalMoveInterval = config.initalMoveInterval;
@@ -107,8 +105,6 @@ export class GameService {
   }
 
   public setName(name) {
-    // console.log('name');
-    // console.log(name);
     this.actualScore.name = name;
   }
 
@@ -117,7 +113,6 @@ export class GameService {
   }
 
   public resetGame() {
-    // console.log("reset game");
     this.landedGrid = this.deepClone(this.emptyLandedGrid);
     this.actualScore = new Score();
     this.actualScoreSubject = new ReplaySubject(1);
@@ -187,7 +182,6 @@ export class GameService {
         break;
       case InputEvents.NEWGAME:
         this.newGame(true, true);
-        console.log(this.configService.getGameConfig().forceReload);
         if (this.configService.getGameConfig().forceReload) {
           window.location.href = '/';
         } else {
