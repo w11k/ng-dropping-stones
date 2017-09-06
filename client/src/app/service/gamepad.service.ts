@@ -7,7 +7,7 @@ import {Subject} from "rxjs";
 export class GamepadService {
   gamepad_count: number = 2;     // number of available gamepads
   axisInputThrottle: number = 100; // time in ms before a second click will be applied
-  buttonInputThrottle: number = 300;
+  buttonInputThrottle: number = 200;
 
   private buttonInputSubject = new Subject();
   private axisInputSubject = new Subject();
