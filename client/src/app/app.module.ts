@@ -19,11 +19,11 @@ import {HighscoreLocalStorageService} from "./service/highscoreLocalStorage.serv
 import {environment} from "../environments/environment";
 import {ConfigService} from "./service/config.service";
 
-export function injectHighscoreService(any: any, dependencies: any) {
+export function injectHighscoreService(gameService: GameService, http: Http) {
   if (environment.rpi) {
-    return new HighscoreLocalStorageService(any, dependencies);
+    return new HighscoreLocalStorageService(gameService, http);
   } else {
-    return new HighscoreService(any, dependencies);
+    return new HighscoreService(gameService, http);
   }
 }
 

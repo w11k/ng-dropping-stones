@@ -1,12 +1,11 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
 
-import {GameComponent, GameAppComponent} from './game-app.component';
+import {GameAppComponent} from './game-app.component';
+import {GameComponent} from '../game/game.component';
 
 describe('GameComponent', () => {
-  let component: GameAppComponent;
+  let component: GameComponent;
   let fixture: ComponentFixture<GameComponent>;
 
   beforeEach(async(() => {

@@ -1,11 +1,12 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {Observable, Subscription} from "rxjs";
-import {TretrominoService} from "../../service/tretromino.service";
-import {Tretromino} from "../../service/model/tretrominos/tetromino.model";
-import {GameService} from "../../service/game.service";
-import {GamepadService} from "../../service/gamepad.service";
-import {HighscoreService} from "../../service/highscore.service";
-import {Highscore} from "../../service/model/score.model";
+import {TretrominoService} from '../../service/tretromino.service';
+import {Tretromino} from '../../service/model/tretrominos/tetromino.model';
+import {GameService} from '../../service/game.service';
+import {GamepadService} from '../../service/gamepad.service';
+import {HighscoreService} from '../../service/highscore.service';
+import {Highscore} from '../../service/model/score.model';
+import {Subscription} from 'rxjs/Subscription';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'game-info-board',
@@ -14,14 +15,14 @@ import {Highscore} from "../../service/model/score.model";
 })
 export class InfoBoardComponent implements OnInit, OnDestroy {
   gamepadAvailable: Boolean;
-  highscore:Highscore;
+  highscore: Highscore;
 
   private scoreSubscription: Subscription;
   private highscoreSubscription: Subscription;
-  private name: string = '';
-  private level: number = 0;
-  private score: number = 0;
-  private lines: number = 0;
+  public name = '';
+  public level = 0;
+  public score = 0;
+  public lines = 0;
 
   constructor(private tretrominoService: TretrominoService,
               private gameService: GameService,

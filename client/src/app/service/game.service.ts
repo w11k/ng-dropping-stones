@@ -1,12 +1,14 @@
 import {Injectable} from '@angular/core';
-import {Subject, Observable, ReplaySubject} from "rxjs";
-import {InputEvents} from "./game.constants";
-import {Tretromino} from "./model/tretrominos/tetromino.model";
-import {TretrominoService} from "./tretromino.service";
-import {PotentialPosition} from "./model/potential-position.model";
-import {Score} from "./model/score.model";
-import {Router} from "@angular/router";
-import {ConfigService, GameConfig} from "./config.service";
+import {InputEvents} from './game.constants';
+import {Tretromino} from './model/tretrominos/tetromino.model';
+import {TretrominoService} from './tretromino.service';
+import {PotentialPosition} from './model/potential-position.model';
+import {Score} from './model/score.model';
+import {Router} from '@angular/router';
+import {ConfigService, GameConfig} from './config.service';
+import {Subject} from 'rxjs/Subject';
+import {Observable} from 'rxjs/Observable';
+import {ReplaySubject} from 'rxjs/ReplaySubject';
 
 @Injectable()
 export class GameService {
@@ -38,9 +40,9 @@ export class GameService {
   private landedGrid: Array<Array<number>> = this.deepClone(this.emptyLandedGrid);
 
   private movingTretromino: Tretromino;
-  private initalMoveInterval: number = 200;
+  private initalMoveInterval = 200;
 
-  private lastTimestamp: number = 0;
+  private lastTimestamp = 0;
   private actualScore: Score = new Score();
 
   private gameOverSubject: Subject<boolean>;
@@ -51,7 +53,7 @@ export class GameService {
 
   constructor(private tretrominoService: TretrominoService,
               private router: Router,
-              private configService:ConfigService) {
+              private configService: ConfigService) {
     this.configService.init(this.getGameOptions());
     this.gameOverSubject = new ReplaySubject<boolean>(1);
     this.gameStoppedSubject = new ReplaySubject<boolean>(1);
@@ -81,7 +83,7 @@ export class GameService {
       'gameSpeedModifier': this.actualScore.gameSpeedModifier,
       'initalMoveInterval': this.initalMoveInterval,
       'forceReload': false
-    }
+    };
   }
 
   public getLandedGameGrid(): Observable<Array<Array<number>>> {
@@ -125,7 +127,7 @@ export class GameService {
     if (stop) {
       this.gameStoppedSubject.next(true);
     } else {
-      this.gameStoppedSubject.next(false)
+      this.gameStoppedSubject.next(false);
     }
     if (reset) {
       this.resetGame();
@@ -133,12 +135,13 @@ export class GameService {
   }
 
   public gameLoop(timestamp: number) {
-    let progress = timestamp - this.lastTimestamp;
+    const progress = timestamp - this.lastTimestamp;
 
-    if (progress > (this.initalMoveInterval / 100) * ((10 - this.actualScore.getGameSpeed()) * 10)) { // time before moving tretromino one row down
+    if (progress > (this.initalMoveInterval / 100) * ((10 - this.actualScore.getGameSpeed()) * 10)) {
+      // time before moving tretromino one row down
       // check collision
-      let potentialPosition = new PotentialPosition(this.movingTretromino.row + 1, this.movingTretromino.col);
-      let collision = this.checkPossibleMoveCollision(potentialPosition);
+      const potentialPosition = new PotentialPosition(this.movingTretromino.row + 1, this.movingTretromino.col);
+      const collision = this.checkPossibleMoveCollision(potentialPosition);
 
       if (collision) {
         this.addTretrominoToLandedGrid(this.movingTretromino);
@@ -192,45 +195,45 @@ export class GameService {
         this.newGame(true, true);
         this.router.navigateByUrl('/highscore');
         break;
-      default: //nothing to do
+      default: // nothing to do
     }
   }
 
   private checkPossibleMoveCollision(possibleNextPosition: PotentialPosition): boolean {
-    let shape = this.movingTretromino.shape;
-    let pieceCol = possibleNextPosition.col;
-    let pieceRow = possibleNextPosition.row;
+    const shape = this.movingTretromino.shape;
+    const pieceCol = possibleNextPosition.col;
+    const pieceRow = possibleNextPosition.row;
     return this.checkPossibleCollision(shape, pieceRow, pieceCol);
   }
 
   private checkPossibleRotationCollision(potentialShape: Array<Array<number>>): boolean {
-    let shape = potentialShape;
-    let pieceCol = this.movingTretromino.col;
-    let pieceRow = this.movingTretromino.row;
+    const shape = potentialShape;
+    const pieceCol = this.movingTretromino.col;
+    const pieceRow = this.movingTretromino.row;
     return this.checkPossibleCollision(shape, pieceRow, pieceCol);
   }
 
   private checkPossibleRotationCollisionWithPossibleCol(potentialShape: Array<Array<number>>, possibleCol: number): boolean {
-    let shape = potentialShape;
-    let pieceCol = possibleCol;
-    let pieceRow = this.movingTretromino.row;
+    const shape = potentialShape;
+    const pieceCol = possibleCol;
+    const pieceRow = this.movingTretromino.row;
     return this.checkPossibleCollision(shape, pieceRow, pieceCol);
   }
 
   private checkPossibleCollision(shape: Array<Array<number>>, pieceRow: number, pieceCol: number): boolean {
     for (let row = 0; row < shape.length; row++) {
       for (let col = 0; col < shape[row].length; col++) {
-        if (shape[row][col] != 0) {
+        if (shape[row][col] !== 0) {
           if (col + pieceCol < 0) {
-            //this block would be to the left of the playing field
+            // this block would be to the left of the playing field
             return true;
           } else if (col + pieceCol >= this.landedGrid[0].length) {
-            //this block would be to the right of the playing field
+            // this block would be to the right of the playing field
             return true;
           } else if (row + pieceRow >= this.landedGrid.length) {
-            //this block would be below the playing field
+            // this block would be below the playing field
             return true;
-          } else if (this.landedGrid[row + pieceRow][col + pieceCol] != 0) {
+          } else if (this.landedGrid[row + pieceRow][col + pieceCol] !== 0) {
             // collision with already landed element
             return true;
           }
@@ -241,11 +244,11 @@ export class GameService {
   }
 
   private removeCompleteLines() {
-    let fullLines: number = 0;
+    let fullLines = 0;
 
     for (let rowIndex = 0; rowIndex < this.landedGrid.length; rowIndex++) {
-      let row = this.landedGrid[rowIndex];
-      if (row.filter((cell) => cell == 0).length == 0) {
+      const row = this.landedGrid[rowIndex];
+      if (row.filter((cell) => cell === 0).length === 0) {
         // row doenst contain 0 values -> row is complete
         this.landedGrid.splice(rowIndex, 1);
         this.landedGrid.unshift([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
@@ -259,7 +262,7 @@ export class GameService {
   private addTretrominoToLandedGrid(actualPiece: Tretromino) {
     for (let row = 0; row < actualPiece.shape.length; row++) {
       for (let col = 0; col < actualPiece.shape[row].length; col++) {
-        if (actualPiece.shape[row][col] != 0) {
+        if (actualPiece.shape[row][col] !== 0) {
           this.landedGrid[row + actualPiece.row][col + actualPiece.col] = actualPiece.type.valueOf();
         }
       }
@@ -272,8 +275,8 @@ export class GameService {
   }
 
   private rotateTretrominoClockWise() {
-    let potentialShape = this.movingTretromino.getPotentialClockwiseShape();
-    let collision = this.checkPossibleRotationCollision(potentialShape);
+    const potentialShape = this.movingTretromino.getPotentialClockwiseShape();
+    const collision = this.checkPossibleRotationCollision(potentialShape);
 
     if (!collision) {
       this.movingTretromino.rotateClockwise();
@@ -284,8 +287,8 @@ export class GameService {
   }
 
   private rotateTretrominoCounterClockWise() {
-    let potentialShape = this.movingTretromino.getPotentialCounterClockwiseShape();
-    let collision = this.checkPossibleRotationCollision(potentialShape);
+    const potentialShape = this.movingTretromino.getPotentialCounterClockwiseShape();
+    const collision = this.checkPossibleRotationCollision(potentialShape);
     if (!collision) {
       this.movingTretromino.rotateCounterClockwise();
       this.redrawMovingTretromino();
@@ -296,8 +299,8 @@ export class GameService {
 
   private checkRightBorderRotateCollision(potentialShape: Array<Array<number>>) {
     if (this.movingTretromino.col + potentialShape[0].length >= this.landedGrid[0].length) {
-      let potentialNewCol = potentialShape[0].length;
-      let rightRotationCollision = this.checkPossibleRotationCollisionWithPossibleCol(potentialShape, potentialNewCol);
+      const potentialNewCol = potentialShape[0].length;
+      const rightRotationCollision = this.checkPossibleRotationCollisionWithPossibleCol(potentialShape, potentialNewCol);
       if (!rightRotationCollision) {
         this.movingTretromino.rotateClockwise();
         this.movingTretromino.col = this.landedGrid[0].length - potentialShape[0].length;
@@ -307,8 +310,8 @@ export class GameService {
   }
 
   private moveTretrominoRight() {
-    let potentialPosition = new PotentialPosition(this.movingTretromino.row, this.movingTretromino.col + 1);
-    let collision = this.checkPossibleMoveCollision(potentialPosition);
+    const potentialPosition = new PotentialPosition(this.movingTretromino.row, this.movingTretromino.col + 1);
+    const collision = this.checkPossibleMoveCollision(potentialPosition);
     if (!collision) {
       this.movingTretromino.col = potentialPosition.col;
       this.redrawMovingTretromino();
@@ -316,8 +319,8 @@ export class GameService {
   }
 
   private moveTretrominoLeft() {
-    let potentialPosition = new PotentialPosition(this.movingTretromino.row, this.movingTretromino.col - 1);
-    let collision = this.checkPossibleMoveCollision(potentialPosition);
+    const potentialPosition = new PotentialPosition(this.movingTretromino.row, this.movingTretromino.col - 1);
+    const collision = this.checkPossibleMoveCollision(potentialPosition);
     if (!collision) {
       this.movingTretromino.col = potentialPosition.col;
       this.redrawMovingTretromino();
@@ -330,8 +333,8 @@ export class GameService {
     //   return;
     // }
 
-    let potentialPosition = new PotentialPosition(this.movingTretromino.row + 1, this.movingTretromino.col);
-    let collision = this.checkPossibleMoveCollision(potentialPosition);
+    const potentialPosition = new PotentialPosition(this.movingTretromino.row + 1, this.movingTretromino.col);
+    const collision = this.checkPossibleMoveCollision(potentialPosition);
 
     if (!collision) {
       this.movingTretromino.row = this.movingTretromino.row + 1;
@@ -346,8 +349,8 @@ export class GameService {
     //   return;
     // }
 
-    let potentialPosition = new PotentialPosition(this.movingTretromino.row + 1, this.movingTretromino.col);
-    let collision = this.checkPossibleMoveCollision(potentialPosition);
+    const potentialPosition = new PotentialPosition(this.movingTretromino.row + 1, this.movingTretromino.col);
+    const collision = this.checkPossibleMoveCollision(potentialPosition);
 
     if (!collision) {
       this.movingTretromino.row = this.movingTretromino.row + 1;
@@ -360,6 +363,6 @@ export class GameService {
   }
 
   private deepClone(input) {
-    return JSON.parse(JSON.stringify(input))
+    return JSON.parse(JSON.stringify(input));
   }
 }

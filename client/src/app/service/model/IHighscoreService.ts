@@ -1,6 +1,5 @@
-import {Score} from "./score.model";
-import {Observable} from "rxjs";
-import {Response} from "@angular/http";
+import {Score} from './score.model';
+import {Observable} from 'rxjs/Observable';
 
 export interface IHighscoreService {
   actualScore: Score;

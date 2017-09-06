@@ -1,4 +1,3 @@
-///<reference path="../../service/game.service.ts"/>
 import {Component, OnInit, HostListener, OnDestroy} from "@angular/core";
 import {GameService} from "../../service/game.service";
 import {Score, Highscore} from "../../service/model/score.model";
@@ -13,8 +12,8 @@ import {Subscription} from "rxjs/Subscription";
   styleUrls: ['./game-highscore.component.less']
 })
 export class GameHighscoreComponent implements OnInit, OnDestroy {
-  private highscore: Highscore[];
-  private highscoreAlltime: Highscore[];
+  public highscore: Highscore[];
+  public highscoreAlltime: Highscore[];
   public gamepadAvailable: boolean;
 
   public playerName: string;

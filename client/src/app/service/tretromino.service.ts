@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
-import {Subject, ReplaySubject, Observable} from "rxjs";
-import {Tretromino} from "./model/tretrominos/tetromino.model";
-import {LTretromino} from "./model/tretrominos/l-tetromino.model";
-import {OTretromino} from "./model/tretrominos/o-tetromino.model";
-import {TTretromino} from "./model/tretrominos/t-tretomino.model";
-import {ITretromino} from "./model/tretrominos/i-tetromino.model";
-import {JTretromino} from "./model/tretrominos/j-tetromino.model";
-import {STretromino} from "./model/tretrominos/s-tetromino.model";
-import {ZTretromino} from "./model/tretrominos/z-tetromino.model";
+import {Tretromino} from './model/tretrominos/tetromino.model';
+import {LTretromino} from './model/tretrominos/l-tetromino.model';
+import {OTretromino} from './model/tretrominos/o-tetromino.model';
+import {TTretromino} from './model/tretrominos/t-tretomino.model';
+import {ITretromino} from './model/tretrominos/i-tetromino.model';
+import {JTretromino} from './model/tretrominos/j-tetromino.model';
+import {STretromino} from './model/tretrominos/s-tetromino.model';
+import {ZTretromino} from './model/tretrominos/z-tetromino.model';
+import {Subject} from 'rxjs/Subject';
+import {ReplaySubject} from 'rxjs/ReplaySubject';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class TretrominoService {
@@ -21,7 +23,7 @@ export class TretrominoService {
   }
 
   public getNewTretromino(): Tretromino {
-    let newMovingPiece: Tretromino = this.nextRandomTretromino;
+    const newMovingPiece: Tretromino = this.nextRandomTretromino;
     this.generateNewRandomPiece();
     newMovingPiece.col = 4;
     return newMovingPiece;
@@ -32,7 +34,7 @@ export class TretrominoService {
   }
 
   private generateNewRandomPiece() {
-    let randomNumber = this.getRandomNumber(0, 7);
+    const randomNumber = this.getRandomNumber(0, 7);
 
     switch (randomNumber) {
       case 0:

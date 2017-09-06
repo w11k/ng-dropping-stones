@@ -1,10 +1,14 @@
 import {Injectable} from '@angular/core';
-import {GameService} from "./game.service";
-import {Score, Highscore} from "./model/score.model";
-import * as _ from "lodash";
-import {Http, Response} from "@angular/http";
-import {Observable, Subject, ReplaySubject} from "rxjs";
-import {IHighscoreService} from "./model/IHighscoreService";
+import {GameService} from './game.service';
+import {Score, Highscore} from './model/score.model';
+import * as _ from 'lodash';
+import {Http, Response} from '@angular/http';
+import {IHighscoreService} from './model/IHighscoreService';
+import {ReplaySubject} from 'rxjs/ReplaySubject';
+import {Observable} from 'rxjs/Observable';
+import {Subject} from 'rxjs/Subject';
+import 'rxjs/add/operator/first';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class HighscoreLocalStorageService implements IHighscoreService {
@@ -21,14 +25,14 @@ export class HighscoreLocalStorageService implements IHighscoreService {
   }
 
   public saveHighscore(): Observable<any> {
-    let subject = new Subject();
+    const subject = new Subject();
 
     return this.gameService
       .getActualScore()
       .first()
       .map(score => {
         this.actualScore = score;
-        let array = this.getHighscoreFromLocalStorage();
+        const array = this.getHighscoreFromLocalStorage();
         array.push(score.getData());
         localStorage.setItem('ng2Tetris-Highscore', JSON.stringify(array));
 
@@ -41,36 +45,36 @@ export class HighscoreLocalStorageService implements IHighscoreService {
   }
 
   public getHighscoreForToday(): Observable<any> {
-    let now = new Date();
-    let startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const now = new Date();
+    const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     let obj = this.getHighscoreFromLocalStorage();
 
     obj = _.filter(obj, (item) => {
-      return new Date(item.createdAt) > startOfToday
+      return new Date(item.createdAt) > startOfToday;
     });
     this.highscoreTodaySubject.next(obj);
     return this.highscoreTodaySubject.asObservable();
   }
 
   public getHighscoreAlltime(): Observable<any> {
-    let obj = this.getHighscoreFromLocalStorage();
+    const obj = this.getHighscoreFromLocalStorage();
 
     this.highscoreAlltimeSubject.next(obj);
     return this.highscoreAlltimeSubject.asObservable();
   }
 
   public getHighestHighscore() {
-    let obj = this.getHighscoreFromLocalStorage();
+    const obj = this.getHighscoreFromLocalStorage();
     this.highestHighScoreSubject.next(obj[0]);
     return this.highestHighScoreSubject.asObservable();
-  };
+  }
 
   private getHighscoreFromLocalStorage(): Highscore[] {
     return this.extractDataAndSort(JSON.parse(localStorage.getItem('ng2Tetris-Highscore')));
   }
 
   private extractData(res: Response) {
-    let body = res.json();
+    const body = res.json();
     return body || {};
   }
 
@@ -80,7 +84,7 @@ export class HighscoreLocalStorageService implements IHighscoreService {
 
   private handleError(error: any) {
     console.log(error);
-    let errMsg = (error.message) ? error.message :
+    const errMsg = (error.message) ? error.message :
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';
     console.error(errMsg); // log to console instead
     console.log(error);
@@ -88,7 +92,7 @@ export class HighscoreLocalStorageService implements IHighscoreService {
   }
 
   public playerNameExists(name: string): Observable<any> {
-    let obj = this.getHighscoreFromLocalStorage();
+    const obj = this.getHighscoreFromLocalStorage();
     this.playerNameExistsSubject.next(_.find(obj, {'name': name}));
     return this.playerNameExistsSubject.asObservable();
   }

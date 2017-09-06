@@ -1,10 +1,6 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
-
-import { GameComponent } from './game.component';
-import {GameHighscoreComponent} from "./game-highscore.component";
+import {GameHighscoreComponent} from './game-highscore.component';
 
 describe('GameComponent', () => {
   let component: GameHighscoreComponent;

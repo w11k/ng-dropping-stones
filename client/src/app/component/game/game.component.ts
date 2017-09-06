@@ -1,10 +1,9 @@
-///<reference path="../../service/game.service.ts"/>
 import {Component, OnInit, HostListener, OnDestroy} from "@angular/core";
 import {GameService} from "../../service/game.service";
-import {Subscription} from "rxjs";
 import {GamepadService} from "../../service/gamepad.service";
 import {Router} from "@angular/router";
 import {HighscoreService} from "../../service/highscore.service";
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'game',
@@ -13,9 +12,9 @@ import {HighscoreService} from "../../service/highscore.service";
 })
 export class GameComponent implements OnInit, OnDestroy {
   private gameOver: boolean = false;
-  private gameStopped:boolean = false;
+  private gameStopped: boolean = false;
   private gameOverSubscription: Subscription;
-  private gameStoppedSubscription:Subscription;
+  private gameStoppedSubscription: Subscription;
   private actualStoreSubscription: Subscription;
   private saveHighScoreSubscription: Subscription;
   private saveHighScoreDoneSubscription: Subscription;
@@ -28,7 +27,7 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.actualStoreSubscription = this.gameService.getActualScore().subscribe(actualScore => actualScore.name === '' ? this.router.navigateByUrl(''): null);
+    this.actualStoreSubscription = this.gameService.getActualScore().subscribe(actualScore => actualScore.name === '' ? this.router.navigateByUrl('') : null);
     this.gameOverSubscription = this.gameService.getGameOver().subscribe(gameOver => this.gameOver = gameOver);
     this.gameStoppedSubscription = this.gameService.getGameStopped().subscribe(gameStopped => this.gameStopped = gameStopped);
     this.newGame();
@@ -48,7 +47,7 @@ export class GameComponent implements OnInit, OnDestroy {
     }
     if (this.gameOver) {
       // TODO: stop Game Loop, print Game Over Stuff
-      this.gameOverFn()
+      this.gameOverFn();
     }
   }
 
@@ -79,13 +78,13 @@ export class GameComponent implements OnInit, OnDestroy {
       this.gameOverSubscription.unsubscribe();
     }
     if (this.gameStoppedSubscription) {
-      this.gameStoppedSubscription.unsubscribe()
+      this.gameStoppedSubscription.unsubscribe();
     }
     if (this.saveHighScoreDoneSubscription) {
-      this.saveHighScoreDoneSubscription.unsubscribe()
+      this.saveHighScoreDoneSubscription.unsubscribe();
     }
     if (this.saveHighScoreSubscription) {
-      this.saveHighScoreSubscription.unsubscribe()
+      this.saveHighScoreSubscription.unsubscribe();
     }
   }
 }

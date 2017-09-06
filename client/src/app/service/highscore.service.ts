@@ -1,10 +1,13 @@
 import {Injectable} from '@angular/core';
-import {GameService} from "./game.service";
-import {Score, Highscore} from "./model/score.model";
-import * as _ from "lodash";
-import {Http, Response} from "@angular/http";
-import {Observable} from "rxjs";
-import {IHighscoreService} from "./model/IHighscoreService";
+import {GameService} from './game.service';
+import {Score} from './model/score.model';
+import * as _ from 'lodash';
+import {Http, Response} from '@angular/http';
+import {IHighscoreService} from './model/IHighscoreService';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/first';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class HighscoreService implements IHighscoreService {
@@ -46,18 +49,18 @@ export class HighscoreService implements IHighscoreService {
   }
 
   extractData(res: Response) {
-    let body = res.json();
+    const body = res.json();
     return body || {};
   }
 
   extractDataAndSort(res: Response) {
-    let body = res.json();
+    const body = res.json();
     return _.orderBy(body, ['score'], ['desc']) || {};
   }
 
   handleError(error: any) {
     console.log(error);
-    let errMsg = (error.message) ? error.message :
+    const errMsg = (error.message) ? error.message :
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';
     console.error(errMsg); // log to console instead
     console.log(error);

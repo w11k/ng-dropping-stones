@@ -1,8 +1,8 @@
 import {Component, OnInit, OnDestroy, HostBinding, Input} from "@angular/core";
-
-import {Subscription, Observable} from "rxjs";
 import {TretrominoType} from "../../service/game.constants";
 import {Tretromino} from "../../service/model/tretrominos/tetromino.model";
+import {Observable} from 'rxjs/Observable';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'game-tretromino',
@@ -16,7 +16,7 @@ export class GameTretrominoComponent implements OnInit, OnDestroy {
 
   @Input("tretrominoObservable") tretrominoObservable: Observable<Tretromino>;
 
-  private tretrominoShape: Array<Array<number>>;
+  public tretrominoShape: Array<Array<number>>;
   private tretrominoSubscription: Subscription;
   private type: TretrominoType;
 

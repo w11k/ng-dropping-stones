@@ -1,4 +1,3 @@
-///<reference path="../../service/game.service.ts"/>
 import {Component, OnInit, HostListener, OnDestroy} from "@angular/core";
 import {GameService} from "../../service/game.service";
 import {GamepadService} from "../../service/gamepad.service";

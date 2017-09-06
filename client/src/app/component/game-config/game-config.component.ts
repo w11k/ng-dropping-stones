@@ -1,4 +1,3 @@
-///<reference path="../../service/game.service.ts"/>
 import {Component, OnInit} from "@angular/core";
 import {GameService} from "../../service/game.service";
 import {Router} from "@angular/router";
