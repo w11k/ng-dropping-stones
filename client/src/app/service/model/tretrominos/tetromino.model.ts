@@ -1,11 +1,11 @@
-import {GAME_CELL_SIZE, GAME_BOARDER_SIZE, TretrominoType} from "../../game.constants";
-import {TretrominoPosition} from "../tretromino-position.model";
+import {GAME_CELL_SIZE, GAME_BOARDER_SIZE, TretrominoType} from '../../game.constants';
+import {TretrominoPosition} from '../tretromino-position.model';
 export class Tretromino {
 
   private _shape: Array<Array<number>>;
-  private actualRotation: number =0;
-  private _col: number = 0;
-  private _row: number = 0;
+  private actualRotation = 0;
+  private _col = 0;
+  private _row = 0;
 
   constructor(private rotationMatrix: Array<Array<Array<number>>>, public type: TretrominoType) {
     this._shape = rotationMatrix[this.actualRotation];
@@ -32,10 +32,10 @@ export class Tretromino {
   }
 
   public calculatePosition(): TretrominoPosition {
-    let top = this.row * GAME_CELL_SIZE;
-    let left = GAME_BOARDER_SIZE + GAME_CELL_SIZE * this.col;
+    const top = this.row * GAME_CELL_SIZE;
+    const left = GAME_BOARDER_SIZE + GAME_CELL_SIZE * this.col;
 
-    return new TretrominoPosition(top, left)
+    return new TretrominoPosition(top, left);
   }
 
   public rotateClockwise() {
@@ -49,7 +49,7 @@ export class Tretromino {
 
   private getNextClockwiseRotation(): number {
     let newRotation = this.actualRotation;
-    if(newRotation + 1  < this.rotationMatrix.length) {
+    if (newRotation + 1  < this.rotationMatrix.length) {
       newRotation++;
     } else {
       newRotation = 0;
@@ -68,8 +68,8 @@ export class Tretromino {
 
   private getNextCounterClockwiseRotation(): number {
     let newRotation = this.actualRotation;
-    if(newRotation - 1  < 0) {
-      newRotation = this.rotationMatrix.length -1;
+    if (newRotation - 1  < 0) {
+      newRotation = this.rotationMatrix.length - 1;
     } else {
       newRotation--;
     }

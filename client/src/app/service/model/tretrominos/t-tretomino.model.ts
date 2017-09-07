@@ -1,5 +1,5 @@
-import {Tretromino} from "./tetromino.model";
-import {TretrominoType} from "../../game.constants";
+import {Tretromino} from './tetromino.model';
+import {TretrominoType} from '../../game.constants';
 export class TTretromino extends Tretromino {
   constructor() {
     super(ROTATIONS_MATRIX, TretrominoType.TTYPE);
@@ -7,14 +7,22 @@ export class TTretromino extends Tretromino {
 }
 
 const ROTATIONS_MATRIX = [
-  [[0,1,0],
-    [1,1,1]],
-  [[1,0],
-    [1,1],
-    [1,0]],
-  [[1,1,1],
-    [0,1,0]],
-  [[0,1],
-    [1,1],
-    [0,1]]
+  [
+    [0, 1, 0],
+    [1, 1, 1]
+  ],
+  [
+    [1, 0],
+    [1, 1],
+    [1, 0]
+  ],
+  [
+    [1, 1, 1],
+    [0, 1, 0]
+  ],
+  [
+    [0, 1],
+    [1, 1],
+    [0, 1]
+  ]
 ];
