@@ -1,5 +1,5 @@
-import { Tetris, Status } from "./tetris.model";
-import { tetromino } from "../tetromino/tetromino";
+import { Tetris, Status } from './tetris.model';
+import { tetromino } from '../tetromino/tetromino';
 
 const board = new Array(15).fill(
   new Array(10).fill(null)

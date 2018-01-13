@@ -1,18 +1,18 @@
 import { Action } from '@ngrx/store';
 import { Tetris } from '../game-logic/tetris/tetris.model';
 import { defaultState } from '../game-logic/tetris/tetris';
+import { tickMapper } from './mappers/tick-mapper';
 
-export const INIT = 'INIT';
+export const TICK = 'TICK';
 
 export function tetrisReducer (state: Tetris = defaultState, action: Action) {
 
   switch (action.type) {
-    case INIT:
-      
-      break;
-  
+    case TICK:
+      return tickMapper(state);
+
     default:
       return state;
   }
 
-};
+}

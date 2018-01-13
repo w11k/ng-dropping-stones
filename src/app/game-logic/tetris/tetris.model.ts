@@ -1,4 +1,4 @@
-import { TetrominoType, Tetromino } from "../tetromino/tetromino.model";
+import { TetrominoType, Tetromino } from '../tetromino/tetromino.model';
 
 export interface Tetris {
   status: Status;
@@ -7,6 +7,6 @@ export interface Tetris {
 }
 
 export enum Status {
-  PLAYING = "PLAYING",
-  GAME_OVER = "GAME_OVER"
+  PLAYING = 'PLAYING',
+  GAME_OVER = 'GAME_OVER'
 }

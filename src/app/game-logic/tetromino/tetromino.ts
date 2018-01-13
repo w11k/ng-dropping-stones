@@ -10,7 +10,7 @@ export class tetromino {
     TetrominoType.S,
     TetrominoType.T,
     TetrominoType.Z,
-  ]
+  ];
 
   private static coordinates = [
     [ // I
@@ -49,7 +49,7 @@ export class tetromino {
       [0, 1, 1],
     ],
 
-  ]
+  ];
 
   constructor() { }
 

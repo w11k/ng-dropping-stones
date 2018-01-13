@@ -1,7 +1,7 @@
 export interface Tetromino {
   type: TetrominoType;
   offset: Offset;
-  coordinates: number[][]
+  coordinates: number[][];
 }
 
 export interface Offset {
