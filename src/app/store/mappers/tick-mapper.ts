@@ -1,10 +1,21 @@
 import { Tetris, Status } from '../../game-logic/tetris/tetris.model';
+<<<<<<< Updated upstream
 import { boardWidth } from '../../game-logic/tetris/settings';
 import { TetrominoHelper } from '../../game-logic/tetromino/tetromino-helper';
 import * as _ from 'lodash';
 
 export const tickMapper = (state: Tetris) => {
   const newState = _.cloneDeep(state) as Tetris;
+=======
+// import { clone } from '../helpers';
+import { boardWidth } from '../../game-logic/tetris/settings';
+import { TetrominoHelper } from '../../game-logic/tetromino/tetromino-helper';
+import * as clone from 'clone';
+
+export const tickMapper = (state: Tetris) => {
+  const newState = clone(state) as Tetris;
+  console.log(newState);
+>>>>>>> Stashed changes
   if (newState.current === null) {
     return state;
   }
