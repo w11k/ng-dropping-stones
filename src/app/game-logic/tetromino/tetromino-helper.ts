@@ -1,6 +1,6 @@
 import { TetrominoType, Tetromino, Offset } from './tetromino.model';
 
-export class tetromino {
+export class TetrominoHelper {
 
   private static types: TetrominoType[] = [
     TetrominoType.I,
@@ -66,8 +66,9 @@ export class tetromino {
   }
 
   static getRandom(offset: Offset = { x: 0, y: 0 }): Tetromino {
-    const type = tetromino.random<TetrominoType>(tetromino.types);
-    const coordinates = tetromino.rotate(tetromino.coordinates[type], tetromino.random([0, 1, 2, 3]));
+    const type = TetrominoHelper.random<TetrominoType>(TetrominoHelper.types);
+    const coordinates = TetrominoHelper
+      .rotate(TetrominoHelper.coordinates[type], TetrominoHelper.random([0, 1, 2, 3]));
 
     const t: Tetromino = {
       type,

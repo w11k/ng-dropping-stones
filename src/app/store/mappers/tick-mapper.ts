@@ -1,9 +1,14 @@
-import { Tetris } from '../../game-logic/tetris/tetris.model';
+import { Tetris, Status } from '../../game-logic/tetris/tetris.model';
 import { clone } from '../helpers';
-import { tetromino } from '../../game-logic/tetromino/tetromino';
+import { boardWidth } from '../../game-logic/tetris/settings';
+import { TetrominoHelper } from '../../game-logic/tetromino/tetromino-helper';
 
 export const tickMapper = (state: Tetris) => {
   const newState = clone(state) as Tetris;
+  if (newState.current === null) {
+    return state;
+  }
+
   newState.current.offset.y += 1;
 
   if (collision(newState)) {
@@ -12,15 +17,26 @@ export const tickMapper = (state: Tetris) => {
     const offX = newState.current.offset.x;
     const offY = newState.current.offset.y;
 
+    let gameOver = false;
     // write block to board
     newState.current.coordinates.forEach((row, y) => {
       row.forEach((value, x) => {
         if (value === 1) {
+          // check if block reached the top
+          if (y + offY === 0) {
+            gameOver = true;
+          }
           newState.board[y + offY][x + offX] = newState.current.type;
         }
       });
     });
-    newState.current = tetromino.getRandom();
+    if (gameOver) {
+      console.log('GAME OVER');
+      newState.status = Status.GAME_OVER;
+      newState.current = null;
+    } else {
+      newState.current = TetrominoHelper.getRandom({ x: boardWidth / 2 - 1, y: -2 })
+    }
   }
 
   return newState;

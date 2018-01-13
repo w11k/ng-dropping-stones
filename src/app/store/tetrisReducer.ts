@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { Tetris } from '../game-logic/tetris/tetris.model';
-import { defaultState } from '../game-logic/tetris/tetris';
+import { defaultState } from '../game-logic/tetris/settings';
 import { tickMapper } from './mappers/tick-mapper';
 
 export const TICK = 'TICK';
