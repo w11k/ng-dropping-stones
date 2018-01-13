@@ -1,8 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-
 import { AppComponent } from './app.component';
+import { StoreModule } from '@ngrx/store';
+import { tetrisReducer } from './store/tetrisReducer';
 
 
 @NgModule({
@@ -10,7 +11,8 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    StoreModule.forRoot({ game: tetrisReducer })
   ],
   providers: [],
   bootstrap: [AppComponent]

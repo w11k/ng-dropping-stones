@@ -7,6 +7,6 @@ export interface Tetris {
 }
 
 export enum Status {
-  PLAYING = 'PLAYING',
-  GAME_OVER = 'GAME_OVER'
+  PLAYING = "PLAYING",
+  GAME_OVER = "GAME_OVER"
 }
