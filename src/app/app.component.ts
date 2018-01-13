@@ -21,11 +21,11 @@ export class AppComponent implements OnInit {
     this.game$ = store.pipe(
       map(state => state.game)
     );
-    this.game$.subscribe(console.log);
+    this.game$.subscribe(state => console.table(state.board));
   }
 
   ngOnInit(): void {
-    interval(1000).subscribe(() => {
+    interval(200).subscribe(() => {
       this.store.dispatch({type: TICK});
     });
   }
