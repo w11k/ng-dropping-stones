@@ -4,6 +4,7 @@ import { AppState } from '../store/state.model';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Tetris } from '../game-logic/tetris/tetris.model';
 import { map } from 'rxjs/operators';
+import { TICK } from '../store/tetrisReducer';
 
 @Component({
   selector: 'app-game-board',
@@ -24,6 +25,8 @@ export class GameBoardComponent implements OnInit {
       this.$game.next(game);
       //render board
     });
+
+    this.store.dispatch({type: TICK});
 
   }
 
