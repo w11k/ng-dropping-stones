@@ -8,7 +8,7 @@ import { interval } from 'rxjs/observable/interval';
 import { TetrominoType } from '../game-logic/tetromino/tetromino.model';
 import * as clone from 'clone';
 import { defaultState } from '../game-logic/tetris/settings';
-import { TICK, INIT } from '../store/actions/actions';
+import { TICK, INIT, LEFT, RIGHT } from '../store/actions/actions';
 
 @Component({
   selector: 'app-game-board',
@@ -38,21 +38,26 @@ export class GameBoardComponent implements OnInit {
       if (this.$game.getValue().status === Status.PLAYING) {
         this.store.dispatch({ type: TICK });
       } else {
-//        this.store.dispatch({ type: INIT });
+        // this.store.dispatch({ type: INIT });
       }
     });
 
   }
   controls(e: KeyboardEvent) {
+
+    if (this.$game.getValue().status === Status.GAME_OVER) {
+      return;
+    }
+
     switch (e.code) {
       case 'ArrowLeft':
-        console.log('left');
+        this.store.dispatch({ type: LEFT });
         break;
 
       case 'ArrowRight':
-        console.log('right');
+        this.store.dispatch({ type: RIGHT });
         break;
-    
+
       default:
         break;
     }
