@@ -8,7 +8,7 @@ import { interval } from 'rxjs/observable/interval';
 import { TetrominoType } from '../game-logic/tetromino/tetromino.model';
 import * as clone from 'clone';
 import { defaultState } from '../game-logic/tetris/settings';
-import { TICK, INIT, LEFT, RIGHT } from '../store/actions/actions';
+import { TICK, INIT, LEFT, RIGHT, ROTATE } from '../store/actions/actions';
 
 @Component({
   selector: 'app-game-board',
@@ -53,10 +53,11 @@ export class GameBoardComponent implements OnInit {
       case 'ArrowLeft':
         this.store.dispatch({ type: LEFT });
         break;
-
       case 'ArrowRight':
         this.store.dispatch({ type: RIGHT });
         break;
+      case 'Space':
+        this.store.dispatch({ type: ROTATE });
 
       default:
         break;
