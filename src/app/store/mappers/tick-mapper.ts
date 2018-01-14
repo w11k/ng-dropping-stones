@@ -23,7 +23,6 @@ export const tickMapper = (state: Tetris) => {
       row.forEach((value, x) => {
         if (value === 1) {
           // check if block reached the top
-          console.log('y', y + offY);
           if (y + offY <= 0) {
             gameOver = true;
           }
