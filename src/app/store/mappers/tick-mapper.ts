@@ -2,6 +2,7 @@ import { Tetris, Status } from '../../game-logic/tetris/tetris.model';
 import { boardWidth } from '../../game-logic/tetris/settings';
 import { TetrominoHelper } from '../../game-logic/tetromino/tetromino-helper';
 import * as clone from 'clone';
+import { TetrominoType } from '../../game-logic/tetromino/tetromino.model';
 
 export const tickMapper = (state: Tetris) => {
   const newState = clone(state) as Tetris;
@@ -37,6 +38,7 @@ export const tickMapper = (state: Tetris) => {
       newState.status = Status.GAME_OVER;
       newState.current = null;
     } else {
+      removeRows(newState.board);
       newState.current = TetrominoHelper.getRandom({ x: boardWidth / 2 - 1, y: -2 })
     }
   }
@@ -59,4 +61,13 @@ const collision = (state: Tetris) => {
     });
   });
 
+}
+
+const removeRows = (board: TetrominoType[][]) => {
+  board.forEach((row, i) => {
+    const full = row.every(val => val !== null);
+    if (full) {
+      board.unshift(board.splice(i, 1)[0].fill(null));
+    }
+  });
 }
