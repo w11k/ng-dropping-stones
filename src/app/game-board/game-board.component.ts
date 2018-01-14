@@ -47,7 +47,7 @@ export class GameBoardComponent implements OnInit {
   render(game: Tetris) {
     const display = clone(game.board);
     if (game.current === null) {
-      return;
+      return display;
     }
     const { offset } = game.current;
     game.current.coordinates.forEach((row, y) => {
