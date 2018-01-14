@@ -43,6 +43,20 @@ export class GameBoardComponent implements OnInit {
     });
 
   }
+  controls(e: KeyboardEvent) {
+    switch (e.code) {
+      case 'ArrowLeft':
+        console.log('left');
+        break;
+
+      case 'ArrowRight':
+        console.log('right');
+        break;
+    
+      default:
+        break;
+    }
+  }
 
   render(game: Tetris) {
     const display = clone(game.board);
