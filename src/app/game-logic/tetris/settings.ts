@@ -4,9 +4,7 @@ import { TetrominoHelper } from '../tetromino/tetromino-helper';
 export const boardWidth = 10;
 export const boardHeight = 15;
 
-const board = new Array(boardHeight).fill(
-  new Array(boardWidth).fill(null)
-);
+const board = Array(boardHeight).fill(0).map(x => Array(boardWidth).fill(null));
 
 export const defaultState: Tetris = {
   status: Status.PLAYING,

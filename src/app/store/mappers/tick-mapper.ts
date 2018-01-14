@@ -1,21 +1,10 @@
 import { Tetris, Status } from '../../game-logic/tetris/tetris.model';
-<<<<<<< Updated upstream
-import { boardWidth } from '../../game-logic/tetris/settings';
-import { TetrominoHelper } from '../../game-logic/tetromino/tetromino-helper';
-import * as _ from 'lodash';
-
-export const tickMapper = (state: Tetris) => {
-  const newState = _.cloneDeep(state) as Tetris;
-=======
-// import { clone } from '../helpers';
 import { boardWidth } from '../../game-logic/tetris/settings';
 import { TetrominoHelper } from '../../game-logic/tetromino/tetromino-helper';
 import * as clone from 'clone';
 
 export const tickMapper = (state: Tetris) => {
   const newState = clone(state) as Tetris;
-  console.log(newState);
->>>>>>> Stashed changes
   if (newState.current === null) {
     return state;
   }
@@ -34,10 +23,13 @@ export const tickMapper = (state: Tetris) => {
       row.forEach((value, x) => {
         if (value === 1) {
           // check if block reached the top
-          if (y + offY === 0) {
+          console.log('y', y + offY);
+          if (y + offY <= 0) {
             gameOver = true;
           }
-          newState.board[y + offY][x + offX] = newState.current.type;
+          if (newState.board[y + offY] !== undefined) {
+            newState.board[y + offY][x + offX] = newState.current.type;
+          }
         }
       });
     });

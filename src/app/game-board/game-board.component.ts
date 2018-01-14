@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Tetris } from '../game-logic/tetris/tetris.model';
 import { map } from 'rxjs/operators';
 import { TICK } from '../store/tetrisReducer';
+import { interval } from 'rxjs/observable/interval';
 
 @Component({
   selector: 'app-game-board',
@@ -24,9 +25,14 @@ export class GameBoardComponent implements OnInit {
     ).subscribe(game => {
       this.$game.next(game);
       //render board
+      console.table(game.board);
     });
 
-    this.store.dispatch({type: TICK});
+    interval(200).subscribe(() => {
+      if(this.$game.getValue().status === 'PLAYING') {
+        this.store.dispatch({ type: TICK });
+      }
+    });
 
   }
 
