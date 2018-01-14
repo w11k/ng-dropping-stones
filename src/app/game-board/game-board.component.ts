@@ -4,10 +4,11 @@ import { AppState } from '../store/state.model';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Tetris } from '../game-logic/tetris/tetris.model';
 import { map } from 'rxjs/operators';
-import { TICK } from '../store/tetrisReducer';
 import { interval } from 'rxjs/observable/interval';
 import { TetrominoType } from '../game-logic/tetromino/tetromino.model';
 import * as clone from 'clone';
+import { defaultState } from '../game-logic/tetris/settings';
+import { TICK, INIT } from '../store/actions/actions';
 
 @Component({
   selector: 'app-game-board',
@@ -23,6 +24,9 @@ export class GameBoardComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.store.dispatch({ type: INIT });
+
     this.store.pipe(
       map(state => state.game)
     ).subscribe(game => {
@@ -33,6 +37,8 @@ export class GameBoardComponent implements OnInit {
     interval(200).subscribe(() => {
       if (this.$game.getValue().status === 'PLAYING') {
         this.store.dispatch({ type: TICK });
+      } else {
+        this.store.dispatch({ type: INIT });
       }
     });
 
