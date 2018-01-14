@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../store/state.model';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Tetris } from '../game-logic/tetris/tetris.model';
+import { Tetris, Status } from '../game-logic/tetris/tetris.model';
 import { map } from 'rxjs/operators';
 import { interval } from 'rxjs/observable/interval';
 import { TetrominoType } from '../game-logic/tetromino/tetromino.model';
@@ -35,10 +35,10 @@ export class GameBoardComponent implements OnInit {
     });
 
     interval(200).subscribe(() => {
-      if (this.$game.getValue().status === 'PLAYING') {
+      if (this.$game.getValue().status === Status.PLAYING) {
         this.store.dispatch({ type: TICK });
       } else {
-        this.store.dispatch({ type: INIT });
+//        this.store.dispatch({ type: INIT });
       }
     });
 
