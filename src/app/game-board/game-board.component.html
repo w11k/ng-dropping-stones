@@ -1,3 +1,4 @@
 <div *ngFor='let col of display; let i = index'>
-  <span *ngFor='let val of display[i]'>{{val === null ? '_' : val}}</span>
+  <span *ngFor='let val of display[i]' [ngClass]='["block-" + val]'>
+  </span>
 </div>
