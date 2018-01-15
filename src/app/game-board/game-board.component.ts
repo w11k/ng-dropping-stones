@@ -58,6 +58,9 @@ export class GameBoardComponent implements OnInit {
         break;
       case 'Space':
         this.store.dispatch({ type: ROTATE });
+        break;
+      case 'ArrowDown':
+        this.store.dispatch({ type: TICK });
 
       default:
         break;
