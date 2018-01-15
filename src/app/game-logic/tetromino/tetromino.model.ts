@@ -10,11 +10,11 @@ export interface Offset {
 }
 
 export enum TetrominoType {
-  I,
-  J,
-  L,
-  O,
-  S,
-  T,
-  Z,
+  I = 'I',
+  J = 'J',
+  L = 'L',
+  O = 'O',
+  S = 'S',
+  T = 'T',
+  Z = 'Z'
 }
