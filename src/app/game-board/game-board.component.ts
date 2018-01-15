@@ -43,6 +43,7 @@ export class GameBoardComponent implements OnInit {
     });
 
   }
+
   controls(e: KeyboardEvent) {
 
     if (this.$game.getValue().status === Status.GAME_OVER) {
