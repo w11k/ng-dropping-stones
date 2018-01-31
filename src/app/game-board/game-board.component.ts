@@ -38,6 +38,7 @@ export class GameBoardComponent implements OnInit {
       if (this.$game.getValue().status === Status.PLAYING) {
         this.store.dispatch({ type: TICK });
       } else {
+        // GAME OVER LOGIC
         // this.store.dispatch({ type: INIT });
       }
     });
@@ -69,15 +70,16 @@ export class GameBoardComponent implements OnInit {
   }
 
   render(game: Tetris) {
+    // get a copy of gameboard
     const display = clone(game.board);
     if (game.current === null) {
       return display;
     }
+    // add current tetromino to gameboard
     const { offset } = game.current;
     game.current.coordinates.forEach((row, y) => {
       row.forEach((value, x) => {
         if (value === 1) {
-          // check if block reached the top
           if (display[y + game.current.offset.y] !== undefined) {
             display[y + offset.y][x + offset.x] = game.current.type;
           }
