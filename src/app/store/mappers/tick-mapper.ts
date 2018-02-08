@@ -13,7 +13,7 @@ export const tickMapper = (state: Tetris): Tetris => {
 
   newState.current.offset.y += 1;
 
-  if (dropCollision(newState)) {
+  if (dropCollision(newState.board, newState.current)) {
     console.log('collision!');
     newState.current.offset.y -= 1;
     const offX = newState.current.offset.x;

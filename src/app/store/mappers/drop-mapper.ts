@@ -9,7 +9,7 @@ export const dropMapper = (state: Tetris): Tetris => {
     return state;
   }
 
-  while (!dropCollision(newState)) {
+  while (!dropCollision(newState.board, newState.current)) {
     newState.current.offset.y += 1;
   }
 

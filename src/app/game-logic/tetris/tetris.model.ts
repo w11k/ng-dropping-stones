@@ -2,11 +2,13 @@ import { TetrominoType, Tetromino } from '../tetromino/tetromino.model';
 
 export interface Tetris {
   status: Status;
-  board: TetrominoType[][] | null[][];
+  board: Board;
   current: Tetromino;
   next: Tetromino;
   score: number;
 }
+
+export type Board = TetrominoType[][] | null[][];
 
 export enum Status {
   PLAYING = 'PLAYING',
