@@ -38,7 +38,7 @@ export const tickMapper = (state: Tetris) => {
       newState.status = Status.GAME_OVER;
       newState.current = null;
     } else {
-      removeRows(newState.board);
+      newState.score += removeRows(newState.board);
       newState.current = TetrominoHelper.getRandom({ x: boardWidth / 2 - 1, y: -2 })
     }
   }
@@ -63,11 +63,23 @@ const collision = (state: Tetris) => {
 
 }
 
-const removeRows = (board: TetrominoType[][]) => {
+const removeRows = (board: TetrominoType[][]): number => {
+
+  let rowsCleared = 0;
+
   board.forEach((row, i) => {
     const full = row.every(val => val !== null);
     if (full) {
       board.unshift(board.splice(i, 1)[0].fill(null));
+      rowsCleared++;
     }
   });
+
+  return rowsCleared === 0 ? 0 :
+         rowsCleared === 1 ? 40 :
+         rowsCleared === 2 ? 100 :
+         rowsCleared === 3 ? 300 :
+         rowsCleared === 4 ? 1200 :
+         0;
+
 }

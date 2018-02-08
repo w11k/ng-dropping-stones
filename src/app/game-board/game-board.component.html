@@ -2,4 +2,5 @@
   <span *ngFor='let val of display[i]' [ngClass]='["block-" + val]'>
   </span>
 </div>
+<div>{{($game | async).score}}</div>
 <div (window:keydown)="controls($event)"><div>

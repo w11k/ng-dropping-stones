@@ -9,5 +9,6 @@ const board = Array(boardHeight).fill(0).map(x => Array(boardWidth).fill(null));
 export const defaultState: Tetris = {
   status: Status.PLAYING,
   board,
-  current: TetrominoHelper.getRandom({ x: boardWidth / 2 - 1, y: -2 })
+  current: TetrominoHelper.getRandom({ x: boardWidth / 2 - 1, y: -2 }),
+  score: 0
 };

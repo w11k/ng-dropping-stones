@@ -4,6 +4,7 @@ export interface Tetris {
   status: Status;
   board: TetrominoType[][] | null[][];
   current: Tetromino | null;
+  score: number;
 }
 
 export enum Status {
