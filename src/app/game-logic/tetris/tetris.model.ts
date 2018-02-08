@@ -10,6 +10,8 @@ export interface Tetris {
 
 export type Board = TetrominoType[][] | null[][];
 
+export type DisplayBoard = Board | string[][];
+
 export enum Status {
   PLAYING = 'PLAYING',
   GAME_OVER = 'GAME_OVER'

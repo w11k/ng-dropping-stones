@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../store/state.model';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Tetris, Status, Board } from '../game-logic/tetris/tetris.model';
+import { Tetris, Status, Board, DisplayBoard } from '../game-logic/tetris/tetris.model';
 import { map } from 'rxjs/operators';
 import { interval } from 'rxjs/observable/interval';
 import { TetrominoType } from '../game-logic/tetromino/tetromino.model';
 import * as clone from 'clone';
 import { defaultState } from '../game-logic/tetris/settings';
 import { TICK, INIT, LEFT, RIGHT, ROTATE, DROP } from '../store/actions/actions';
+import { dropCollision } from '../store/mappers/mapper-helpers';
 
 @Component({
   selector: 'app-game-board',
@@ -18,7 +19,7 @@ import { TICK, INIT, LEFT, RIGHT, ROTATE, DROP } from '../store/actions/actions'
 export class GameBoardComponent implements OnInit {
 
   $game = new BehaviorSubject<Tetris>(null);
-  display: Board;
+  display: DisplayBoard;
 
   constructor(private store: Store<AppState>) {
   }
@@ -77,12 +78,28 @@ export class GameBoardComponent implements OnInit {
     }
   }
 
-  render(game: Tetris) {
+  render(game: Tetris): DisplayBoard {
     // get a copy of gameboard
-    const display = clone(game.board);
+    const display = clone(game.board) as DisplayBoard;
     if (game.current === null) {
       return display;
     }
+    // draw shadow
+    const shadow = clone(game.current);
+    while (!dropCollision(display, shadow)) {
+      shadow.offset.y += 1;
+    }
+    shadow.offset.y -= 1;
+    shadow.coordinates.forEach((row, y) => {
+      row.forEach((value, x) => {
+        if (value === 1) {
+          if (display[y + shadow.offset.y] !== undefined) {
+            display[y + shadow.offset.y][x + shadow.offset.x] = 'shadow';
+          }
+        }
+      });
+    });
+
     // add current tetromino to gameboard
     const { offset } = game.current;
     game.current.coordinates.forEach((row, y) => {

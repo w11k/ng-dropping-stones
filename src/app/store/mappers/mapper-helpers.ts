@@ -1,7 +1,7 @@
-import { Tetris, Board } from '../../game-logic/tetris/tetris.model';
+import { Tetris, Board, DisplayBoard } from '../../game-logic/tetris/tetris.model';
 import { Tetromino, TetrominoType } from '../../game-logic/tetromino/tetromino.model';
 
-export const dropCollision = (board: Board, current: Tetromino): boolean => {
+export const dropCollision = (board: Board | DisplayBoard, current: Tetromino): boolean => {
   const coord = current.coordinates;
   const offY = current.offset.y;
   const offX = current.offset.x;
