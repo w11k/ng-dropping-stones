@@ -4,7 +4,7 @@ import { TetrominoHelper } from '../../game-logic/tetromino/tetromino-helper';
 import * as clone from 'clone';
 import { TetrominoType } from '../../game-logic/tetromino/tetromino.model';
 
-export const tickMapper = (state: Tetris) => {
+export const tickMapper = (state: Tetris): Tetris => {
   const newState = clone(state) as Tetris;
   if (newState.current === null) {
     return state;

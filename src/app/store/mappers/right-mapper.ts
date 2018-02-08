@@ -1,7 +1,7 @@
 import { Tetris } from "../../game-logic/tetris/tetris.model";
 import * as clone from 'clone';
 
-export const rightMapper = (state: Tetris) => {
+export const rightMapper = (state: Tetris): Tetris => {
 
   if (state.current === null) {
     return state;
