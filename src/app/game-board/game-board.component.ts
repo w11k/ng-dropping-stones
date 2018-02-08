@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { AppState } from '../store/state.model';
+import { Component, OnInit, Input } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Tetris, Status, Board, DisplayBoard } from '../game-logic/tetris/tetris.model';
 import { map } from 'rxjs/operators';
@@ -8,7 +6,6 @@ import { interval } from 'rxjs/observable/interval';
 import { TetrominoType } from '../game-logic/tetromino/tetromino.model';
 import * as clone from 'clone';
 import { defaultState } from '../game-logic/tetris/settings';
-import { TICK, INIT, LEFT, RIGHT, ROTATE, DROP } from '../store/actions/actions';
 import { dropCollision } from '../store/mappers/mapper-helpers';
 
 @Component({
@@ -16,66 +13,12 @@ import { dropCollision } from '../store/mappers/mapper-helpers';
   templateUrl: './game-board.component.html',
   styleUrls: ['./game-board.component.scss']
 })
-export class GameBoardComponent implements OnInit {
+export class GameBoardComponent {
 
-  $game = new BehaviorSubject<Tetris>(null);
   display: DisplayBoard;
 
-  constructor(private store: Store<AppState>) {
-  }
-
-  ngOnInit() {
-
-    this.store.dispatch({ type: INIT });
-
-    this.store.pipe(
-      map(state => state.game)
-    ).subscribe(game => {
-      this.$game.next(game);
-      this.display = this.render(game);
-    });
-
-    interval(200).subscribe(() => {
-      if (this.$game.getValue().status === Status.PLAYING) {
-        this.store.dispatch({ type: TICK });
-      } else {
-        // GAME OVER LOGIC
-        // this.store.dispatch({ type: INIT });
-      }
-    });
-
-  }
-
-  controls(e: KeyboardEvent) {
-
-    if (this.$game.getValue().status === Status.GAME_OVER) {
-      return;
-    }
-
-    switch (e.code) {
-      case 'ArrowLeft':
-        this.store.dispatch({ type: LEFT });
-        break;
-
-      case 'ArrowRight':
-        this.store.dispatch({ type: RIGHT });
-        break;
-
-      case 'ArrowUp':
-        this.store.dispatch({ type: ROTATE });
-        break;
-
-      case 'ArrowDown':
-        this.store.dispatch({ type: TICK });
-        break;
-
-      case 'Space':
-        this.store.dispatch({ type: DROP });
-        break;
-
-      default:
-        break;
-    }
+  @Input() set game(game: Tetris) {
+    this.display = this.render(game);
   }
 
   render(game: Tetris): DisplayBoard {

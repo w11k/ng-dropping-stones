@@ -6,6 +6,7 @@ import { GameBoardComponent } from './game-board.component';
   imports: [
     CommonModule
   ],
+  exports: [GameBoardComponent],
   declarations: [GameBoardComponent]
 })
 export class GameBoardModule { }

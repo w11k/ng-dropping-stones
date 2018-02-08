@@ -1,0 +1,4 @@
+<app-game-board [game]="game"></app-game-board>
+<div>score: {{game?.score}}</div>
+<div>next: {{game?.next.type}}</div>
+<div (window:keydown)="controls($event)"><div>
