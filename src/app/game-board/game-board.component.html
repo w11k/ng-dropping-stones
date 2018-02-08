@@ -1,5 +1,5 @@
-<div *ngFor='let col of display; let i = index'>
-  <span *ngFor='let val of display[i]' [ngClass]='["block-" + val]'>
+<div *ngFor='let row of display'>
+  <span *ngFor='let val of row' [ngClass]='["block-" + val]'>
   </span>
 </div>
 <div>{{($game | async).score}}</div>
