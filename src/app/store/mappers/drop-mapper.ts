@@ -8,7 +8,7 @@ export const dropMapper = (state: Tetris): Tetris => {
     return state;
   }
 
-  while(!collision(newState)) {
+  while (!collision(newState)) {
     newState.current.offset.y += 1;
   }
 
@@ -17,7 +17,7 @@ export const dropMapper = (state: Tetris): Tetris => {
   return tickMapper(newState);
 
 
-}
+};
 
 const collision = (state: Tetris) => {
   const { board, current } = state;
@@ -32,4 +32,4 @@ const collision = (state: Tetris) => {
           || board[y + offY][x + offX] !== null);
     });
   });
-}
+};

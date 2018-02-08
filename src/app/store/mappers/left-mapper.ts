@@ -1,4 +1,4 @@
-import { Tetris } from "../../game-logic/tetris/tetris.model";
+import { Tetris } from '../../game-logic/tetris/tetris.model';
 import * as clone from 'clone';
 
 export const leftMapper = (state: Tetris): Tetris => {
@@ -14,7 +14,7 @@ export const leftMapper = (state: Tetris): Tetris => {
     newState.current.offset.x += 1;
   }
   return newState;
-}
+};
 
 const collision = (state: Tetris) => {
   const { board, current } = state;
@@ -32,4 +32,4 @@ const collision = (state: Tetris) => {
     });
   });
 
-}
+};

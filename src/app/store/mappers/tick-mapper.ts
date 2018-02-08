@@ -39,7 +39,7 @@ export const tickMapper = (state: Tetris): Tetris => {
       newState.current = null;
     } else {
       newState.score += removeRows(newState.board);
-      newState.current = TetrominoHelper.getRandom({ x: boardWidth / 2 - 1, y: -2 })
+      newState.current = TetrominoHelper.getRandom({ x: boardWidth / 2 - 1, y: -2 });
     }
   }
 
@@ -61,7 +61,7 @@ const collision = (state: Tetris) => {
     });
   });
 
-}
+};
 
 const removeRows = (board: TetrominoType[][]): number => {
 
@@ -82,4 +82,4 @@ const removeRows = (board: TetrominoType[][]): number => {
          rowsCleared === 4 ? 1200 :
          0;
 
-}
+};

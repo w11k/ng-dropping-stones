@@ -11,7 +11,7 @@ import { GameBoardModule } from './game-board/game-board.module';
 
 const routes = [
   {
-    path: '', component: GameBoardComponent  
+    path: '', component: GameBoardComponent
   }
 ];
 
