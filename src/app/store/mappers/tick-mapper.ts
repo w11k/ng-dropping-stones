@@ -3,6 +3,7 @@ import { boardWidth } from '../../game-logic/tetris/settings';
 import { TetrominoHelper } from '../../game-logic/tetromino/tetromino-helper';
 import * as clone from 'clone';
 import { TetrominoType } from '../../game-logic/tetromino/tetromino.model';
+import { dropCollision } from './mapper-helpers';
 
 export const tickMapper = (state: Tetris): Tetris => {
   const newState = clone(state) as Tetris;
@@ -12,7 +13,7 @@ export const tickMapper = (state: Tetris): Tetris => {
 
   newState.current.offset.y += 1;
 
-  if (collision(newState)) {
+  if (dropCollision(newState)) {
     console.log('collision!');
     newState.current.offset.y -= 1;
     const offX = newState.current.offset.x;
@@ -45,23 +46,6 @@ export const tickMapper = (state: Tetris): Tetris => {
   }
 
   return newState;
-};
-
-const collision = (state: Tetris) => {
-  const { board, current } = state;
-  const coord = current.coordinates;
-  const offY = current.offset.y;
-  const offX = current.offset.x;
-
-  return coord.some((row, y) => {
-    return row.some((value, x) => {
-      return value === 1
-        && y + offY >= 0
-        && (y + offY >= board.length
-          || board[y + offY][x + offX] !== null);
-    });
-  });
-
 };
 
 const removeRows = (board: TetrominoType[][]): number => {
