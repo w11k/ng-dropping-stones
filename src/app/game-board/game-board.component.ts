@@ -58,7 +58,7 @@ export class GameBoardComponent implements OnInit {
       case 'ArrowRight':
         this.store.dispatch({ type: RIGHT });
         break;
-      case 'Space':
+      case 'ArrowUp':
         this.store.dispatch({ type: ROTATE });
         break;
       case 'ArrowDown':
