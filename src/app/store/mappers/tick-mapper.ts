@@ -39,7 +39,8 @@ export const tickMapper = (state: Tetris): Tetris => {
       newState.current = null;
     } else {
       newState.score += removeRows(newState.board);
-      newState.current = TetrominoHelper.getRandom({ x: boardWidth / 2 - 1, y: -2 });
+      newState.current = newState.next;
+      newState.next = TetrominoHelper.getRandom({ x: boardWidth / 2 - 1, y: -2 });
     }
   }
 

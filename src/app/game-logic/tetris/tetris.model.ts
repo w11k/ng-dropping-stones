@@ -3,7 +3,8 @@ import { TetrominoType, Tetromino } from '../tetromino/tetromino.model';
 export interface Tetris {
   status: Status;
   board: TetrominoType[][] | null[][];
-  current: Tetromino | null;
+  current: Tetromino;
+  next: Tetromino;
   score: number;
 }
 

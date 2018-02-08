@@ -2,5 +2,6 @@
   <span *ngFor='let val of row' [ngClass]='["block-" + val]'>
   </span>
 </div>
-<div>{{($game | async).score}}</div>
+<div>Score: {{($game | async).score}}</div>
+<div>Next: {{($game | async).next.type}}</div>
 <div (window:keydown)="controls($event)"><div>

@@ -10,5 +10,6 @@ export const defaultState: Tetris = {
   status: Status.PLAYING,
   board,
   current: TetrominoHelper.getRandom({ x: boardWidth / 2 - 1, y: -2 }),
+  next: TetrominoHelper.getRandom({ x: boardWidth / 2 - 1, y: -2 }),
   score: 0
 };
