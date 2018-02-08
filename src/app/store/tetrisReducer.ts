@@ -2,10 +2,11 @@ import { Action } from '@ngrx/store';
 import { Tetris } from '../game-logic/tetris/tetris.model';
 import { tickMapper } from './mappers/tick-mapper';
 import { initMapper } from './mappers/init-mapper';
-import { TICK, INIT, LEFT, RIGHT, ROTATE } from './actions/actions';
+import { TICK, INIT, LEFT, RIGHT, ROTATE, DROP } from './actions/actions';
 import { leftMapper } from './mappers/left-mapper';
 import { rightMapper } from './mappers/right-mapper';
 import { rotateMapper } from './mappers/rotate-mapper';
+import { dropMapper } from './mappers/drop-mapper';
 
 export function tetrisReducer(state: Tetris = null, action: Action) {
 
@@ -24,6 +25,9 @@ export function tetrisReducer(state: Tetris = null, action: Action) {
 
     case ROTATE:
       return rotateMapper(state);
+
+    case DROP:
+      return dropMapper(state);
 
     default:
       return state;
