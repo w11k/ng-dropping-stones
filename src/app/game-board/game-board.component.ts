@@ -1,11 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Tetris, Status, Board, DisplayBoard } from '../game-logic/tetris/tetris.model';
+import { Component, Input } from '@angular/core';
+import { Tetris, Status, DisplayBoard } from '../game-logic/tetris/tetris.model';
 import { map } from 'rxjs/operators';
 import { interval } from 'rxjs/observable/interval';
-import { TetrominoType } from '../game-logic/tetromino/tetromino.model';
 import * as clone from 'clone';
-import { defaultState } from '../game-logic/tetris/settings';
 import { dropCollision } from '../store/mappers/mapper-helpers';
 
 @Component({
