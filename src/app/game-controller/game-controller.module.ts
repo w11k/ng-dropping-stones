@@ -8,6 +8,7 @@ import { GameBoardModule } from '../game-board/game-board.module';
     CommonModule,
     GameBoardModule
   ],
-  declarations: [GameControllerComponent]
+  declarations: [GameControllerComponent],
+  exports: [GameControllerComponent]
 })
 export class GameControllerModule { }

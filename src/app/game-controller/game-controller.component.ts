@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Store, select } from '@ngrx/store';
+import { Component, Input, OnInit } from '@angular/core';
+import { select, Store } from '@ngrx/store';
 import { AppState } from '../store/state.model';
-import { LEFT, RIGHT, ROTATE, TICK, DROP, INIT } from '../store/actions/actions';
+import { DROP, INIT, LEFT, RIGHT, ROTATE, TICK } from '../store/actions/actions';
 import { interval } from 'rxjs/observable/interval';
-import { Tetris, Status } from '../game-logic/tetris/tetris.model';
+import { Status, Tetris } from '../game-logic/tetris/tetris.model';
 
 @Component({
   selector: 'app-game-controller',
@@ -12,9 +12,11 @@ import { Tetris, Status } from '../game-logic/tetris/tetris.model';
 })
 export class GameControllerComponent implements OnInit {
 
+  @Input() player: number;
   game: Tetris;
 
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>) {
+  }
 
   controls(e: KeyboardEvent) {
 
@@ -24,23 +26,23 @@ export class GameControllerComponent implements OnInit {
 
     switch (e.code) {
       case 'ArrowLeft':
-        this.store.dispatch({ type: LEFT });
+        this.store.dispatch({type: LEFT});
         break;
 
       case 'ArrowRight':
-        this.store.dispatch({ type: RIGHT });
+        this.store.dispatch({type: RIGHT});
         break;
 
       case 'ArrowUp':
-        this.store.dispatch({ type: ROTATE });
+        this.store.dispatch({type: ROTATE});
         break;
 
       case 'ArrowDown':
-        this.store.dispatch({ type: TICK });
+        this.store.dispatch({type: TICK});
         break;
 
       case 'Space':
-        this.store.dispatch({ type: DROP });
+        this.store.dispatch({type: DROP});
         break;
 
       default:
@@ -50,7 +52,7 @@ export class GameControllerComponent implements OnInit {
 
   ngOnInit() {
 
-    this.store.dispatch({ type: INIT });
+    this.store.dispatch({type: INIT});
 
     this.store.pipe(
       select('game')
@@ -60,7 +62,7 @@ export class GameControllerComponent implements OnInit {
 
     const tickSubscription = interval(200).subscribe(() => {
       if (this.game.status === Status.PLAYING) {
-        this.store.dispatch({ type: TICK });
+        this.store.dispatch({type: TICK});
       } else {
         tickSubscription.unsubscribe();
         // GAME OVER LOGIC

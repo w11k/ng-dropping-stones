@@ -5,23 +5,22 @@ import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { tetrisReducer } from './store/tetrisReducer';
 import { RouterModule } from '@angular/router';
-import { GameControllerComponent } from './game-controller/game-controller.component';
-import { GameControllerModule } from './game-controller/game-controller.module';
-
+import { SinglePlayerComponent } from './single-player/single-player.component';
+import { SinglePlayerModule } from './single-player/single-player.module';
 
 const routes = [
   {
-    path: '', component: GameControllerComponent
+    path: '', component: SinglePlayerComponent
   }
 ];
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
-    GameControllerModule,
+    SinglePlayerModule,
     RouterModule.forRoot(routes),
     StoreModule.forRoot({ game: tetrisReducer })
   ],
