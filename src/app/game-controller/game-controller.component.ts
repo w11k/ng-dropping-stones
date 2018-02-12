@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { AppState } from '../store/state.model';
 import { LEFT, RIGHT, ROTATE, TICK, DROP, INIT } from '../store/actions/actions';
 import { map } from 'rxjs/operators';
@@ -54,15 +54,16 @@ export class GameControllerComponent implements OnInit {
     this.store.dispatch({ type: INIT });
 
     this.store.pipe(
-      map(state => state.game)
+      select('game')
     ).subscribe(game => {
-      this.game = game;
+      this.game = game as Tetris;
     });
 
-    interval(200).subscribe(() => {
+    const tickSubscription = interval(200).subscribe(() => {
       if (this.game.status === Status.PLAYING) {
         this.store.dispatch({ type: TICK });
       } else {
+        tickSubscription.unsubscribe();
         // GAME OVER LOGIC
         // this.store.dispatch({ type: INIT });
       }
