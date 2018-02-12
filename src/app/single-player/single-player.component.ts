@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AppState } from '../store/state.model';
+import { Init } from '../store/actions/actions';
 
 @Component({
   selector: 'app-single-player',
@@ -7,9 +10,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SinglePlayerComponent implements OnInit {
 
-  constructor() { }
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
+    this.store.dispatch(new Init(1));
   }
 
 }
