@@ -1,7 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Tetris, Status, DisplayBoard } from '../game-logic/tetris/tetris.model';
-import { map } from 'rxjs/operators';
-import { interval } from 'rxjs/observable/interval';
+import { Tetris, DisplayBoard } from '../game-logic/tetris/tetris.model';
 import * as clone from 'clone';
 import { dropCollision } from '../store/mappers/mapper-helpers';
 

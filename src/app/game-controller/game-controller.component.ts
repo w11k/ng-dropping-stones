@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../store/state.model';
 import { LEFT, RIGHT, ROTATE, TICK, DROP, INIT } from '../store/actions/actions';
-import { map } from 'rxjs/operators';
 import { interval } from 'rxjs/observable/interval';
 import { Tetris, Status } from '../game-logic/tetris/tetris.model';
 
