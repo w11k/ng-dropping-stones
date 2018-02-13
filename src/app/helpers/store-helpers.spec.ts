@@ -44,8 +44,12 @@ fdescribe('collision function', () => {
     expect(collision(board, tetromino).bottom).toEqual(true);
   });
   it('should identify piece collision', () => {
-    board[1][1] = TetrominoType.J;
-    expect(collision(board, tetromino).piece).toEqual(true);
+    board[0][0] = TetrominoType.J;
+    expect(collision(board, tetromino).piece).toBeFalsy();
+    board[0][1] = TetrominoType.J;
+    expect(collision(board, tetromino).piece).toBe(true);
+    tetromino.offset.x = 1;
+    expect(collision(board, tetromino).piece).toBeFalsy();
   });
 
 });

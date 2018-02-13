@@ -46,7 +46,11 @@ export const collision = (board: Board | DisplayBoard, current: Tetromino): Coll
         if (x + offX > board[0].length - 1) {
           collisionType.right = true;
         }
-        if (board[y] && board[y][x] && board[y][x] !== null) {
+        if (
+          board[y + offY] &&
+          board[y + offY][x + offX] &&
+          board[y + offY][x + offX] !== null
+        ) {
           collisionType.piece = true;
         }
       }
