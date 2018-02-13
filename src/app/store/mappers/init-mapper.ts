@@ -1,6 +1,10 @@
 import { Tetris } from '../../model/tetris/tetris.model';
-import { defaultState } from '../../model/tetris/settings';
+import { getDefaultState } from '../../model/tetris/settings';
 
 export const initMapper = (length: number): Tetris[] => {
-  return Array(length).fill(defaultState);
+  const res = [];
+  for (let i = 0; i < length; i++) {
+    res.push(getDefaultState());
+  }
+  return res;
 };
