@@ -9,11 +9,9 @@ export const rotateMapper = (state: Tetris[], index: number): Tetris[] => {
   game.current.coordinates = rotate(game.current.coordinates);
   while (rightCollision(game.board, game.current)) {
     game.current.offset.x -= 1;
-    console.log('push left');
   }
   while (leftCollision(game.board, game.current)) {
     game.current.offset.x += 1;
-    console.log('push right');
   }
   if (anyCollision(game.board, game.current)) {
     return state;

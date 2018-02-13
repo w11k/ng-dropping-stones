@@ -7,7 +7,6 @@ export const leftMapper = (state: Tetris[], index: number): Tetris[] => {
   const game = newState[index];
   game.current.offset.x -= 1;
   if (leftCollision(game.board, game.current)) {
-    console.log('nope left');
     game.current.offset.x += 1;
   }
   return newState;

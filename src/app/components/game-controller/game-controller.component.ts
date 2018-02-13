@@ -1,21 +1,24 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { AppState } from '../../store/state.model';
-import { interval } from 'rxjs/observable/interval';
 import { Status, Tetris } from '../../model/tetris/tetris.model';
 import { Drop, Left, Right, Rotate, Tick } from '../../store/actions/actions';
 import { Keymap } from '../../model/keymap.model';
+import { map, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-game-controller',
   templateUrl: './game-controller.component.html',
-  styleUrls: ['./game-controller.component.scss']
+  styleUrls: ['./game-controller.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GameControllerComponent implements OnInit {
 
   @Input() player: number;
   @Input() keymap: Keymap;
   game: Tetris;
+  game$: Observable<Tetris>;
 
   constructor(private store: Store<AppState>) {
   }
@@ -53,22 +56,12 @@ export class GameControllerComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    this.store.pipe(
+    this.game$ = this.store.pipe(
       select('game')
-    ).subscribe(game => {
-      this.game = game[this.player] as Tetris;
-    });
-
-    const tickSubscription = interval(200).subscribe(() => {
-      if (this.game.status === Status.PLAYING) {
-        this.store.dispatch(new Tick(this.player));
-      } else {
-        tickSubscription.unsubscribe();
-        // GAME OVER LOGIC
-        // this.store.dispatch({ type: INIT });
-      }
-    });
+    ).pipe(
+      map(game => game[this.player]),
+      tap(game => this.game = game),
+    );
   }
 
 }

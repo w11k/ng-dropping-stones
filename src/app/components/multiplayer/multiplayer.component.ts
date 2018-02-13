@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { Init } from '../../store/actions/actions';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Init, Tick } from '../../store/actions/actions';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/state.model';
 import { Keymap } from '../../model/keymap.model';
+import { interval } from 'rxjs/observable/interval';
 
 @Component({
   selector: 'app-multiplayer',
   templateUrl: './multiplayer.component.html',
-  styleUrls: ['./multiplayer.component.scss']
+  styleUrls: ['./multiplayer.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MultiplayerComponent implements OnInit {
 
@@ -32,6 +34,11 @@ export class MultiplayerComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new Init(2));
+
+    const tickSubscription = interval(200).subscribe(() => {
+      this.store.dispatch(new Tick(0));
+      this.store.dispatch(new Tick(1));
+    });
   }
 
 }

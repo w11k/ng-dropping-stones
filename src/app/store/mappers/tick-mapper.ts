@@ -16,7 +16,6 @@ export const tickMapper = (state: Tetris[], index: number): Tetris[] => {
   game.current.offset.y += 1;
 
   if (downCollision(game.board, game.current)) {
-    console.log('collision!');
     game.current.offset.y -= 1;
     const offX = game.current.offset.x;
     const offY = game.current.offset.y;

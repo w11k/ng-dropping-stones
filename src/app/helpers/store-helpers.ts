@@ -1,4 +1,4 @@
-import { Board, DisplayBoard } from '../model/tetris/tetris.model';
+import { Board } from '../model/tetris/tetris.model';
 import { Tetromino } from '../model/tetromino/tetromino.model';
 
 export interface CollisionType {
@@ -9,7 +9,7 @@ export interface CollisionType {
   piece?: boolean;
 }
 
-export const collision = (board: Board | DisplayBoard, current: Tetromino): CollisionType => {
+export const collision = (board: Board, current: Tetromino): CollisionType => {
   const collisionType: CollisionType = {};
   const coord = current.coordinates;
   const offY = current.offset.y;
@@ -44,22 +44,22 @@ export const collision = (board: Board | DisplayBoard, current: Tetromino): Coll
   return collisionType;
 };
 
-export const downCollision = (board: Board | DisplayBoard, current: Tetromino): boolean => {
+export const downCollision = (board: Board, current: Tetromino): boolean => {
   const c = collision(board, current);
   return c.bottom || c.piece;
 };
 
-export const leftCollision = (board: Board | DisplayBoard, current: Tetromino): boolean => {
+export const leftCollision = (board: Board, current: Tetromino): boolean => {
   const c = collision(board, current);
   return c.left || c.piece;
 };
 
-export const rightCollision = (board: Board | DisplayBoard, current: Tetromino): boolean => {
+export const rightCollision = (board: Board, current: Tetromino): boolean => {
   const c = collision(board, current);
   return c.right || c.piece;
 };
 
-export const anyCollision = (board: Board | DisplayBoard, current: Tetromino): boolean => {
+export const anyCollision = (board: Board, current: Tetromino): boolean => {
   const c = collision(board, current);
   return c.right || c.left || c.top || c.bottom || c.piece;
 };
