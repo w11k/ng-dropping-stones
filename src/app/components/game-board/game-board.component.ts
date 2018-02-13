@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Tetris, DisplayBoard } from '../../model/tetris/tetris.model';
 import * as clone from 'clone';
-import { dropCollision } from '../../helpers/store-helpers';
+import { downCollision } from '../../helpers/store-helpers';
 
 @Component({
   selector: 'app-game-board',
@@ -17,14 +17,14 @@ export class GameBoardComponent {
   }
 
   render(game: Tetris): DisplayBoard {
-    // get a copy of gameboard
+    // get a copy of game board
     const display = clone(game.board) as DisplayBoard;
     if (game.current === null) {
       return display;
     }
     // draw shadow
     const shadow = clone(game.current);
-    while (!dropCollision(display, shadow)) {
+    while (!downCollision(display, shadow)) {
       shadow.offset.y += 1;
     }
     shadow.offset.y -= 1;
@@ -38,7 +38,7 @@ export class GameBoardComponent {
       });
     });
 
-    // add current tetromino to gameboard
+    // add current tetromino to game board
     const { offset } = game.current;
     game.current.coordinates.forEach((row, y) => {
       row.forEach((value, x) => {

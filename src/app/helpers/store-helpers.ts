@@ -1,22 +1,6 @@
 import { Board, DisplayBoard } from '../model/tetris/tetris.model';
 import { Tetromino } from '../model/tetromino/tetromino.model';
 
-export const dropCollision = (board: Board | DisplayBoard, current: Tetromino): boolean => {
-  const coord = current.coordinates;
-  const offY = current.offset.y;
-  const offX = current.offset.x;
-
-  return coord.some((row, y) => {
-    return row.some((value, x) => {
-      return value === 1
-        && y + offY >= 0
-        && (y + offY >= board.length
-          || board[y + offY][x + offX] !== null);
-    });
-  });
-
-};
-
 export interface CollisionType {
   left?: boolean;
   right?: boolean;
@@ -58,4 +42,19 @@ export const collision = (board: Board | DisplayBoard, current: Tetromino): Coll
   });
 
   return collisionType;
+};
+
+export const downCollision = (board: Board | DisplayBoard, current: Tetromino): boolean => {
+  const c = collision(board, current);
+  return c.bottom || c.piece;
+};
+
+export const leftCollision = (board: Board | DisplayBoard, current: Tetromino): boolean => {
+  const c = collision(board, current);
+  return c.left || c.piece;
+};
+
+export const rightCollision = (board: Board | DisplayBoard, current: Tetromino): boolean => {
+  const c = collision(board, current);
+  return c.right || c.piece;
 };

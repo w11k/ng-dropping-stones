@@ -1,9 +1,9 @@
-import { Tetris, Status } from '../../model/tetris/tetris.model';
+import { Status, Tetris } from '../../model/tetris/tetris.model';
 import { boardWidth } from '../../model/tetris/settings';
 import { getRandomTetromino } from '../../helpers/tetromino-helpers';
 import * as clone from 'clone';
 import { TetrominoType } from '../../model/tetromino/tetromino.model';
-import { dropCollision } from '../../helpers/store-helpers';
+import { downCollision } from '../../helpers/store-helpers';
 
 export const tickMapper = (state: Tetris): Tetris => {
   const newState = clone(state) as Tetris;
@@ -13,7 +13,7 @@ export const tickMapper = (state: Tetris): Tetris => {
 
   newState.current.offset.y += 1;
 
-  if (dropCollision(newState.board, newState.current)) {
+  if (downCollision(newState.board, newState.current)) {
     console.log('collision!');
     newState.current.offset.y -= 1;
     const offX = newState.current.offset.x;
@@ -41,7 +41,7 @@ export const tickMapper = (state: Tetris): Tetris => {
     } else {
       newState.score += removeRows(newState.board);
       newState.current = newState.next;
-      newState.next = getRandomTetromino({ x: boardWidth / 2 - 1, y: -2 });
+      newState.next = getRandomTetromino({x: boardWidth / 2 - 1, y: -2});
     }
   }
 
@@ -61,10 +61,10 @@ const removeRows = (board: TetrominoType[][]): number => {
   });
 
   return rowsCleared === 0 ? 0 :
-         rowsCleared === 1 ? 40 :
-         rowsCleared === 2 ? 100 :
-         rowsCleared === 3 ? 300 :
-         rowsCleared === 4 ? 1200 :
-         0;
+    rowsCleared === 1 ? 40 :
+      rowsCleared === 2 ? 100 :
+        rowsCleared === 3 ? 300 :
+          rowsCleared === 4 ? 1200 :
+            0;
 
 };
