@@ -55,7 +55,7 @@ export class GameControllerComponent implements OnInit {
     this.store.pipe(
       select('game')
     ).subscribe(game => {
-      this.game = game as Tetris;
+      this.game = game[this.player] as Tetris;
     });
 
     const tickSubscription = interval(200).subscribe(() => {

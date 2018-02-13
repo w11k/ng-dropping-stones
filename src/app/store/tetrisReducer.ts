@@ -7,26 +7,26 @@ import { rightMapper } from './mappers/right-mapper';
 import { rotateMapper } from './mappers/rotate-mapper';
 import { dropMapper } from './mappers/drop-mapper';
 
-export function tetrisReducer(state: Tetris = null, action: TetrisAction): Tetris {
+export function tetrisReducer(state: Tetris[] = [], action: TetrisAction): Tetris[] {
 
   switch (action.type) {
     case TetrisActionTypes.TICK:
-      return tickMapper(state);
+      return tickMapper(state, action.payload);
 
     case TetrisActionTypes.INIT:
-      return initMapper();
+      return initMapper(action.payload);
 
     case TetrisActionTypes.LEFT:
-      return leftMapper(state);
+      return leftMapper(state, action.payload);
 
     case TetrisActionTypes.RIGHT:
-      return rightMapper(state);
+      return rightMapper(state, action.payload);
 
     case TetrisActionTypes.ROTATE:
-      return rotateMapper(state);
+      return rotateMapper(state, action.payload);
 
     case TetrisActionTypes.DROP:
-      return dropMapper(state);
+      return dropMapper(state, action.payload);
 
     default:
       return state;

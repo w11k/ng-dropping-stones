@@ -5,43 +5,45 @@ import * as clone from 'clone';
 import { TetrominoType } from '../../model/tetromino/tetromino.model';
 import { downCollision } from '../../helpers/store-helpers';
 
-export const tickMapper = (state: Tetris): Tetris => {
-  const newState = clone(state) as Tetris;
-  if (newState.current === null) {
+export const tickMapper = (state: Tetris[], index: number): Tetris[] => {
+
+  const newState = clone(state) as Tetris[];
+  const game = newState[index];
+  if (game.current === null) {
     return state;
   }
 
-  newState.current.offset.y += 1;
+  game.current.offset.y += 1;
 
-  if (downCollision(newState.board, newState.current)) {
+  if (downCollision(game.board, game.current)) {
     console.log('collision!');
-    newState.current.offset.y -= 1;
-    const offX = newState.current.offset.x;
-    const offY = newState.current.offset.y;
+    game.current.offset.y -= 1;
+    const offX = game.current.offset.x;
+    const offY = game.current.offset.y;
 
     let gameOver = false;
     // write block to board
-    newState.current.coordinates.forEach((row, y) => {
+    game.current.coordinates.forEach((row, y) => {
       row.forEach((value, x) => {
         if (value === 1) {
           // check if block reached the top
           if (y + offY <= 0) {
             gameOver = true;
           }
-          if (newState.board[y + offY] !== undefined) {
-            newState.board[y + offY][x + offX] = newState.current.type;
+          if (game.board[y + offY] !== undefined) {
+            game.board[y + offY][x + offX] = game.current.type;
           }
         }
       });
     });
     if (gameOver) {
       console.log('GAME OVER');
-      newState.status = Status.GAME_OVER;
-      newState.current = null;
+      game.status = Status.GAME_OVER;
+      game.current = null;
     } else {
-      newState.score += removeRows(newState.board);
-      newState.current = newState.next;
-      newState.next = getRandomTetromino({x: boardWidth / 2 - 1, y: -2});
+      game.score += removeRows(game.board);
+      game.current = game.next;
+      game.next = getRandomTetromino({x: boardWidth / 2 - 1, y: -2});
     }
   }
 
