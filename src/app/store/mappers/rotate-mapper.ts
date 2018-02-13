@@ -1,10 +1,10 @@
-import { Tetris } from '../../game-logic/tetris/tetris.model';
+import { Tetris } from '../../model/tetris/tetris.model';
 import * as clone from 'clone';
-import { TetrominoHelper } from '../../game-logic/tetromino/tetromino-helper';
+import { rotate } from '../../helpers/tetromino-helpers';
 
 export const rotateMapper = (state: Tetris): Tetris => {
   const newState = clone(state);
-  newState.current.coordinates = TetrominoHelper.rotate(newState.current.coordinates);
+  newState.current.coordinates = rotate(newState.current.coordinates);
 
   while (rightCollision(newState)) {
     newState.current.offset.x -= 1;

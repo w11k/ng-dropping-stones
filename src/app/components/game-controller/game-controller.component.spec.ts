@@ -3,9 +3,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { GameControllerComponent } from './game-controller.component';
 import { GameBoardModule } from '../game-board/game-board.module';
 import { StoreModule, Store } from '@ngrx/store';
-import { tetrisReducer } from '../store/tetrisReducer';
-import { AppState } from '../store/state.model';
-import { Init } from '../store/actions/actions';
+import { tetrisReducer } from '../../store/tetrisReducer';
+import { AppState } from '../../store/state.model';
+import { Init } from '../../store/actions/actions';
 
 describe('GameControllerComponent', () => {
   let component: GameControllerComponent;

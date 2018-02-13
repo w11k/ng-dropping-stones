@@ -1,4 +1,4 @@
-import { Tetris } from '../game-logic/tetris/tetris.model';
+import { Tetris } from '../model/tetris/tetris.model';
 import { tickMapper } from './mappers/tick-mapper';
 import { initMapper } from './mappers/init-mapper';
 import { TetrisAction, TetrisActionTypes } from './actions/actions';

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { Tetris, DisplayBoard } from '../game-logic/tetris/tetris.model';
+import { Tetris, DisplayBoard } from '../../model/tetris/tetris.model';
 import * as clone from 'clone';
-import { dropCollision } from '../store/mappers/mapper-helpers';
+import { dropCollision } from '../../store/mappers/mapper-helpers';
 
 @Component({
   selector: 'app-game-board',

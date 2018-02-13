@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { AppState } from '../store/state.model';
+import { AppState } from '../../store/state.model';
 import { interval } from 'rxjs/observable/interval';
-import { Status, Tetris } from '../game-logic/tetris/tetris.model';
-import { Drop, Left, Right, Rotate, Tick } from '../store/actions/actions';
+import { Status, Tetris } from '../../model/tetris/tetris.model';
+import { Drop, Left, Right, Rotate, Tick } from '../../store/actions/actions';
 
 @Component({
   selector: 'app-game-controller',

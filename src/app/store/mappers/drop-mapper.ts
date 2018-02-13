@@ -1,4 +1,4 @@
-import { Tetris } from '../../game-logic/tetris/tetris.model';
+import { Tetris } from '../../model/tetris/tetris.model';
 import * as clone from 'clone';
 import { tickMapper } from './tick-mapper';
 import { dropCollision } from './mapper-helpers';

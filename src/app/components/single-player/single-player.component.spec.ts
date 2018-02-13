@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SinglePlayerComponent } from './single-player.component';
 import { GameControllerModule } from '../game-controller/game-controller.module';
 import { StoreModule } from '@ngrx/store';
-import { tetrisReducer } from '../store/tetrisReducer';
+import { tetrisReducer } from '../../store/tetrisReducer';
 
 describe('SinglePlayerComponent', () => {
   let component: SinglePlayerComponent;
