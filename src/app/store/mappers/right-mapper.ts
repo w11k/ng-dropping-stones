@@ -3,7 +3,7 @@ import * as clone from 'clone';
 import { rightCollision } from '../../helpers/store-helpers';
 
 export const rightMapper = (state: Tetris[], index: number): Tetris[] => {
-  const newState = clone(state);
+  const newState = clone<Tetris[]>(state, false);
   const game = newState[index];
   game.current.offset.x += 1;
   if (rightCollision(game.board, game.current)) {

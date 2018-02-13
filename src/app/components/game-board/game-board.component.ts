@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Board, Tetris } from '../../model/tetris/tetris.model';
+import * as clone from 'clone';
 
 @Component({
   selector: 'app-game-board',
@@ -18,7 +19,7 @@ export class GameBoardComponent {
 
   render(game: Tetris): Board {
     // get a copy of game board
-    const display = JSON.parse(JSON.stringify(game.board)) as Board;
+    const display = clone<Board>(game.board, false);
     if (game.current === null) {
       return display;
     }

@@ -7,7 +7,7 @@ import { downCollision } from '../../helpers/store-helpers';
 
 export const tickMapper = (state: Tetris[], index: number): Tetris[] => {
 
-  const newState = clone(state) as Tetris[];
+  const newState = clone<Tetris[]>(state, false);
   const game = newState[index];
   if (game.current === null) {
     return state;
