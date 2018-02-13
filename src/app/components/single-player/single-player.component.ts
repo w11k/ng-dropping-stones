@@ -24,6 +24,11 @@ export class SinglePlayerComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new Init(1));
+    const audio = new Audio();
+    audio.src = '/assets/korobeiniki.wav';
+    audio.load();
+    audio.playbackRate = 1.2;
+    audio.play();
   }
 
 }
