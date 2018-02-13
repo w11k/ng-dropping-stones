@@ -4,6 +4,7 @@ import { AppState } from '../../store/state.model';
 import { interval } from 'rxjs/observable/interval';
 import { Status, Tetris } from '../../model/tetris/tetris.model';
 import { Drop, Left, Right, Rotate, Tick } from '../../store/actions/actions';
+import { Keymap } from '../../model/keymap.model';
 
 @Component({
   selector: 'app-game-controller',
@@ -13,6 +14,7 @@ import { Drop, Left, Right, Rotate, Tick } from '../../store/actions/actions';
 export class GameControllerComponent implements OnInit {
 
   @Input() player: number;
+  @Input() keymap: Keymap;
   game: Tetris;
 
   constructor(private store: Store<AppState>) {
@@ -25,23 +27,23 @@ export class GameControllerComponent implements OnInit {
     }
 
     switch (e.code) {
-      case 'ArrowLeft':
+      case this.keymap.left:
         this.store.dispatch(new Left(this.player));
         break;
 
-      case 'ArrowRight':
+      case this.keymap.right:
         this.store.dispatch(new Right(this.player));
         break;
 
-      case 'ArrowUp':
+      case this.keymap.rotate:
         this.store.dispatch(new Rotate(this.player));
         break;
 
-      case 'ArrowDown':
+      case this.keymap.tick:
         this.store.dispatch(new Tick(this.player));
         break;
 
-      case 'Space':
+      case this.keymap.drop:
         this.store.dispatch(new Drop(this.player));
         break;
 

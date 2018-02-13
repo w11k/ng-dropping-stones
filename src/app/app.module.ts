@@ -8,10 +8,14 @@ import { RouterModule } from '@angular/router';
 import { SinglePlayerModule } from './components/single-player/single-player.module';
 import { MultiplayerModule } from './components/multiplayer/multiplayer.module';
 import { MultiplayerComponent } from './components/multiplayer/multiplayer.component';
+import { SinglePlayerComponent } from './components/single-player/single-player.component';
 
 const routes = [
   {
-    path: '', component: MultiplayerComponent
+    path: 'single', component: SinglePlayerComponent
+  },
+  {
+    path: 'multi', component: MultiplayerComponent
   }
 ];
 
@@ -29,4 +33,5 @@ const routes = [
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
