@@ -3,7 +3,7 @@ import { boardWidth } from '../../model/tetris/settings';
 import { getRandomTetromino } from '../../helpers/tetromino-helpers';
 import * as clone from 'clone';
 import { TetrominoType } from '../../model/tetromino/tetromino.model';
-import { dropCollision } from './mapper-helpers';
+import { dropCollision } from '../../helpers/store-helpers';
 
 export const tickMapper = (state: Tetris): Tetris => {
   const newState = clone(state) as Tetris;

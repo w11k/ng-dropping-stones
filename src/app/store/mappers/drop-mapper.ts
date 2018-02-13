@@ -1,7 +1,7 @@
 import { Tetris } from '../../model/tetris/tetris.model';
 import * as clone from 'clone';
 import { tickMapper } from './tick-mapper';
-import { dropCollision } from './mapper-helpers';
+import { dropCollision } from '../../helpers/store-helpers';
 
 export const dropMapper = (state: Tetris): Tetris => {
   const newState = clone(state) as Tetris;

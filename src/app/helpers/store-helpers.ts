@@ -1,5 +1,5 @@
-import { Tetris, Board, DisplayBoard } from '../../model/tetris/tetris.model';
-import { Tetromino, TetrominoType } from '../../model/tetromino/tetromino.model';
+import { Tetris, Board, DisplayBoard } from '../model/tetris/tetris.model';
+import { Tetromino, TetrominoType } from '../model/tetromino/tetromino.model';
 
 export const dropCollision = (board: Board | DisplayBoard, current: Tetromino): boolean => {
   const coord = current.coordinates;
