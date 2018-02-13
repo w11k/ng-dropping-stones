@@ -1,5 +1,5 @@
-import { Tetris, Board, DisplayBoard } from '../model/tetris/tetris.model';
-import { Tetromino, TetrominoType } from '../model/tetromino/tetromino.model';
+import { Board, DisplayBoard } from '../model/tetris/tetris.model';
+import { Tetromino } from '../model/tetromino/tetromino.model';
 
 export const dropCollision = (board: Board | DisplayBoard, current: Tetromino): boolean => {
   const coord = current.coordinates;
@@ -15,4 +15,43 @@ export const dropCollision = (board: Board | DisplayBoard, current: Tetromino): 
     });
   });
 
+};
+
+export interface CollisionType {
+  left?: boolean;
+  right?: boolean;
+  top?: boolean;
+  bottom?: boolean;
+  piece?: boolean;
+}
+
+export const collision = (board: Board | DisplayBoard, current: Tetromino): CollisionType => {
+  const collisionType: CollisionType = {};
+  const coord = current.coordinates;
+  const offY = current.offset.y;
+  const offX = current.offset.x;
+
+  coord.forEach((row, y) => {
+    row.forEach((value, x) => {
+      if (value) {
+        if (y + offY < 0) {
+          collisionType.top = true;
+        }
+        if (y + offY > board.length - 1) {
+          collisionType.bottom = true;
+        }
+        if (x + offX < 0) {
+          collisionType.left = true;
+        }
+        if (x + offX > board[0].length - 1) {
+          collisionType.right = true;
+        }
+        if (board[y] && board[y][x] && board[y][x] !== null) {
+          collisionType.piece = true;
+        }
+      }
+    });
+  });
+
+  return collisionType;
 };
