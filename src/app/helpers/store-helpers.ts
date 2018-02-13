@@ -58,3 +58,8 @@ export const rightCollision = (board: Board | DisplayBoard, current: Tetromino):
   const c = collision(board, current);
   return c.right || c.piece;
 };
+
+export const anyCollision = (board: Board | DisplayBoard, current: Tetromino): boolean => {
+  const c = collision(board, current);
+  return c.right || c.left || c.top || c.bottom || c.piece;
+};
