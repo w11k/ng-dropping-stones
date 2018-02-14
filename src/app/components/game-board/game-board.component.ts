@@ -22,7 +22,7 @@ export class GameBoardComponent {
     if (game.current === null) {
       return flatten<TetrominoType>(game.board);
     }
-    const display = clone<Board>(game.board);
+    const display = clone<Board>(game.board, false);
     const { offset } = game.current;
     game.current.coordinates.forEach((row, y) => {
       row.forEach((value, x) => {
