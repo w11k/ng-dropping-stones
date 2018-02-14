@@ -1,4 +1,4 @@
-import { Offset, Tetromino, TetrominoType } from '../model/tetromino/tetromino.model';
+import { Offset, Tetromino, TetrominoType } from '../models/tetromino/tetromino.model';
 
 const tetrominoTypes: TetrominoType[] = [
   TetrominoType.I,

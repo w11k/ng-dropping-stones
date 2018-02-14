@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, HostListener, Input, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { AppState } from '../../store/state.model';
-import { Status, Tetris } from '../../model/tetris/tetris.model';
+import { Status, Tetris } from '../../models/tetris/tetris.model';
 import { Drop, Left, Right, Rotate, Tick } from '../../store/actions/actions';
-import { Keymap } from '../../model/keymap.model';
+import { Keymap } from '../../models/keymap/keymap.model';
 import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 

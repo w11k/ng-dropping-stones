@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/state.model';
 import { Init, Tick } from '../../store/actions/actions';
-import { Keymap } from '../../model/keymap.model';
+import { Keymap } from '../../models/keymap/keymap.model';
 import { interval } from 'rxjs/observable/interval';
 import { Subscription } from 'rxjs/Subscription';
 

@@ -1,5 +1,5 @@
-import { Tetris } from '../../model/tetris/tetris.model';
-import { getDefaultState } from '../../model/tetris/settings';
+import { Tetris } from '../../models/tetris/tetris.model';
+import { getDefaultState } from '../../models/tetris/settings';
 
 export const initMapper = (length: number): Tetris[] => {
   const res = [];

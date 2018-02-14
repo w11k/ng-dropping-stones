@@ -1,4 +1,4 @@
-import { Tetris } from '../../model/tetris/tetris.model';
+import { Tetris } from '../../models/tetris/tetris.model';
 import * as clone from 'clone';
 import { rotate } from '../../helpers/tetromino-helpers';
 import { collision, rotateCollision } from '../../helpers/store-helpers';

@@ -1,4 +1,4 @@
-import { Tetris } from '../model/tetris/tetris.model';
+import { Tetris } from '../models/tetris/tetris.model';
 
 export interface AppState {
   game: Tetris[];

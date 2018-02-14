@@ -1,6 +1,6 @@
 import { collision, CollisionType } from './store-helpers';
-import { Tetromino, TetrominoType } from '../model/tetromino/tetromino.model';
-import { Board } from '../model/tetris/tetris.model';
+import { Tetromino, TetrominoType } from '../models/tetromino/tetromino.model';
+import { Board } from '../models/tetris/tetris.model';
 
 fdescribe('collision function', () => {
 

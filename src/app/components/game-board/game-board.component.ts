@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Board, Tetris } from '../../model/tetris/tetris.model';
-import { TetrominoType } from '../../model/tetromino/tetromino.model';
+import { Board, Tetris } from '../../models/tetris/tetris.model';
+import { TetrominoType } from '../../models/tetromino/tetromino.model';
 import * as clone from 'clone';
 
 @Component({

@@ -1,5 +1,5 @@
-import { Board } from '../model/tetris/tetris.model';
-import { Tetromino } from '../model/tetromino/tetromino.model';
+import { Board } from '../models/tetris/tetris.model';
+import { Tetromino } from '../models/tetromino/tetromino.model';
 
 export interface CollisionType {
   left?: boolean;
