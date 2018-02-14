@@ -6,6 +6,7 @@ import { Drop, Left, Right, Rotate, Tick } from '../../store/actions/actions';
 import { Keymap } from '../../models/keymap/keymap.model';
 import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
+import { GamepadService } from '../../services/gamepad/gamepad.service';
 
 @Component({
   selector: 'app-game-controller',
@@ -20,7 +21,7 @@ export class GameControllerComponent implements OnInit {
   game: Tetris;
   game$: Observable<Tetris>;
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>, private gamepad: GamepadService) {
   }
 
   @HostListener('document:keydown', ['$event'])
