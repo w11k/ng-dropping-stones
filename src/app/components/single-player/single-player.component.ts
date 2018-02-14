@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/state.model';
-import { Init } from '../../store/actions/actions';
+import { Init, Tick } from '../../store/actions/actions';
 import { Keymap } from '../../model/keymap.model';
+import { interval } from 'rxjs/observable/interval';
 
 @Component({
   selector: 'app-single-player',
@@ -25,11 +26,9 @@ export class SinglePlayerComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new Init(1));
-    // const audio = new Audio();
-    // audio.src = '/assets/korobeiniki.wav';
-    // audio.load();
-    // audio.playbackRate = 1.2;
-    // audio.play();
+    const gameLoop = interval(200).subscribe(() => {
+      this.store.dispatch(new Tick(0));
+    });
   }
 
 }
