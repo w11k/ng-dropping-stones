@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/state.model';
 import { Init, Tick } from '../../store/actions/actions';
 import { Keymap } from '../../model/keymap.model';
 import { interval } from 'rxjs/observable/interval';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-single-player',
@@ -11,7 +12,7 @@ import { interval } from 'rxjs/observable/interval';
   styleUrls: ['./single-player.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SinglePlayerComponent implements OnInit {
+export class SinglePlayerComponent implements OnInit, OnDestroy {
 
   playerOne: Keymap = {
     left: 'ArrowLeft',
@@ -21,14 +22,20 @@ export class SinglePlayerComponent implements OnInit {
     drop: 'Space',
   };
 
+  gameLoop: Subscription;
+
   constructor(private store: Store<AppState>) {
   }
 
   ngOnInit() {
     this.store.dispatch(new Init(1));
-    const gameLoop = interval(200).subscribe(() => {
+    this.gameLoop = interval(200).subscribe(() => {
       this.store.dispatch(new Tick(0));
     });
+  }
+
+  ngOnDestroy() {
+    this.gameLoop.unsubscribe();
   }
 
 }

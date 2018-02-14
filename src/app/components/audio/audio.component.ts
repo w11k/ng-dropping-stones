@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-audio',
   templateUrl: './audio.component.html',
   styleUrls: ['./audio.component.scss']
 })
-export class AudioComponent implements OnInit {
+export class AudioComponent implements OnInit, OnDestroy {
 
   @Input() speed: number;
   audio: HTMLAudioElement;
@@ -20,6 +20,10 @@ export class AudioComponent implements OnInit {
     this.audio.playbackRate = this.speed;
     this.audio.loop = true;
     this.audio.play();
+  }
+
+  ngOnDestroy() {
+    this.audio.pause();
   }
 
 }
