@@ -9,8 +9,13 @@ import { SinglePlayerModule } from './components/single-player/single-player.mod
 import { MultiplayerModule } from './components/multiplayer/multiplayer.module';
 import { MultiplayerComponent } from './components/multiplayer/multiplayer.component';
 import { SinglePlayerComponent } from './components/single-player/single-player.component';
+import { StartScreenComponent } from './components/start-screen/start-screen.component';
+import { StartScreenModule } from './components/start-screen/start-screen.module';
 
 const routes = [
+  {
+    path: '', component: StartScreenComponent
+  },
   {
     path: 'single', component: SinglePlayerComponent
   },
@@ -25,6 +30,7 @@ const routes = [
   ],
   imports: [
     BrowserModule,
+    StartScreenModule,
     SinglePlayerModule,
     MultiplayerModule,
     RouterModule.forRoot(routes),

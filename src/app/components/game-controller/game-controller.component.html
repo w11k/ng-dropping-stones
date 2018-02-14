@@ -1,4 +1,3 @@
 <app-game-board [game]="(game$ | async)"></app-game-board>
 <div>score: {{(game$ | async)?.score}}</div>
 <div>next: {{(game$ | async)?.next.type}}</div>
-<div (window:keydown)="controls($event)"></div>

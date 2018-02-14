@@ -1,5 +1,5 @@
-<!--<div *ngFor='let row of display'>-->
-  <!--<span *ngFor='let val of row' [ngClass]='["block-" + val]'>-->
-  <!--</span>-->
-<!--</div>-->
-<div>{{display | json }}</div>
+<div class="board">
+  <ng-container *ngFor="let square of display">
+    <span [ngClass]="['block-' + square]"></span>
+  </ng-container>
+</div>

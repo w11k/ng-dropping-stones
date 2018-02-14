@@ -1,8 +1,8 @@
-import { Status, Tetris } from '../../model/tetris/tetris.model';
-import { boardWidth } from '../../model/tetris/settings';
+import { Status, Tetris } from '../../models/tetris/tetris.model';
+import { boardWidth } from '../../models/tetris/settings';
 import { getRandomTetromino } from '../../helpers/tetromino-helpers';
 import * as clone from 'clone';
-import { TetrominoType } from '../../model/tetromino/tetromino.model';
+import { TetrominoType } from '../../models/tetromino/tetromino.model';
 import { downCollision } from '../../helpers/store-helpers';
 
 export const tickMapper = (state: Tetris[], index: number): Tetris[] => {

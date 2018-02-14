@@ -1,11 +1,12 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, Input, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { AppState } from '../../store/state.model';
-import { Status, Tetris } from '../../model/tetris/tetris.model';
+import { Status, Tetris } from '../../models/tetris/tetris.model';
 import { Drop, Left, Right, Rotate, Tick } from '../../store/actions/actions';
-import { Keymap } from '../../model/keymap.model';
+import { Keymap } from '../../models/keymap/keymap.model';
 import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
+import { GamepadService } from '../../services/gamepad/gamepad.service';
 
 @Component({
   selector: 'app-game-controller',
@@ -20,9 +21,10 @@ export class GameControllerComponent implements OnInit {
   game: Tetris;
   game$: Observable<Tetris>;
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>, private gamepad: GamepadService) {
   }
 
+  @HostListener('document:keydown', ['$event'])
   controls(e: KeyboardEvent) {
 
     if (this.game.status === Status.GAME_OVER) {
