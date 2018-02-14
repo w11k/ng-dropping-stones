@@ -1,9 +1,14 @@
+.board {
+  max-width: 255px;
+}
+
 span[class^='block'] {
   display: inline-block;
   width: 25px;
   height: 25px;
   border: 1px solid #333;
-  margin: -2px 0;
+  margin: -2px;
+  box-sizing: border-box;
 }
 
 .block-null {

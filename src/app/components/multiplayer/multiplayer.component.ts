@@ -35,7 +35,7 @@ export class MultiplayerComponent implements OnInit {
   ngOnInit() {
     this.store.dispatch(new Init(2));
 
-    const tickSubscription = interval(200).subscribe(() => {
+    const gameLoop = interval(200).subscribe(() => {
       this.store.dispatch(new Tick(0));
       this.store.dispatch(new Tick(1));
     });

@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Board, Tetris } from '../../model/tetris/tetris.model';
+import { TetrominoType } from '../../model/tetromino/tetromino.model';
+import * as clone from 'clone';
 
 @Component({
   selector: 'app-game-board',
@@ -9,21 +11,18 @@ import { Board, Tetris } from '../../model/tetris/tetris.model';
 })
 export class GameBoardComponent {
 
-  display: Board;
+  display: TetrominoType[];
 
   @Input()
   set game(game: Tetris) {
     this.display = this.render(game);
   }
 
-  render(game: Tetris): Board {
-    // get a copy of game board
-    const display = JSON.parse(JSON.stringify(game.board)) as Board;
+  render(game: Tetris): TetrominoType[] {
     if (game.current === null) {
-      return display;
+      return flatten<TetrominoType>(game.board);
     }
-
-    // add current tetromino to game board
+    const display = clone<Board>(game.board);
     const { offset } = game.current;
     game.current.coordinates.forEach((row, y) => {
       row.forEach((value, x) => {
@@ -34,7 +33,11 @@ export class GameBoardComponent {
         }
       });
     });
-    return display;
+    return flatten<TetrominoType>(display);
   }
 
+}
+
+function flatten<T>(array: T[][]): T[] {
+  return [].concat(...array);
 }
