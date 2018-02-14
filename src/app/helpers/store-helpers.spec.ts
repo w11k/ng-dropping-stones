@@ -1,12 +1,11 @@
-import { collision, CollisionType } from './store-helpers';
+import { collision } from './store-helpers';
 import { Tetromino, TetrominoType } from '../models/tetromino/tetromino.model';
 import { Board } from '../models/tetris/tetris.model';
 
-fdescribe('collision function', () => {
+describe('collision function', () => {
 
   let board: Board;
   let tetromino: Tetromino;
-  let noCollision: CollisionType;
 
   beforeEach(() => {
     board = Array(10).fill(0).map(x => Array(5).fill(null));
