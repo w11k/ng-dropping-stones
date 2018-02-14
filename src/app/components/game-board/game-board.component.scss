@@ -1,5 +1,6 @@
 .board {
-  max-width: 255px;
+  max-width: 250px;
+  border: 4px solid #fff;
 }
 
 span[class^='block'] {
@@ -7,7 +8,7 @@ span[class^='block'] {
   width: 25px;
   height: 25px;
   border: 1px solid #333;
-  margin: -2px;
+  margin: 0 -16px 0 0;
   box-sizing: border-box;
 }
 

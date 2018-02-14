@@ -1,0 +1,40 @@
+:host {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 140px;
+    background: #ee5d26;
+    text-align: center;
+    .header__logo {
+      font-size: 2em;
+      margin: 30px;
+    }
+  }
+
+  h1 {
+    font-size: 3em;
+  }
+
+  .actions {
+    margin: 20px;
+
+    a {
+      padding: 20px 10px;
+      text-decoration: none;
+      outline: none;
+    }
+
+    a:focus {
+      color: #ee5d26;
+    }
+  }
+
+}
