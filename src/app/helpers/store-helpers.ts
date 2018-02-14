@@ -59,7 +59,7 @@ export const rightCollision = (board: Board, current: Tetromino): boolean => {
   return c.right || c.piece;
 };
 
-export const anyCollision = (board: Board, current: Tetromino): boolean => {
+export const rotateCollision = (board: Board, current: Tetromino): boolean => {
   const c = collision(board, current);
-  return c.right || c.left || c.top || c.bottom || c.piece;
+  return c.right || c.left || c.bottom || c.piece;
 };
