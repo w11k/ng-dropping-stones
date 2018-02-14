@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, Input, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { AppState } from '../../store/state.model';
 import { Status, Tetris } from '../../model/tetris/tetris.model';
@@ -23,6 +23,7 @@ export class GameControllerComponent implements OnInit {
   constructor(private store: Store<AppState>) {
   }
 
+  @HostListener('document:keydown', ['$event'])
   controls(e: KeyboardEvent) {
 
     if (this.game.status === Status.GAME_OVER) {
