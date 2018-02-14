@@ -38,6 +38,6 @@ export class GameBoardComponent {
 
 }
 
-function flatten<T>(array: T[][]): T[] {
+const flatten = <T>(array: T[][]): T[] => {
   return [].concat(...array);
-}
+};
