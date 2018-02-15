@@ -11,6 +11,8 @@ import { MultiplayerComponent } from './components/multiplayer/multiplayer.compo
 import { SinglePlayerComponent } from './components/single-player/single-player.component';
 import { StartScreenComponent } from './components/start-screen/start-screen.component';
 import { StartScreenModule } from './components/start-screen/start-screen.module';
+import { EnterNameComponent } from './components/enter-name/enter-name.component';
+import { EnterNameModule } from './components/enter-name/enter-name.module';
 
 const routes = [
   {
@@ -21,6 +23,9 @@ const routes = [
   },
   {
     path: 'multi', component: MultiplayerComponent
+  },
+  {
+    path: 'enter-name', component: EnterNameComponent
   }
 ];
 
@@ -33,6 +38,7 @@ const routes = [
     StartScreenModule,
     SinglePlayerModule,
     MultiplayerModule,
+    EnterNameModule,
     RouterModule.forRoot(routes),
     StoreModule.forRoot({ game: tetrisReducer })
   ],
