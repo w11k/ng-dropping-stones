@@ -19,6 +19,7 @@ import { Subscription } from 'rxjs/Subscription';
 export class GameControllerComponent implements OnInit, OnDestroy {
 
   @Input() player: number;
+  @Input() controller: number;
   @Input() keymap: Keymap;
   game: Tetris;
   game$: Observable<Tetris>;
@@ -67,7 +68,7 @@ export class GameControllerComponent implements OnInit, OnDestroy {
       map(game => game[this.player]),
       tap(game => this.game = game),
     );
-    this.gamepadSubscription = this.gamepad.getActions(this.player + 1).subscribe(action => {
+    this.gamepadSubscription = this.gamepad.getActions(this.controller).subscribe(action => {
       switch (action) {
         case GamepadActions.Left:
           this.store.dispatch(new Left(this.player));
