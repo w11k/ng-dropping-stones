@@ -22,11 +22,11 @@ export class GamepadService {
   getActions(index: number): Observable<GamepadActions> {
     const axes = this.axisSubject.asObservable().pipe(
       filter(gamepad => gamepad.index === index),
-      throttleTime(100)
+      throttleTime(150)
     );
     const buttons = this.buttonSubject.asObservable().pipe(
       filter(gamepad => gamepad.index === index),
-      throttleTime(100)
+      throttleTime(150)
     );
     return axes.pipe(
       merge(buttons),
