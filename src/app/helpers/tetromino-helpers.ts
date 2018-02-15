@@ -56,7 +56,7 @@ const random = <T>(array: T[]): T => {
 export const rotate = (matrix: number[][], times = 1): number[][] => {
   let result = matrix.slice();
   for (let i = 0; i < times; i++) {
-    result = result[0].map((x, i) => result.map(x => x[i]).reverse());
+    result = result[0].map((_, index) => result.map(x => x[index]).reverse());
   }
   return result;
 };
