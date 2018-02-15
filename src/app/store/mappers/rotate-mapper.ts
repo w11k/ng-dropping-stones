@@ -6,6 +6,10 @@ import { collision, rotateCollision } from '../../helpers/store-helpers';
 export const rotateMapper = (state: Tetris[], index: number): Tetris[] => {
   const newState = clone<Tetris[]>(state, false);
   const game = newState[index];
+  if (game.current === null) {
+    return state;
+  }
+
   game.current.coordinates = rotate(game.current.coordinates);
   while (collision(game.board, game.current).right) {
     game.current.offset.x -= 1;
