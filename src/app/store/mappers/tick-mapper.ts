@@ -1,6 +1,6 @@
 import { Status, Tetris } from '../../models/tetris/tetris.model';
 import { boardWidth } from '../../models/tetris/settings';
-import { getRandomTetromino } from '../../helpers/tetromino-helpers';
+import { randomGenerator } from '../../helpers/tetromino-helpers';
 import * as clone from 'clone';
 import { TetrominoType } from '../../models/tetromino/tetromino.model';
 import { downCollision } from '../../helpers/store-helpers';
@@ -41,8 +41,10 @@ export const tickMapper = (state: Tetris[], index: number): Tetris[] => {
       game.current = null;
     } else {
       game.score += removeRows(game.board);
-      game.current = game.next;
-      game.next = getRandomTetromino({x: boardWidth / 2 - 1, y: -2});
+      game.current = game.next.shift();
+      if (game.next.length < 7) {
+        game.next = game.next.concat(randomGenerator());
+      }
     }
   }
 

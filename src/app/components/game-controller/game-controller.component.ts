@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/Observable';
 import { GamepadService } from '../../services/gamepad/gamepad.service';
 import { GamepadActions } from '../../models/gamepad/gamepad.model';
 import { Subscription } from 'rxjs/Subscription';
+import { TetrominoType } from '../../models/tetromino/tetromino.model';
 
 @Component({
   selector: 'app-game-controller',
@@ -21,8 +22,8 @@ export class GameControllerComponent implements OnInit, OnDestroy {
   @Input() player: number;
   @Input() controller: number;
   @Input() keymap: Keymap;
-  game: Tetris;
   game$: Observable<Tetris>;
+  gameSubscription: Subscription;
   gamepadSubscription: Subscription;
 
   constructor(private store: Store<AppState>, private gamepad: GamepadService) {
@@ -30,10 +31,6 @@ export class GameControllerComponent implements OnInit, OnDestroy {
 
   @HostListener('document:keydown', ['$event'])
   controls(e: KeyboardEvent) {
-
-    if (this.game.status === Status.GAME_OVER) {
-      return;
-    }
 
     switch (e.code) {
       case this.keymap.left:
@@ -62,12 +59,13 @@ export class GameControllerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
     this.game$ = this.store.pipe(
       select('game')
     ).pipe(
-      map(game => game[this.player]),
-      tap(game => this.game = game),
+      map(games => games[this.player]),
     );
+
     this.gamepadSubscription = this.gamepad.getActions(this.controller).subscribe(action => {
       switch (action) {
         case GamepadActions.Left:
@@ -97,6 +95,7 @@ export class GameControllerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.gameSubscription.unsubscribe();
     this.gamepadSubscription.unsubscribe();
   }
 

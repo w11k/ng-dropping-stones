@@ -61,14 +61,19 @@ export const rotate = (matrix: number[][], times = 1): number[][] => {
   return result;
 };
 
-export const getRandomTetromino = (offset: Offset = {x: 0, y: 0}): Tetromino => {
-  const type = random(tetrominoTypes);
-  const rotated = rotate(tetrominoCoordinates[type], random([0, 1, 2, 3]));
-
-  return {
-    type,
-    offset,
-    coordinates: rotated
-  };
+const shuffle = <T>(array: T[]): T[] => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
 };
 
+export const randomGenerator = (): Tetromino[] => {
+  return shuffle<TetrominoType>(tetrominoTypes)
+    .map(type => ({
+      type,
+      offset: { x: 4, y: -2 },
+      coordinates: rotate(tetrominoCoordinates[type], random([0, 1, 2, 3]))
+    }));
+};

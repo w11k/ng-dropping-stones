@@ -4,7 +4,7 @@ export interface Tetris {
   status: Status;
   board: Board;
   current: Tetromino;
-  next: Tetromino;
+  next: Tetromino[];
   score: number;
 }
 
