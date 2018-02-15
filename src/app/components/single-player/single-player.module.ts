@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SinglePlayerComponent } from './single-player.component';
 import { GameControllerModule } from '../game-controller/game-controller.module';
-import { AudioModule } from '../audio/audio.module';
+import { AudioModule } from '../../services/audio/audio.module';
 
 @NgModule({
   imports: [
@@ -14,4 +14,5 @@ import { AudioModule } from '../audio/audio.module';
     SinglePlayerComponent
   ]
 })
-export class SinglePlayerModule { }
+export class SinglePlayerModule {
+}

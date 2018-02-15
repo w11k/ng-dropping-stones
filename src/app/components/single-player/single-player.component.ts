@@ -5,6 +5,7 @@ import { Init, Tick } from '../../store/actions/actions';
 import { Keymap } from '../../models/keymap/keymap.model';
 import { interval } from 'rxjs/observable/interval';
 import { Subscription } from 'rxjs/Subscription';
+import { AudioService } from '../../services/audio/audio.service';
 
 @Component({
   selector: 'app-single-player',
@@ -24,7 +25,7 @@ export class SinglePlayerComponent implements OnInit, OnDestroy {
 
   gameLoop: Subscription;
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>, private audio: AudioService) {
   }
 
   ngOnInit() {
@@ -32,10 +33,12 @@ export class SinglePlayerComponent implements OnInit, OnDestroy {
     this.gameLoop = interval(200).subscribe(() => {
       this.store.dispatch(new Tick(0));
     });
+    this.audio.play('korobeiniki.wav', true);
   }
 
   ngOnDestroy() {
     this.gameLoop.unsubscribe();
+    this.audio.pause();
   }
 
 }
