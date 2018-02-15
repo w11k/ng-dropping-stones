@@ -5,6 +5,7 @@ import { AppState } from '../../store/state.model';
 import { Keymap } from '../../models/keymap/keymap.model';
 import { interval } from 'rxjs/observable/interval';
 import { Subscription } from 'rxjs/Subscription';
+import { AudioService } from '../../services/audio/audio.service';
 
 @Component({
   selector: 'app-multiplayer',
@@ -32,7 +33,7 @@ export class MultiplayerComponent implements OnInit, OnDestroy {
 
   gameLoop: Subscription;
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>, private audio: AudioService) {
   }
 
   ngOnInit() {
@@ -41,10 +42,12 @@ export class MultiplayerComponent implements OnInit, OnDestroy {
       this.store.dispatch(new Tick(0));
       this.store.dispatch(new Tick(1));
     });
+    this.audio.play('SugarplumFairy.wav', true);
   }
 
   ngOnDestroy() {
     this.gameLoop.unsubscribe();
+    this.audio.pause();
   }
 
 }

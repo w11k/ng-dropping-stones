@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostListener, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { AppState } from '../../store/state.model';
 import { Status, Tetris } from '../../models/tetris/tetris.model';
@@ -7,6 +7,8 @@ import { Keymap } from '../../models/keymap/keymap.model';
 import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import { GamepadService } from '../../services/gamepad/gamepad.service';
+import { GamepadActions } from '../../models/gamepad/gamepad.model';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-game-controller',
@@ -14,12 +16,14 @@ import { GamepadService } from '../../services/gamepad/gamepad.service';
   styleUrls: ['./game-controller.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GameControllerComponent implements OnInit {
+export class GameControllerComponent implements OnInit, OnDestroy {
 
   @Input() player: number;
+  @Input() controller: number;
   @Input() keymap: Keymap;
   game: Tetris;
   game$: Observable<Tetris>;
+  gamepadSubscription: Subscription;
 
   constructor(private store: Store<AppState>, private gamepad: GamepadService) {
   }
@@ -64,6 +68,36 @@ export class GameControllerComponent implements OnInit {
       map(game => game[this.player]),
       tap(game => this.game = game),
     );
+    this.gamepadSubscription = this.gamepad.getActions(this.controller).subscribe(action => {
+      switch (action) {
+        case GamepadActions.Left:
+          this.store.dispatch(new Left(this.player));
+          break;
+
+        case GamepadActions.Right:
+          this.store.dispatch(new Right(this.player));
+          break;
+
+        case GamepadActions.Rotate:
+          this.store.dispatch(new Rotate(this.player));
+          break;
+
+        case GamepadActions.Down:
+          this.store.dispatch(new Tick(this.player));
+          break;
+
+        case GamepadActions.Drop:
+          this.store.dispatch(new Drop(this.player));
+          break;
+
+        default:
+          break;
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.gamepadSubscription.unsubscribe();
   }
 
 }

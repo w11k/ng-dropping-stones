@@ -1,0 +1,66 @@
+:host {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.name-form {
+  display: flex;
+  flex-direction: column;
+  .name-form__input {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+
+    input {
+      width: 0;
+      height: 0;
+      border: 0;
+      padding: 0;
+    }
+    label {
+      font-size: 1.5em;
+      color: #333;
+    }
+    pre {
+      display: inline;
+      font-size: 2em;
+      align-self: center;
+      min-height: 35px;
+      margin: 10px 0 50px;
+    }
+    input:focus + label {
+      color: #ee5d26;
+    }
+    input:focus ~ pre {
+      animation: 1s blink step-end infinite;
+    }
+  }
+  button {
+    color: #333;
+    padding: 10px;
+    align-self: center;
+    background: none;
+    border: 5px solid transparent;
+    font-size: 1.5em;
+    outline: none;
+    cursor: pointer;
+  }
+  button:focus {
+    color: #ee5d26;
+    border: 5px solid #ee5d26;
+  }
+}
+
+@keyframes blink {
+  from, to {
+    border-left: 15px solid transparent;
+    border-right: 15px solid #eee;
+  }
+  50% {
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+  }
+}
