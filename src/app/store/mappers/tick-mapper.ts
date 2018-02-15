@@ -43,7 +43,11 @@ export const tickMapper = (state: Tetris[], index: number): Tetris[] => {
       game.score += removeRows(game.board);
       game.current = game.next.shift();
       if (game.next.length < 7) {
-        game.next = game.next.concat(randomGenerator());
+        const next = randomGenerator();
+        newState.forEach(tetris => {
+          tetris.next = tetris.next.concat(next.slice());
+        });
+        console.log(newState);
       }
     }
   }
