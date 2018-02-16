@@ -23,7 +23,6 @@ export class GameControllerComponent implements OnInit, OnDestroy {
   @Input() controller: number;
   @Input() keymap: Keymap;
   game$: Observable<Tetris>;
-  gameSubscription: Subscription;
   gamepadSubscription: Subscription;
 
   constructor(private store: Store<AppState>, private gamepad: GamepadService) {
@@ -95,7 +94,6 @@ export class GameControllerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.gameSubscription.unsubscribe();
     this.gamepadSubscription.unsubscribe();
   }
 
