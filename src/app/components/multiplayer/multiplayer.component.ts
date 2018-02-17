@@ -31,22 +31,15 @@ export class MultiplayerComponent implements OnInit, OnDestroy {
     drop: 'Space',
   };
 
-  gameLoop: Subscription;
-
   constructor(private store: Store<AppState>, private audio: AudioService) {
   }
 
   ngOnInit() {
     this.store.dispatch(new Init(2));
-    this.gameLoop = interval(200).subscribe(() => {
-      this.store.dispatch(new Tick(0));
-      this.store.dispatch(new Tick(1));
-    });
     this.audio.play('SugarplumFairy.wav', true);
   }
 
   ngOnDestroy() {
-    this.gameLoop.unsubscribe();
     this.audio.pause();
   }
 

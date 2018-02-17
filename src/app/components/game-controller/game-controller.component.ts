@@ -10,6 +10,7 @@ import { GamepadService } from '../../services/gamepad/gamepad.service';
 import { GamepadActions } from '../../models/gamepad/gamepad.model';
 import { Subscription } from 'rxjs/Subscription';
 import { TetrominoType } from '../../models/tetromino/tetromino.model';
+import { interval } from 'rxjs/observable/interval';
 
 @Component({
   selector: 'app-game-controller',
@@ -24,6 +25,7 @@ export class GameControllerComponent implements OnInit, OnDestroy {
   @Input() keymap: Keymap;
   game$: Observable<Tetris>;
   gamepadSubscription: Subscription;
+  gameLoop: Subscription;
 
   constructor(private store: Store<AppState>, private gamepad: GamepadService) {
   }
@@ -64,6 +66,10 @@ export class GameControllerComponent implements OnInit, OnDestroy {
       map(games => games[this.player])
     );
 
+    this.gameLoop = interval(200).subscribe(() => {
+      this.store.dispatch(new Tick(this.player));
+    });
+
     this.gamepadSubscription = this.gamepad.getActions(this.controller).subscribe(action => {
       switch (action) {
         case GamepadActions.Left:
@@ -94,6 +100,7 @@ export class GameControllerComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.gamepadSubscription.unsubscribe();
+    this.gameLoop.unsubscribe();
   }
 
 }

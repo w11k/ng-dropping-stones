@@ -27,8 +27,6 @@ export class SinglePlayerComponent implements OnInit, OnDestroy {
     drop: 'Space',
   };
 
-  gameLoop: Subscription;
-
   constructor(
     private store: Store<AppState>,
     private audio: AudioService,
@@ -38,9 +36,6 @@ export class SinglePlayerComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.store.dispatch(new Init(1));
-    this.gameLoop = interval(200).subscribe(() => {
-      this.store.dispatch(new Tick(0));
-    });
     this.audio.play('korobeiniki.wav', true);
 
     this.store.pipe(
@@ -57,7 +52,6 @@ export class SinglePlayerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.gameLoop.unsubscribe();
     this.audio.pause();
   }
 
