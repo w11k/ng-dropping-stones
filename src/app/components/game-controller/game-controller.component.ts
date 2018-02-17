@@ -4,13 +4,15 @@ import { AppState } from '../../store/state.model';
 import { Status, Tetris } from '../../models/tetris/tetris.model';
 import { Drop, Left, Right, Rotate, Tick } from '../../store/actions/actions';
 import { Keymap } from '../../models/keymap/keymap.model';
-import { map, tap } from 'rxjs/operators';
+import { map, tap, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import { GamepadService } from '../../services/gamepad/gamepad.service';
 import { GamepadActions } from '../../models/gamepad/gamepad.model';
 import { Subscription } from 'rxjs/Subscription';
 import { TetrominoType } from '../../models/tetromino/tetromino.model';
 import { interval } from 'rxjs/observable/interval';
+import { empty } from 'rxjs/Observer';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'app-game-controller',
@@ -24,8 +26,11 @@ export class GameControllerComponent implements OnInit, OnDestroy {
   @Input() controller: number;
   @Input() keymap: Keymap;
   game$: Observable<Tetris>;
+  gameLoop$: Observable<number>;
+  gameLevel$: Observable<number>;
+
   gamepadSubscription: Subscription;
-  gameLoop: Subscription;
+  gameLoopSubscription: Subscription;
 
   constructor(private store: Store<AppState>, private gamepad: GamepadService) {
   }
@@ -66,7 +71,16 @@ export class GameControllerComponent implements OnInit, OnDestroy {
       map(games => games[this.player])
     );
 
-    this.gameLoop = interval(200).subscribe(() => {
+    this.gameLevel$ = this.game$.pipe(
+      map(game => Math.floor(game.rowsCleared / 10)),
+      distinctUntilChanged()
+    );
+
+    this.gameLoop$ = this.gameLevel$.pipe(
+      switchMap(level => interval(200 - level * 20))
+    );
+
+    this.gameLoopSubscription = this.gameLoop$.subscribe(() => {
       this.store.dispatch(new Tick(this.player));
     });
 
@@ -100,7 +114,7 @@ export class GameControllerComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.gamepadSubscription.unsubscribe();
-    this.gameLoop.unsubscribe();
+    this.gameLoopSubscription.unsubscribe();
   }
 
 }
