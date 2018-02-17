@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Person } from '../../models/highscore/highscore.model';
+import { Person, Score } from '../../models/highscore/highscore.model';
 
 @Injectable()
 export class HighscoreService {
@@ -16,6 +16,20 @@ export class HighscoreService {
   setPerson(person: Person) {
     this.name = person.name;
     this.email = person.email;
+  }
+
+  getScores(): Score[] {
+    return JSON.parse(localStorage.getItem('score')) as Score[];
+  }
+
+  setScore(score: number) {
+    const scores = this.getScores();
+    scores.push({
+      name: this.name,
+      email: this.email,
+      score
+    });
+    localStorage.setItem('score', JSON.stringify(scores));
   }
 
 }
