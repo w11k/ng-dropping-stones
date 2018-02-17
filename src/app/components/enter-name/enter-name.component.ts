@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HighscoreService } from '../../services/highscore/highscore.service';
+import { Person } from '../../models/highscore/highscore.model';
 
 @Component({
   selector: 'app-enter-name',
@@ -11,17 +13,22 @@ export class EnterNameComponent implements OnInit {
 
   nameForm: FormGroup;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private score: HighscoreService) {
   }
 
   ngOnInit() {
     this.nameForm = new FormGroup({
-      name: new FormControl(),
-      email: new FormControl()
+      name: new FormControl('', [Validators.required]),
+      email: new FormControl('')
     });
   }
 
-  test() {
+  submit(form: FormGroup) {
+    if (form.invalid) {
+      alert('please enter a name!');
+      return;
+    }
+    this.score.setPerson(form.value as Person);
     this.router.navigate(['single']);
   }
 

@@ -1,4 +1,4 @@
-<form [formGroup]="nameForm" class="name-form" (ngSubmit)="test()">
+<form [formGroup]="nameForm" class="name-form" (ngSubmit)="submit(nameForm)">
   <div class="name-form__input">
     <input type="text" formControlName="name" autofocus>
     <label>name:</label><br>
