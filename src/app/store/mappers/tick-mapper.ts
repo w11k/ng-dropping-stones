@@ -40,8 +40,12 @@ export const tickMapper = (state: Tetris[], index: number): Tetris[] => {
       game.status = Status.GAME_OVER;
       game.current = null;
     } else {
-      game.score += removeRows(game.board);
+
+      const rowsCleared = removeRows(game.board);
+      game.rowsCleared += rowsCleared;
+      game.score += calculateScore(rowsCleared);
       game.current = game.next.shift();
+
       if (game.next.length < 7) {
         const next = randomGenerator();
         newState.forEach(tetris => {
@@ -66,11 +70,14 @@ const removeRows = (board: TetrominoType[][]): number => {
     }
   });
 
+  return rowsCleared;
+};
+
+const calculateScore = (rowsCleared: number): number => {
   return rowsCleared === 0 ? 0 :
     rowsCleared === 1 ? 40 :
       rowsCleared === 2 ? 100 :
         rowsCleared === 3 ? 300 :
           rowsCleared === 4 ? 1200 :
             0;
-
 };

@@ -6,6 +6,7 @@ export interface Tetris {
   current: Tetromino;
   next: Tetromino[];
   score: number;
+  rowsCleared: number;
 }
 
 export type Board = TetrominoType[][] | null[][];

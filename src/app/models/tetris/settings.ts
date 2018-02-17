@@ -10,6 +10,7 @@ export const newTetris = (current: Tetromino, next: Tetromino[]): Tetris => {
     board: Array(boardHeight).fill(0).map(x => Array(boardWidth).fill(null)),
     current,
     next,
-    score: 0
+    score: 0,
+    rowsCleared: 0
   };
 };
