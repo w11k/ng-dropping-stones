@@ -1,11 +1,15 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { AppState } from '../../store/state.model';
 import { Init, Tick } from '../../store/actions/actions';
 import { Keymap } from '../../models/keymap/keymap.model';
 import { interval } from 'rxjs/observable/interval';
 import { Subscription } from 'rxjs/Subscription';
 import { AudioService } from '../../services/audio/audio.service';
+import { map, distinctUntilChanged } from 'rxjs/operators';
+import { Tetris, Status } from '../../models/tetris/tetris.model';
+import { Router } from '@angular/router';
+import { HighscoreService } from '../../services/highscore/highscore.service';
 
 @Component({
   selector: 'app-single-player',
@@ -25,8 +29,12 @@ export class SinglePlayerComponent implements OnInit, OnDestroy {
 
   gameLoop: Subscription;
 
-  constructor(private store: Store<AppState>, private audio: AudioService) {
-  }
+  constructor(
+    private store: Store<AppState>,
+    private audio: AudioService,
+    private router: Router,
+    private score: HighscoreService
+  ) { }
 
   ngOnInit() {
     this.store.dispatch(new Init(1));
@@ -34,6 +42,18 @@ export class SinglePlayerComponent implements OnInit, OnDestroy {
       this.store.dispatch(new Tick(0));
     });
     this.audio.play('korobeiniki.wav', true);
+
+    this.store.pipe(
+      select('game'),
+      map((games: Tetris[]) => games[0]),
+    ).subscribe(game => {
+      if (game.status === Status.GAME_OVER) {
+        // GAME OVER LOGIC
+        this.score.setScore(game.score);
+        this.router.navigate(['/']);
+      }
+    });
+
   }
 
   ngOnDestroy() {

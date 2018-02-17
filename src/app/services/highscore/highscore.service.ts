@@ -19,7 +19,8 @@ export class HighscoreService {
   }
 
   getScores(): Score[] {
-    return JSON.parse(localStorage.getItem('score')) as Score[];
+    const score = JSON.parse(localStorage.getItem('highscore'));
+    return score ? score as Score[] : [];
   }
 
   setScore(score: number) {
@@ -29,7 +30,7 @@ export class HighscoreService {
       email: this.email,
       score
     });
-    localStorage.setItem('score', JSON.stringify(scores));
+    localStorage.setItem('highscore', JSON.stringify(scores));
   }
 
 }
