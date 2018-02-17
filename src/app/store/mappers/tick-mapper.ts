@@ -47,7 +47,6 @@ export const tickMapper = (state: Tetris[], index: number): Tetris[] => {
         newState.forEach(tetris => {
           tetris.next = tetris.next.concat(next.slice());
         });
-        console.log(newState);
       }
     }
   }
