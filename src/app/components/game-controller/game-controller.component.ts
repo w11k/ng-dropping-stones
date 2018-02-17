@@ -60,9 +60,8 @@ export class GameControllerComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     this.game$ = this.store.pipe(
-      select('game')
-    ).pipe(
-      map(games => games[this.player]),
+      select('game'),
+      map(games => games[this.player])
     );
 
     this.gamepadSubscription = this.gamepad.getActions(this.controller).subscribe(action => {
