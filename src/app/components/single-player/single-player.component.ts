@@ -27,6 +27,8 @@ export class SinglePlayerComponent implements OnInit, OnDestroy {
     drop: 'Space',
   };
 
+  gameOverSubscription: Subscription;
+
   constructor(
     private store: Store<AppState>,
     private audio: AudioService,
@@ -38,7 +40,7 @@ export class SinglePlayerComponent implements OnInit, OnDestroy {
     this.store.dispatch(new Init(1));
     this.audio.play('korobeiniki.wav', true);
 
-    this.store.pipe(
+    this.gameOverSubscription = this.store.pipe(
       select('game'),
       map((games: Tetris[]) => games[0]),
     ).subscribe(game => {
@@ -53,6 +55,7 @@ export class SinglePlayerComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.audio.pause();
+    this.gameOverSubscription.unsubscribe();
   }
 
 }
