@@ -47,7 +47,7 @@ export class SinglePlayerComponent implements OnInit, OnDestroy {
       if (game.status === Status.GAME_OVER) {
         // GAME OVER LOGIC
         this.score.setScore(game.score);
-        this.router.navigate(['/']);
+        this.router.navigate(['game-over']);
       }
     });
 
