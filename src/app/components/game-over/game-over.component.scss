@@ -5,7 +5,9 @@
 }
 
 h1 {
+  font-size: 4em;
   text-align: center;
+  animation: 1s color infinite step-end;
 }
 
 .row {
@@ -55,4 +57,13 @@ a {
 a:focus {
   color: #ee5d26;
   border: 5px solid #ee5d26;
+}
+
+@keyframes color {
+  0% {
+    color: #eee;
+  }
+  50% {
+    color: #ee5d26;
+  }
 }
