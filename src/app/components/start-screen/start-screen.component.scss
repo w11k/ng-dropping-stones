@@ -1,3 +1,5 @@
+@import '../../../styles/colors';
+
 :host {
   height: 100vh;
   display: flex;
@@ -11,7 +13,7 @@
     left: 0;
     right: 0;
     height: 140px;
-    background: #ee5d26;
+    background: $tetris-primary;
     text-align: center;
 
     .header__logo {
@@ -31,15 +33,15 @@
     a {
       margin: 20px 10px;
       padding: 10px;
-      color: #333;
+      color: $tetris-dark;
       border: 5px solid transparent;
       text-decoration: none;
       outline: none;
     }
 
     a:focus {
-      color: #ee5d26;
-      border: 5px solid #ee5d26;
+      color: $tetris-primary;
+      border: 5px solid $tetris-primary;
     }
   }
 

@@ -1,3 +1,5 @@
+@import '../../../styles/colors';
+
 :host {
   height: 100vh;
   display: flex;
@@ -22,7 +24,7 @@
     }
     label {
       font-size: 1.5em;
-      color: #333;
+      color: $tetris-dark;
     }
     pre {
       display: inline;
@@ -32,14 +34,14 @@
       margin: 10px 0 50px;
     }
     input:focus + label {
-      color: #ee5d26;
+      color: $tetris-primary;
     }
     input:focus ~ pre {
       animation: 1s blink step-end infinite;
     }
   }
   button {
-    color: #333;
+    color: $tetris-dark;
     padding: 10px;
     align-self: center;
     background: none;
@@ -49,15 +51,15 @@
     cursor: pointer;
   }
   button:focus {
-    color: #ee5d26;
-    border: 5px solid #ee5d26;
+    color: $tetris-primary;
+    border: 5px solid $tetris-primary;
   }
 }
 
 @keyframes blink {
   from, to {
     border-left: 15px solid transparent;
-    border-right: 15px solid #eee;
+    border-right: 15px solid $tetris-light;
   }
   50% {
     border-left: 15px solid transparent;

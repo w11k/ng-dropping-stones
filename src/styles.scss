@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
+@import 'styles/colors';
 
 * {
   font-family: 'Press Start 2P', cursive;
-  color: #eee;
+  color: $tetris-light;
 }
 
 body {
