@@ -1,3 +1,2 @@
 <app-game-board [game]="(game$ | async)"></app-game-board>
-<div>Punkte: {{(game$ | async)?.score}}</div>
-<div>Linien: {{(game$ | async)?.rowsCleared}}</div>
+<app-game-info [game]="(game$ | async)" [isMultiplayer]="isMultiplayer" [difference]="difference"></app-game-info>

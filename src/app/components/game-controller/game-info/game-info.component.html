@@ -1,0 +1,2 @@
+<p>Punkte: {{game?.score}}</p>
+<p *ngIf="isMultiplayer" [ngClass]="{positive: difference > 0, negative: difference < 0}">({{difference}})</p>

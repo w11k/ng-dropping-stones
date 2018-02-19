@@ -1,18 +1,15 @@
 import { ChangeDetectionStrategy, Component, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { AppState } from '../../store/state.model';
-import { Status, Tetris } from '../../models/tetris/tetris.model';
+import { Tetris } from '../../models/tetris/tetris.model';
 import { Drop, Left, Right, Rotate, Tick } from '../../store/actions/actions';
 import { Keymap } from '../../models/keymap/keymap.model';
-import { map, tap, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import { GamepadService } from '../../services/gamepad/gamepad.service';
 import { GamepadActions } from '../../models/gamepad/gamepad.model';
 import { Subscription } from 'rxjs/Subscription';
-import { TetrominoType } from '../../models/tetromino/tetromino.model';
 import { interval } from 'rxjs/observable/interval';
-import { empty } from 'rxjs/Observer';
-import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'app-game-controller',
@@ -26,6 +23,8 @@ export class GameControllerComponent implements OnInit, OnDestroy {
   @Input() controller: number;
   @Input() keymap: Keymap;
   game$: Observable<Tetris>;
+  isMultiplayer: boolean;
+  difference: number;
   gameLoop$: Observable<number>;
   gameLevel$: Observable<number>;
 
@@ -68,8 +67,18 @@ export class GameControllerComponent implements OnInit, OnDestroy {
 
     this.game$ = this.store.pipe(
       select('game'),
-      map(games => games[this.player])
-    );
+      tap((games: Tetris[]) => this.isMultiplayer = games.length > 1),
+      tap((games: Tetris[]) => {
+        if (!this.isMultiplayer) {
+          return;
+        }
+        const scores = games.map(game => game.score);
+        const myScore = scores.splice(this.player, 1)[0];
+        this.difference = myScore - Math.max(...scores);
+      }),
+      map((games: Tetris[]) => games[this.player])
+    )
+    ;
 
     this.gameLevel$ = this.game$.pipe(
       map(game => Math.floor(game.rowsCleared / 10)),
@@ -81,7 +90,7 @@ export class GameControllerComponent implements OnInit, OnDestroy {
     );
 
     this.gameLoopSubscription = this.gameLoop$.subscribe(() => {
-      this.store.dispatch(new Tick(this.player));
+      // this.store.dispatch(new Tick(this.player));
     });
 
     this.gamepadSubscription = this.gamepad.getActions(this.controller).subscribe(action => {
