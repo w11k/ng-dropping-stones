@@ -1,5 +1,4 @@
 import { Status, Tetris } from '../../models/tetris/tetris.model';
-import { boardWidth } from '../../models/tetris/settings';
 import { randomGenerator } from '../../helpers/tetromino-helpers';
 import * as clone from 'clone';
 import { TetrominoType } from '../../models/tetromino/tetromino.model';
@@ -41,9 +40,9 @@ export const tickMapper = (state: Tetris[], index: number): Tetris[] => {
       game.current = null;
     } else {
 
-      const rowsCleared = removeRows(game.board);
-      game.rowsCleared += rowsCleared;
-      game.score += calculateScore(rowsCleared);
+      const rows = removeRows(game.board);
+      game.rowsCleared += rows;
+      game.score += calculateScore(rows, game.rowsCleared);
       game.current = game.next.shift();
 
       if (game.next.length < 7) {
@@ -73,11 +72,12 @@ const removeRows = (board: TetrominoType[][]): number => {
   return rowsCleared;
 };
 
-const calculateScore = (rowsCleared: number): number => {
-  return rowsCleared === 0 ? 0 :
-    rowsCleared === 1 ? 40 :
-      rowsCleared === 2 ? 100 :
-        rowsCleared === 3 ? 300 :
-          rowsCleared === 4 ? 1200 :
+const calculateScore = (rows: number, totalRowsCleared: number): number => {
+  const points = rows === 0 ? 0 :
+    rows === 1 ? 40 :
+      rows === 2 ? 100 :
+        rows === 3 ? 300 :
+          rows === 4 ? 1200 :
             0;
+  return points * ( Math.floor(totalRowsCleared / 10) + 1);
 };
