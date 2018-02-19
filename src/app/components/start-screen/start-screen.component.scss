@@ -7,21 +7,6 @@
   justify-content: center;
   align-items: center;
 
-  header {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 140px;
-    background: $tetris-primary;
-    text-align: center;
-
-    .header__logo {
-      font-size: 2em;
-      margin: 30px;
-    }
-  }
-
   h1 {
     font-size: 3em;
   }

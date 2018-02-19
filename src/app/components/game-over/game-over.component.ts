@@ -22,8 +22,8 @@ export class GameOverComponent implements OnInit {
 
   ngOnInit() {
     this.highscores = this.scoreService.getScores()
-      .slice(0, 10)
-      .sort((a, b) => b.score - a.score);
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 10);
     this.store.pipe(
       select('game'),
       first(),

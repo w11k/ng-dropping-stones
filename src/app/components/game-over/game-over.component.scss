@@ -3,7 +3,7 @@
 :host {
   display: flex;
   flex-direction: column;
-  margin-top: 100px;
+  margin-top: 200px;
 }
 
 h1 {
@@ -23,9 +23,28 @@ h1 {
 }
 
 .player-result {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   .player-result__score {
     font-size: 3em;
     text-align: center;
+  }
+
+  a {
+    margin: 20px 10px;
+    padding: 10px;
+    color: $tetris-dark;
+    border: 5px solid transparent;
+    text-decoration: none;
+    outline: none;
+  }
+
+  a:focus {
+    color: $tetris-primary;
+    border: 5px solid $tetris-primary;
   }
 }
 
@@ -34,31 +53,23 @@ h1 {
   flex-direction: column;
   align-items: center;
   .highscore-list__table {
+    table-layout: fixed;
+    width: 500px;
     th {
       color: $tetris-primary;
       text-align: left;
+      width: 309px;
+      box-sizing: border-box;
+    }
+    th:last-child {
+      width: 191px;
     }
     th, td {
-      padding: 10px;
-      width: 200px;
+      padding: 10px 20px;
       font-size: 1.2em;
+      word-wrap: break-word;
     }
   }
-}
-
-a {
-  align-self: center;
-  margin: 20px 10px;
-  padding: 10px;
-  color: $tetris-dark;
-  border: 5px solid transparent;
-  text-decoration: none;
-  outline: none;
-}
-
-a:focus {
-  color: $tetris-primary;
-  border: 5px solid $tetris-primary;
 }
 
 @keyframes color {
