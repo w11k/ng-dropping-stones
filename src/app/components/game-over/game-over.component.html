@@ -1,10 +1,21 @@
 <h1>GAME OVER</h1>
 <div class="row">
-  <div class="col">
+  <div class="col player-result">
     <h2>deine Punktzahl:</h2>
+    <p class="player-result__score">{{this.playerScore}}</p>
   </div>
-  <div class="col">
+  <div class="col highscore-list">
     <h2>Bestenliste:</h2>
+    <table class="highscore-list__table">
+      <tr>
+        <th>Name</th>
+        <th>Punkte</th>
+      </tr>
+      <tr *ngFor="let score of highscores">
+        <td>{{score.name}}</td>
+        <td>{{score.score}}</td>
+      </tr>
+    </table>
   </div>
 </div>
 <a routerLink="/">zurück zur Startseite</a>

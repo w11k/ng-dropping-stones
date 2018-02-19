@@ -1,6 +1,7 @@
 :host {
   display: flex;
   flex-direction: column;
+  margin-top: 100px;
 }
 
 h1 {
@@ -13,6 +14,30 @@ h1 {
     width: 50%;
     h2 {
       text-align: center;
+    }
+  }
+}
+
+.player-result {
+  .player-result__score {
+    font-size: 3em;
+    text-align: center;
+  }
+}
+
+.highscore-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .highscore-list__table {
+    th {
+      color: #ee5d26;
+      text-align: left;
+    }
+    th, td {
+      padding: 10px;
+      width: 200px;
+      font-size: 1.2em;
     }
   }
 }
