@@ -90,7 +90,7 @@ export class GameControllerComponent implements OnInit, OnDestroy {
     );
 
     this.gameLoopSubscription = this.gameLoop$.subscribe(() => {
-      // this.store.dispatch(new Tick(this.player));
+      this.store.dispatch(new Tick(this.player));
     });
 
     this.gamepadSubscription = this.gamepad.getActions(this.controller).subscribe(action => {
