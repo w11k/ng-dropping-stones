@@ -15,13 +15,14 @@ import { EnterNameComponent } from './components/enter-name/enter-name.component
 import { EnterNameModule } from './components/enter-name/enter-name.module';
 import { GameOverComponent } from './components/game-over/game-over.component';
 import { GameOverModule } from './components/game-over/game-over.module';
+import { SinglePlayerGuard } from './components/single-player/single-player.guard';
 
 const routes = [
   {
     path: '', component: StartScreenComponent
   },
   {
-    path: 'single', component: SinglePlayerComponent
+    path: 'single', component: SinglePlayerComponent, canActivate: [SinglePlayerGuard]
   },
   {
     path: 'multi', component: MultiplayerComponent

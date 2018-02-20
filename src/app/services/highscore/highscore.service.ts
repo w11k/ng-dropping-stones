@@ -13,6 +13,10 @@ export class HighscoreService {
     }
   }
 
+  hasName(): boolean {
+    return !!this.name;
+  }
+
   setPerson(person: Person) {
     this.name = person.name;
     this.email = person.email;

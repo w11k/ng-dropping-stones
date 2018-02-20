@@ -25,7 +25,7 @@ export class EnterNameComponent implements OnInit {
 
   submit(form: FormGroup) {
     if (form.invalid) {
-      alert('please enter a name!');
+      alert('Bitte gib einen Namen ein!');
       return;
     }
     this.score.setPerson(form.value as Person);
