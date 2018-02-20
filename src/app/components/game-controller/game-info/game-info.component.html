@@ -1,2 +1,4 @@
 <p>Punkte: {{game?.score}}</p>
+<p>Reihen: {{game?.rowsCleared}}</p>
 <p *ngIf="isMultiplayer" [ngClass]="{positive: difference > 0, negative: difference < 0}">({{difference}})</p>
+<p>Nächster Stein: {{game?.next[0].type}}</p>

@@ -1,4 +1,4 @@
-import { Offset, Tetromino, TetrominoType } from '../models/tetromino/tetromino.model';
+import { Tetromino, TetrominoType } from '../models/tetromino/tetromino.model';
 
 const tetrominoTypes: TetrominoType[] = [
   TetrominoType.I,
@@ -12,45 +12,41 @@ const tetrominoTypes: TetrominoType[] = [
 
 const tetrominoCoordinates = {
   'I': [
-    [0, 1, 0, 0],
-    [0, 1, 0, 0],
-    [0, 1, 0, 0],
-    [0, 1, 0, 0],
+    [0, 0, 0, 0],
+    [1, 1, 1, 1],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
   ],
   'J': [
-    [0, 1, 0],
-    [0, 1, 0],
-    [1, 1, 0],
+    [1, 0, 0],
+    [1, 1, 1],
+    [0, 0, 0],
   ],
   'L': [
-    [0, 1, 0],
-    [0, 1, 0],
-    [0, 1, 1],
+    [0, 0, 1],
+    [1, 1, 1],
+    [0, 0, 0],
   ],
   'O': [
     [1, 1],
     [1, 1],
   ],
   'S': [
-    [0, 0, 0],
     [0, 1, 1],
     [1, 1, 0],
+    [0, 0, 0],
   ],
   'T': [
-    [1, 1, 1],
     [0, 1, 0],
+    [1, 1, 1],
     [0, 0, 0],
   ],
   'Z': [
-    [0, 0, 0],
     [1, 1, 0],
     [0, 1, 1],
+    [0, 0, 0],
   ],
 
-};
-
-const random = <T>(array: T[]): T => {
-  return array[Math.floor(Math.random() * array.length)];
 };
 
 export const rotate = (matrix: number[][], times = 1): number[][] => {
@@ -74,6 +70,6 @@ export const randomGenerator = (): Tetromino[] => {
     .map(type => ({
       type,
       offset: { x: 4, y: -2 },
-      coordinates: rotate(tetrominoCoordinates[type], random([0, 1, 2, 3]))
+      coordinates: tetrominoCoordinates[type]
     }));
 };
