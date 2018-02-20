@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Board, Tetris } from '../../models/tetris/tetris.model';
 import { TetrominoType } from '../../models/tetromino/tetromino.model';
 import * as clone from 'clone';
+import { flatten } from '../../helpers/tetromino-helpers';
 
 @Component({
   selector: 'app-game-board',
@@ -37,7 +38,3 @@ export class GameBoardComponent {
   }
 
 }
-
-const flatten = <T>(array: T[][]): T[] => {
-  return [].concat(...array);
-};

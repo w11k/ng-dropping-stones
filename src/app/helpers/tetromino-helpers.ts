@@ -57,6 +57,10 @@ export const rotate = (matrix: number[][], times = 1): number[][] => {
   return result;
 };
 
+export const flatten = <T>(array: T[][]): T[] => {
+  return [].concat(...array);
+};
+
 const shuffle = <T>(array: T[]): T[] => {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
