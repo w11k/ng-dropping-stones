@@ -1,4 +1,5 @@
 @import '../../../styles/colors';
+@import '../../../styles/mixin/tetromino-colors';
 
 .board {
   max-width: 250px;
@@ -6,46 +7,14 @@
 }
 
 span[class^='block'] {
-  display: inline-block;
-  width: 25px;
-  height: 25px;
-  border: 1px solid $tetris-dark;
   margin: 0 -16px 0 0;
-  box-sizing: border-box;
+  @include default-block($tetris-dark)
 }
 
 .block-null {
   background: #333;
 }
 
-.block-I {
-  background: #00E5FF;
-}
 
-.block-O {
-  background: #FFFF00;
-}
 
-.block-T {
-  background: #D500F9;
-}
-
-.block-J {
-  background: #3D5AFE;
-}
-
-.block-L {
-  background: #FF9100;
-}
-
-.block-S {
-  background: #76FF03;
-}
-
-.block-Z {
-  background: #F44336;
-}
-
-.block-shadow {
-  background: #444;
-}
+@include tetromino-colors() ;
