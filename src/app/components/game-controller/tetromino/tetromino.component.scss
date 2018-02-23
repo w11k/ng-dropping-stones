@@ -1,0 +1,22 @@
+@import '../../../../styles/colors';
+@import '../../../../styles/mixin/tetromino-colors';
+
+@include tetromino-colors();
+
+.block {
+  @include default-block(transparent);
+  &.active {
+    border: 1px solid $tetris-dark;
+  }
+}
+
+.grid-4 {
+  max-width: 100px;
+
+}
+.grid-3 {
+  max-width: 75px;
+}
+.grid-2 {
+  max-width: 50px;
+}
