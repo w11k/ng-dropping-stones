@@ -2,6 +2,10 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.4.
 
+# About
+
+Inspired by [w11k Dropping Stones](https://github.com/w11k/ng-dropping-stones) and [Angular + Redux Tetris](https://github.com/DavidBanksNZ/ng-tetris).
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
