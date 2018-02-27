@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, HostListener, Input, OnDestroy, OnI
 import { select, Store } from '@ngrx/store';
 import { AppState } from '../../store/state.model';
 import { Tetris } from '../../models/tetris/tetris.model';
-import { Drop, Left, Right, Rotate, Tick } from '../../store/actions/actions';
+import { Drop, Left, Right, RotateLeft, RotateRight, Tick } from '../../store/actions/actions';
 import { Keymap } from '../../models/keymap/keymap.model';
 import { distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
@@ -47,7 +47,7 @@ export class GameControllerComponent implements OnInit, OnDestroy {
         break;
 
       case this.keymap.rotate:
-        this.store.dispatch(new Rotate(this.player));
+        this.store.dispatch(new RotateRight(this.player));
         break;
 
       case this.keymap.tick:
@@ -103,8 +103,12 @@ export class GameControllerComponent implements OnInit, OnDestroy {
           this.store.dispatch(new Right(this.player));
           break;
 
-        case GamepadActions.Rotate:
-          this.store.dispatch(new Rotate(this.player));
+        case GamepadActions.Rotate_Right:
+          this.store.dispatch(new RotateRight(this.player));
+          break;
+
+        case GamepadActions.Rotate_Left:
+          this.store.dispatch(new RotateLeft(this.player));
           break;
 
         case GamepadActions.Down:

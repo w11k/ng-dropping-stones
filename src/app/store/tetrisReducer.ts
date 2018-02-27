@@ -4,7 +4,7 @@ import { initMapper } from './mappers/init-mapper';
 import { TetrisAction, TetrisActionTypes } from './actions/actions';
 import { leftMapper } from './mappers/left-mapper';
 import { rightMapper } from './mappers/right-mapper';
-import { rotateMapper } from './mappers/rotate-mapper';
+import { rotateLeftMapper, rotateRightMapper } from './mappers/rotate-mapper';
 import { dropMapper } from './mappers/drop-mapper';
 
 export function tetrisReducer(state: Tetris[] = [], action: TetrisAction): Tetris[] {
@@ -22,8 +22,11 @@ export function tetrisReducer(state: Tetris[] = [], action: TetrisAction): Tetri
     case TetrisActionTypes.RIGHT:
       return rightMapper(state, action.payload);
 
-    case TetrisActionTypes.ROTATE:
-      return rotateMapper(state, action.payload);
+    case TetrisActionTypes.ROTATE_RIGHT:
+      return rotateRightMapper(state, action.payload);
+
+    case TetrisActionTypes.ROTATE_LEFT:
+      return rotateLeftMapper(state, action.payload);
 
     case TetrisActionTypes.DROP:
       return dropMapper(state, action.payload);

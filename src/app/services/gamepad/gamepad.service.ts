@@ -11,7 +11,8 @@ export class GamepadService {
   private buttonSubject = new Subject<TetrisGamepad>();
   private axisSubject = new Subject<TetrisGamepad>();
   private buttonMap: { [key: number]: GamepadActions } = {
-    0: GamepadActions.Rotate,
+    0: GamepadActions.Rotate_Right,
+    1: GamepadActions.Rotate_Left,
     5: GamepadActions.Drop
   };
 

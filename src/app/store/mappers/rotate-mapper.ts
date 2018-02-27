@@ -3,14 +3,22 @@ import * as clone from 'clone';
 import { rotate } from '../../helpers/tetromino-helpers';
 import { collision, rotateCollision } from '../../helpers/store-helpers';
 
-export const rotateMapper = (state: Tetris[], index: number): Tetris[] => {
+export const rotateRightMapper = (state: Tetris[], index: number) => rotateMapper(state, index, true);
+export const rotateLeftMapper = (state: Tetris[], index: number) => rotateMapper(state, index, false);
+
+const rotateMapper = (state: Tetris[], index: number, right: boolean): Tetris[] => {
   const newState = clone<Tetris[]>(state, false);
   const game = newState[index];
   if (game.current === null) {
     return state;
   }
 
-  game.current.coordinates = rotate(game.current.coordinates);
+  if (right) {
+    game.current.coordinates = rotate(game.current.coordinates);
+  } else {
+    game.current.coordinates = rotate(game.current.coordinates, 3);
+  }
+
   while (collision(game.board, game.current).right) {
     game.current.offset.x -= 1;
   }

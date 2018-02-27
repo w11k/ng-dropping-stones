@@ -5,7 +5,8 @@ export enum TetrisActionTypes {
   INIT = 'INIT',
   LEFT = 'LEFT',
   RIGHT = 'RIGHT',
-  ROTATE = 'ROTATE',
+  ROTATE_RIGHT = 'ROTATE_RIGHT',
+  ROTATE_LEFT = 'ROTATE_LEFT',
   DROP = 'DROP'
 }
 
@@ -37,8 +38,15 @@ export class Right implements Action {
   }
 }
 
-export class Rotate implements Action {
-  readonly type = TetrisActionTypes.ROTATE;
+export class RotateRight implements Action {
+  readonly type = TetrisActionTypes.ROTATE_RIGHT;
+
+  constructor(public payload: number) {
+  }
+}
+
+export class RotateLeft implements Action {
+  readonly type = TetrisActionTypes.ROTATE_LEFT;
 
   constructor(public payload: number) {
   }
@@ -56,5 +64,6 @@ export type TetrisAction
   | Init
   | Left
   | Right
-  | Rotate
+  | RotateRight
+  | RotateLeft
   | Drop;
