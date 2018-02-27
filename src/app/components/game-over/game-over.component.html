@@ -4,19 +4,12 @@
   <div class="col player-result">
     <h2>deine Punktzahl:</h2>
     <p class="player-result__score">{{this.playerScore}}</p>
-    <a routerLink="/">zurück zur Startseite</a>
+    <a routerLink="/">zurück zur <br/> Startseite</a>
   </div>
-  <div class="col highscore-list">
-    <h2>Bestenliste:</h2>
-    <table class="highscore-list__table">
-      <tr>
-        <th>Name</th>
-        <th>Punkte</th>
-      </tr>
-      <tr *ngFor="let score of highscores">
-        <td>{{score.name}}</td>
-        <td>{{score.score}}</td>
-      </tr>
-    </table>
+  <div class="col">
+    <app-highscore-list heading="today's highscore:" [highscores]="todaysHighscores"></app-highscore-list>
+  </div>
+  <div class="col">
+    <app-highscore-list heading="all-time highscore:" [highscores]="highscores"></app-highscore-list>
   </div>
 </div>

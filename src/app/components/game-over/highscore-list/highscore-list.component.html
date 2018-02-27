@@ -1,0 +1,11 @@
+<h2>{{heading}}</h2>
+<table class="highscore-list__table">
+  <tr>
+    <th>Name</th>
+    <th>Punkte</th>
+  </tr>
+  <tr *ngFor="let score of highscores">
+    <td>{{score.name}}</td>
+    <td>{{score.score}}</td>
+  </tr>
+</table>

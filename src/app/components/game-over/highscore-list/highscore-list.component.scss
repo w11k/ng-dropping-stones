@@ -1,0 +1,28 @@
+@import '../../../../styles/colors';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  h2 {
+    text-align: center;
+  }
+  .highscore-list__table {
+    table-layout: fixed;
+    width: 400px;
+    th {
+      color: $tetris-primary;
+      text-align: left;
+      width: 220px;
+      box-sizing: border-box;
+    }
+    th:last-child {
+      width: 180px;
+    }
+    th, td {
+      padding: 10px 20px;
+      font-size: 1.2em;
+      word-wrap: break-word;
+    }
+  }
+}

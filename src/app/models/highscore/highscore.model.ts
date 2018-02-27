@@ -5,4 +5,5 @@ export interface Person {
 
 export interface Score extends Person {
   score: number;
+  date: string;
 }

@@ -15,6 +15,7 @@ export class GameOverComponent implements OnInit {
 
   playerScore: number;
   highscores: Score[];
+  todaysHighscores: Score[];
 
   constructor(private scoreService: HighscoreService,
               private store: Store<AppState>) {
@@ -24,6 +25,11 @@ export class GameOverComponent implements OnInit {
     this.highscores = this.scoreService.getScores()
       .sort((a, b) => b.score - a.score)
       .slice(0, 10);
+
+    this.todaysHighscores = this.scoreService.getTodaysScores()
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 10);
+
     this.store.pipe(
       select('game'),
       first(),

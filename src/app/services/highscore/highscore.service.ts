@@ -27,12 +27,21 @@ export class HighscoreService {
     return score ? score as Score[] : [];
   }
 
+  getTodaysScores(): Score[] {
+    return this.getScores()
+      .filter(score =>
+        new Date(score.date).toDateString() === new Date().toDateString()
+      );
+  }
+
   setScore(score: number) {
     const scores = this.getScores();
+    const date = new Date().toString();
     scores.push({
       name: this.name,
       email: this.email,
-      score
+      score,
+      date
     });
     localStorage.setItem('highscore', JSON.stringify(scores));
   }
@@ -49,7 +58,7 @@ const storageAvailable = type => {
     return true;
   } catch (e) {
     return e instanceof DOMException && (
-      // everything except Firefox
+        // everything except Firefox
       e.code === 22 ||
       // Firefox
       e.code === 1014 ||
