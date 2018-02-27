@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { Init, Tick } from '../../store/actions/actions';
-import { Store } from '@ngrx/store';
+import { Init } from '../../store/actions/actions';
+import { select, Store } from '@ngrx/store';
 import { AppState } from '../../store/state.model';
 import { Keymap } from '../../models/keymap/keymap.model';
-import { interval } from 'rxjs/observable/interval';
 import { Subscription } from 'rxjs/Subscription';
 import { AudioService } from '../../services/audio/audio.service';
+import { Router } from '@angular/router';
+import { Status, Tetris } from '../../models/tetris/tetris.model';
 
 @Component({
   selector: 'app-multiplayer',
@@ -14,6 +15,8 @@ import { AudioService } from '../../services/audio/audio.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MultiplayerComponent implements OnInit, OnDestroy {
+
+  gameOverSubscription: Subscription;
 
   playerOne: Keymap = {
     left: 'KeyA',
@@ -31,16 +34,24 @@ export class MultiplayerComponent implements OnInit, OnDestroy {
     drop: 'Space',
   };
 
-  constructor(private store: Store<AppState>, private audio: AudioService) {
+  constructor(private store: Store<AppState>, private audio: AudioService, private router: Router) {
   }
 
   ngOnInit() {
     this.store.dispatch(new Init(2));
     this.audio.play('SugarplumFairy.wav', true);
+
+    this.gameOverSubscription = this.store.pipe(
+      select('game'),
+    ).subscribe((games: Tetris[]) => {
+      if (games.every(game => game.status === Status.GAME_OVER)) {
+        this.router.navigate(['multi-game-over']);
+      }
+    });
   }
 
   ngOnDestroy() {
     this.audio.pause();
+    this.gameOverSubscription.unsubscribe();
   }
-
 }

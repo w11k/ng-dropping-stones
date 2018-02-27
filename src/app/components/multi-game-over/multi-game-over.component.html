@@ -1,0 +1,16 @@
+<app-header></app-header>
+<div class="scores">
+  <div>
+    <h2>score player 1:</h2>
+    <p>{{scores[0]}}</p>
+  </div>
+  <div>
+    <h2>score player 2:</h2>
+    <p>{{scores[1]}}</p>
+  </div>
+</div>
+<div class="winner">
+  <p>the winner is:</p>
+  <h1>{{this.winner}}</h1>
+  <a routerLink="/">back to <br> main screen</a>
+</div>

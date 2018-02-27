@@ -1,2 +1,5 @@
 <app-game-board [game]="(game$ | async)"></app-game-board>
 <app-game-info [game]="(game$ | async)" [isMultiplayer]="isMultiplayer" [difference]="difference"></app-game-info>
+<div class="game-over-overlay" *ngIf="(game$ | async).status === 'GAME_OVER'">
+  <h2>GAME OVER</h2>
+</div>

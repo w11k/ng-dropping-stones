@@ -1,0 +1,10 @@
+@import "colors";
+
+@keyframes color {
+  0% {
+    color: $tetris-light;
+  }
+  50% {
+    color: $tetris-primary;
+  }
+}

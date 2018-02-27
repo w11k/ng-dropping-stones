@@ -77,8 +77,7 @@ export class GameControllerComponent implements OnInit, OnDestroy {
         this.difference = myScore - Math.max(...scores);
       }),
       map((games: Tetris[]) => games[this.player])
-    )
-    ;
+    );
 
     this.gameLevel$ = this.game$.pipe(
       map(game => Math.floor(game.rowsCleared / 10)),

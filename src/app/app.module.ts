@@ -16,6 +16,8 @@ import { EnterNameModule } from './components/enter-name/enter-name.module';
 import { GameOverComponent } from './components/game-over/game-over.component';
 import { GameOverModule } from './components/game-over/game-over.module';
 import { SinglePlayerGuard } from './components/single-player/single-player.guard';
+import { MultiGameOverComponent } from './components/multi-game-over/multi-game-over.component';
+import { MultiGameOverModule } from './components/multi-game-over/multi-game-over.module';
 
 const routes = [
   {
@@ -32,6 +34,9 @@ const routes = [
   },
   {
     path: 'game-over', component: GameOverComponent
+  },
+  {
+    path: 'multi-game-over', component: MultiGameOverComponent
   }
 ];
 
@@ -44,6 +49,7 @@ const routes = [
     StartScreenModule,
     SinglePlayerModule,
     MultiplayerModule,
+    MultiGameOverModule,
     EnterNameModule,
     GameOverModule,
     RouterModule.forRoot(routes),
