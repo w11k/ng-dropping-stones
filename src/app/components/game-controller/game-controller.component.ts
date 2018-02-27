@@ -1,15 +1,15 @@
-import { ChangeDetectionStrategy, Component, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
-import { select, Store } from '@ngrx/store';
-import { AppState } from '../../store/state.model';
-import { Tetris } from '../../models/tetris/tetris.model';
-import { Drop, Left, Right, Rotate, Tick } from '../../store/actions/actions';
-import { Keymap } from '../../models/keymap/keymap.model';
-import { distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
-import { Observable } from 'rxjs/Observable';
-import { GamepadService } from '../../services/gamepad/gamepad.service';
-import { GamepadActions } from '../../models/gamepad/gamepad.model';
-import { Subscription } from 'rxjs/Subscription';
-import { interval } from 'rxjs/observable/interval';
+import {ChangeDetectionStrategy, Component, HostListener, Input, OnDestroy, OnInit} from '@angular/core';
+import {select, Store} from '@ngrx/store';
+import {AppState} from '../../store/state.model';
+import {Tetris} from '../../models/tetris/tetris.model';
+import {Drop, Left, Right, Rotate, Tick} from '../../store/actions/actions';
+import {Keymap} from '../../models/keymap/keymap.model';
+import {distinctUntilChanged, map, switchMap, tap} from 'rxjs/operators';
+import {Observable} from 'rxjs/Observable';
+import {GamepadService} from '../../services/gamepad/gamepad.service';
+import {GamepadActions} from '../../models/gamepad/gamepad.model';
+import {Subscription} from 'rxjs/Subscription';
+import {interval} from 'rxjs/observable/interval';
 
 @Component({
   selector: 'app-game-controller',
@@ -90,7 +90,7 @@ export class GameControllerComponent implements OnInit, OnDestroy {
     );
 
     this.gameLoopSubscription = this.gameLoop$.subscribe(() => {
-      // this.store.dispatch(new Tick(this.player));
+      this.store.dispatch(new Tick(this.player));
     });
 
     this.gamepadSubscription = this.gamepad.getActions(this.controller).subscribe(action => {
