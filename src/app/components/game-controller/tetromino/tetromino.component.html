@@ -1,4 +1,4 @@
-<p>nächster Stein:</p>
+<p>next Tetromino:</p>
 <div [class]="gridWidth$ | async" >
   <span *ngFor="let value of coords$ | async" [ngClass]="value" class="block"></span>
 </div>
