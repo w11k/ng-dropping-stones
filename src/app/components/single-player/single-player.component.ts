@@ -1,13 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { Store, select } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { AppState } from '../../store/state.model';
-import { Init, Tick } from '../../store/actions/actions';
+import { Init } from '../../store/actions/actions';
 import { Keymap } from '../../models/keymap/keymap.model';
-import { interval } from 'rxjs/observable/interval';
 import { Subscription } from 'rxjs/Subscription';
 import { AudioService } from '../../services/audio/audio.service';
-import { map, distinctUntilChanged } from 'rxjs/operators';
-import { Tetris, Status } from '../../models/tetris/tetris.model';
+import { map } from 'rxjs/operators';
+import { Status, Tetris } from '../../models/tetris/tetris.model';
 import { Router } from '@angular/router';
 import { HighscoreService } from '../../services/highscore/highscore.service';
 
@@ -28,15 +27,20 @@ export class SinglePlayerComponent implements OnInit, OnDestroy {
   };
 
   gameOverSubscription: Subscription;
+  todaysHighscore: number;
+  allTimeHighscore: number;
 
-  constructor(
-    private store: Store<AppState>,
-    private audio: AudioService,
-    private router: Router,
-    private score: HighscoreService
-  ) { }
+  constructor(private store: Store<AppState>,
+              private audio: AudioService,
+              private router: Router,
+              private score: HighscoreService) {
+  }
 
   ngOnInit() {
+
+    this.todaysHighscore = this.score.getTodaysScores()[0] ? this.score.getTodaysScores()[0].score : 0;
+    this.allTimeHighscore = this.score.getScores()[0] ? this.score.getScores()[0].score : 0;
+
     this.store.dispatch(new Init(1));
     this.audio.play('korobeiniki.wav', true);
 

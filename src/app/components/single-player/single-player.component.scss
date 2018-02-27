@@ -1,6 +1,21 @@
 :host {
   height: 100vh;
   display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: space-around;
+
+  .scores {
+    width: 25%;
+    margin: 40px;
+    padding: 20px 0;
+    h2 {
+      text-align: center;
+      font-size: 1.5em;
+    }
+    p {
+      font-size: 1.5em;
+      text-align: center;
+    }
+  }
+
 }

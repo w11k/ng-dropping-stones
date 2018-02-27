@@ -1,4 +1,4 @@
-<p>Score: {{game?.score}}</p>
-<p>Lines: {{game?.rowsCleared}}</p>
+<p>score: {{game?.score}}</p>
+<p>lines: {{game?.rowsCleared}}</p>
 <p *ngIf="isMultiplayer" [ngClass]="{positive: difference > 0, negative: difference < 0}">({{difference}})</p>
 <app-tetromino [tetromino]="game?.next[0]"></app-tetromino>
