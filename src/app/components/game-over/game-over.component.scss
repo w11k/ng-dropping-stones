@@ -4,14 +4,14 @@
 :host {
   display: flex;
   flex-direction: column;
-  margin-top: 200px;
+  margin-top: 150px;
 }
 
 h1 {
   font-size: 4em;
   text-align: center;
   animation: 1s color infinite step-end;
-  margin: 25px;
+  margin: 50px;
 }
 
 .row {
@@ -20,6 +20,10 @@ h1 {
     width: 32%;
     padding: 20px;
     box-sizing: border-box;
+  }
+  .col:not(.player-result) {
+    background: #333;
+    margin: 10px;
   }
 }
 

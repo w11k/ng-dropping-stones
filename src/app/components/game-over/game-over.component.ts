@@ -34,14 +34,14 @@ export class GameOverComponent implements OnInit, AfterViewInit, OnDestroy {
       if (action === GamepadActions.Select) {
         this.clickFocused();
       }
-    })
+    });
 
     this.highscores = this.scoreService.getScores()
       .sort((a, b) => b.score - a.score)
-      .slice(0, 10);
+      .slice(0, 8);
     this.todaysHighscores = this.scoreService.getTodaysScores()
       .sort((a, b) => b.score - a.score)
-      .slice(0, 10);
+      .slice(0, 8);
     this.store.pipe(
       select('game'),
       first(),
