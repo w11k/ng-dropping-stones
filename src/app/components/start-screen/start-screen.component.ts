@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { GamepadService } from '../../services/gamepad/gamepad.service';
 import { GamepadActions } from '../../models/gamepad/gamepad.model';
-import { throttleTime } from 'rxjs/operators';
+import { merge, throttleTime } from 'rxjs/operators';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
@@ -20,6 +20,7 @@ export class StartScreenComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     this.navigationSubscription = this.gamepad.getActions(1).pipe(
+      merge(this.gamepad.getActions(2)),
       throttleTime(300)
     ).subscribe(action => {
       if (action === GamepadActions.Right || action === GamepadActions.Left) {
