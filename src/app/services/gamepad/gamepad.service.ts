@@ -21,6 +21,12 @@ export class GamepadService {
     this.pollingLoop();
   }
 
+  getAllActions(): Observable<GamepadActions> {
+    return this.getActions(1).pipe(
+      merge(this.getActions(2)),
+    );
+  }
+
   getActions(index: number): Observable<GamepadActions> {
     const axes = this.axisSubject.asObservable().pipe(
       filter(gamepad => gamepad.index === index),
