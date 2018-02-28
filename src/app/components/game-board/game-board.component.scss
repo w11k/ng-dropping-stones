@@ -8,13 +8,11 @@
 
 span[class^='block'] {
   margin: 0 -16px 0 0;
-  @include default-block($tetris-dark)
+  @include default-block(#444);
 }
 
 .block-null {
   background: #333;
 }
 
-
-
-@include tetromino-colors() ;
+@include tetromino-colors();
