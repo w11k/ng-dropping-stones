@@ -1,0 +1,11 @@
+.row {
+  margin-top: 200px;
+  display: flex;
+  justify-content: space-around;
+  .col {
+    padding: 20px;
+    box-sizing: border-box;
+    background: #333;
+    margin: 10px;
+  }
+}

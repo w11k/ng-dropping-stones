@@ -18,6 +18,8 @@ import { GameOverModule } from './components/game-over/game-over.module';
 import { SinglePlayerGuard } from './components/single-player/single-player.guard';
 import { MultiGameOverComponent } from './components/multi-game-over/multi-game-over.component';
 import { MultiGameOverModule } from './components/multi-game-over/multi-game-over.module';
+import { HighscoreDisplayComponent } from './components/highscore-display/highscore-display.component';
+import { HighscoreDisplayModule } from './components/highscore-display/highscore-display.module';
 
 const routes = [
   {
@@ -37,6 +39,9 @@ const routes = [
   },
   {
     path: 'multi-game-over', component: MultiGameOverComponent
+  },
+  {
+    path: 'highscore', component: HighscoreDisplayComponent
   }
 ];
 
@@ -50,6 +55,7 @@ const routes = [
     SinglePlayerModule,
     MultiplayerModule,
     MultiGameOverModule,
+    HighscoreDisplayModule,
     EnterNameModule,
     GameOverModule,
     RouterModule.forRoot(routes),

@@ -4,8 +4,8 @@ import { GameOverComponent } from './game-over.component';
 import { HighscoreModule } from '../../services/highscore/highscore.module';
 import { RouterModule } from '@angular/router';
 import { HeaderModule } from '../header/header.module';
-import { HighscoreListComponent } from './highscore-list/highscore-list.component';
 import { GamepadModule } from '../../services/gamepad/gamepad.module';
+import { HighscoreListModule } from '../highscore-list/highscore-list.module';
 
 @NgModule({
   imports: [
@@ -13,8 +13,10 @@ import { GamepadModule } from '../../services/gamepad/gamepad.module';
     HighscoreModule,
     RouterModule,
     HeaderModule,
-    GamepadModule
+    GamepadModule,
+    HighscoreListModule
   ],
-  declarations: [GameOverComponent, HighscoreListComponent]
+  declarations: [GameOverComponent]
 })
-export class GameOverModule { }
+export class GameOverModule {
+}

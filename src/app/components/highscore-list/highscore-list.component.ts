@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Score } from '../../../models/highscore/highscore.model';
+import { Score } from '../../models/highscore/highscore.model';
 
 @Component({
   selector: 'app-highscore-list',
