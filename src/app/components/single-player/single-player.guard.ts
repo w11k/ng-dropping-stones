@@ -10,11 +10,10 @@ export class SinglePlayerGuard implements CanActivate {
   }
 
   canActivate(): boolean {
-    // const hasName = this.score.hasName();
-    // if (!hasName) {
-    //   this.router.navigate(['enter-name']);
-    // }
-    // return hasName;
-    return true;
+    const hasName = this.score.hasName();
+    if (!hasName) {
+      this.router.navigate(['enter-name']);
+    }
+    return hasName;
   }
 }
