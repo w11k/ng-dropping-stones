@@ -13,7 +13,8 @@ export class GamepadService {
   private buttonMap: { [key: number]: GamepadActions } = {
     0: GamepadActions.Rotate_Right,
     1: GamepadActions.Rotate_Left,
-    5: GamepadActions.Drop
+    5: GamepadActions.Drop,
+    6: GamepadActions.Select
   };
 
   constructor() {
