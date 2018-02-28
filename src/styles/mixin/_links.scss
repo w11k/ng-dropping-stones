@@ -1,0 +1,16 @@
+@import "../colors";
+
+@mixin nav-link {
+  a {
+    margin: 20px 10px;
+    padding: 10px;
+    color: $tetris-dark;
+    border: 5px solid transparent;
+    text-decoration: none;
+    outline: none;
+  }
+  a:focus {
+    color: $tetris-primary;
+    border: 5px solid $tetris-primary;
+  }
+}
