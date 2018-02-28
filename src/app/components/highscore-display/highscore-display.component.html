@@ -1,5 +1,5 @@
 <app-header></app-header>
-<div class="row">
+<div class="row margin-top">
   <div class="col">
     <app-highscore-list heading="today's highscore:" [highscores]="todaysHighscores"></app-highscore-list>
   </div>
@@ -7,4 +7,6 @@
     <app-highscore-list heading="all-time highscore:" [highscores]="highscores"></app-highscore-list>
   </div>
 </div>
-<a routerLink="/">yo</a>
+<div class="row">
+  <a routerLink="/">back to start</a>
+</div>

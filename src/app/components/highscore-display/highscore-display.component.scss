@@ -1,5 +1,10 @@
-.row {
+@import "../../../styles/mixin/links";
+
+.margin-top {
   margin-top: 200px;
+}
+
+.row {
   display: flex;
   justify-content: space-around;
   .col {
@@ -8,4 +13,10 @@
     background: #333;
     margin: 10px;
   }
+}
+
+@include nav-link;
+a {
+  display: block;
+  margin: 30px auto;
 }
