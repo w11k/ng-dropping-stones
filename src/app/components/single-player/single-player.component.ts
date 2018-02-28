@@ -38,8 +38,11 @@ export class SinglePlayerComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.todaysHighscore = this.score.getTodaysScores()[0] ? this.score.getTodaysScores()[0].score : 0;
-    this.allTimeHighscore = this.score.getScores()[0] ? this.score.getScores()[0].score : 0;
+    const today = this.score.getTodaysScores();
+    const all = this.score.getScores();
+
+    this.todaysHighscore = today.length ? Math.max(...today.map(e => e.score)) : 0;
+    this.allTimeHighscore = all.length ? Math.max(...all.map(e => e.score)) : 0;
 
     this.store.dispatch(new Init(1));
     this.audio.play('korobeiniki.wav', true);
