@@ -1,4 +1,5 @@
 @import '../../../styles/colors';
+@import '../../../styles/mixin/links';
 
 :host {
   height: 100vh;
@@ -15,19 +16,7 @@
     margin-top: 70px;
     font-size: 1.3em;
 
-    a {
-      margin: 20px 10px;
-      padding: 10px;
-      color: $tetris-dark;
-      border: 5px solid transparent;
-      text-decoration: none;
-      outline: none;
-    }
-
-    a:focus {
-      color: $tetris-primary;
-      border: 5px solid $tetris-primary;
-    }
+    @include nav-link;
   }
 
 }
