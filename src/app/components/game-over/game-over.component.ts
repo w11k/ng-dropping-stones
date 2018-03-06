@@ -8,6 +8,7 @@ import { Tetris } from '../../models/tetris/tetris.model';
 import { GamepadService } from '../../services/gamepad/gamepad.service';
 import { GamepadActions } from '../../models/gamepad/gamepad.model';
 import { Subscription } from 'rxjs/Subscription';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-game-over',
@@ -20,13 +21,19 @@ export class GameOverComponent implements OnInit, AfterViewInit, OnDestroy {
   highscores: Score[];
   todaysHighscores: Score[];
   navigationSubscription: Subscription;
+  private forceReload: boolean;
 
   constructor(private scoreService: HighscoreService,
               private gamepad: GamepadService,
-              private store: Store<AppState>) {
+              private store: Store<AppState>,
+              private router: Router) {
   }
 
   ngOnInit() {
+
+    this.store.select((state: AppState) => state.settings.forceReload).subscribe(forceReload => {
+      this.forceReload = forceReload;
+    });
 
     this.navigationSubscription = this.gamepad.getAllActions().pipe(
       debounceTime(500)
@@ -59,6 +66,14 @@ export class GameOverComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.navigationSubscription.unsubscribe();
+  }
+
+  backToMainScreen() {
+    if (this.forceReload) {
+      window.location.href = '/';
+    } else {
+      this.router.navigate(['/']);
+    }
   }
 
 }

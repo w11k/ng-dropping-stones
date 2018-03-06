@@ -7,6 +7,7 @@ import { AudioService } from '../../services/audio/audio.service';
 import { GamepadService } from '../../services/gamepad/gamepad.service';
 import { Subscription } from 'rxjs/Subscription';
 import { GamepadActions } from '../../models/gamepad/gamepad.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-multi-game-over',
@@ -17,10 +18,12 @@ export class MultiGameOverComponent implements OnInit, AfterViewInit {
 
   scores: number[];
   navigationSubscription: Subscription;
+  private forceReload: boolean;
 
   constructor(private store: Store<AppState>,
               private gamepad: GamepadService,
-              private audio: AudioService) {
+              private audio: AudioService,
+              private router: Router) {
   }
 
   get winner(): string {
@@ -30,6 +33,10 @@ export class MultiGameOverComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+
+    this.store.select((state: AppState) => state.settings.forceReload).subscribe(forceReload => {
+      this.forceReload = forceReload;
+    });
 
     this.navigationSubscription = this.gamepad.getAllActions().pipe(
       debounceTime(500)
@@ -53,6 +60,14 @@ export class MultiGameOverComponent implements OnInit, AfterViewInit {
 
   clickFocused() {
     (<HTMLElement>document.activeElement).click();
+  }
+
+  backToMainScreen() {
+    if (this.forceReload) {
+      window.location.href = '/';
+    } else {
+      this.router.navigate(['/']);
+    }
   }
 
 }

@@ -3,7 +3,7 @@
   <div class="col player-result">
     <h2>your score:</h2>
     <p class="player-result__score">{{this.playerScore}}</p>
-    <a routerLink="/">back to <br/> main screen</a>
+    <a (click)="backToMainScreen()">back to <br/> main screen</a>
   </div>
   <div class="col">
     <app-highscore-list heading="today's highscore:" [highscores]="todaysHighscores"></app-highscore-list>
