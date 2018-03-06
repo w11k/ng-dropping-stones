@@ -1,15 +1,15 @@
-import { ChangeDetectionStrategy, Component, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
-import { select, Store } from '@ngrx/store';
-import { AppState } from '../../store/state.model';
-import { Tetris } from '../../models/tetris/tetris.model';
-import { Drop, Left, Right, RotateLeft, RotateRight, Tick } from '../../store/actions/actions';
-import { Keymap } from '../../models/keymap/keymap.model';
-import { distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
-import { Observable } from 'rxjs/Observable';
-import { GamepadService } from '../../services/gamepad/gamepad.service';
-import { GamepadActions } from '../../models/gamepad/gamepad.model';
-import { Subscription } from 'rxjs/Subscription';
-import { interval } from 'rxjs/observable/interval';
+import {ChangeDetectionStrategy, Component, HostListener, Input, OnDestroy, OnInit} from '@angular/core';
+import {select, Store} from '@ngrx/store';
+import {AppState} from '../../store/state.model';
+import {Tetris} from '../../models/tetris/tetris.model';
+import {Drop, Left, Right, RotateLeft, RotateRight, Tick} from '../../store/actions/actions';
+import {Keymap} from '../../models/keymap/keymap.model';
+import {distinctUntilChanged, map, switchMap, tap} from 'rxjs/operators';
+import {Observable} from 'rxjs/Observable';
+import {GamepadService} from '../../services/gamepad/gamepad.service';
+import {GamepadActions} from '../../models/gamepad/gamepad.model';
+import {Subscription} from 'rxjs/Subscription';
+import {interval} from 'rxjs/observable/interval';
 
 @Component({
   selector: 'app-game-controller',
@@ -30,6 +30,8 @@ export class GameControllerComponent implements OnInit, OnDestroy {
 
   gamepadSubscription: Subscription;
   gameLoopSubscription: Subscription;
+
+  gameSpeed = 4;
 
   constructor(private store: Store<AppState>, private gamepad: GamepadService) {
   }
@@ -65,8 +67,12 @@ export class GameControllerComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
+    this.store.select((state: AppState) => state.settings.speed).subscribe(speed => {
+      this.gameSpeed = speed;
+    });
+
     this.game$ = this.store.pipe(
-      select('game'),
+      select((state: AppState) => state.game),
       tap((games: Tetris[]) => this.isMultiplayer = games.length > 1),
       tap((games: Tetris[]) => {
         if (!this.isMultiplayer) {
@@ -85,7 +91,12 @@ export class GameControllerComponent implements OnInit, OnDestroy {
     );
 
     this.gameLoop$ = this.gameLevel$.pipe(
-      switchMap(level => interval(Math.max(200 - level * 20, 50)))
+      switchMap(level => {
+        const modifier = level + this.gameSpeed;
+        const initialMoveInterval = 200;
+        const newSpeed = (initialMoveInterval / 100) * ((10 - modifier) * 10);
+        return interval(Math.max(newSpeed, 40));
+      })
     );
 
     this.gameLoopSubscription = this.gameLoop$.subscribe(() => {

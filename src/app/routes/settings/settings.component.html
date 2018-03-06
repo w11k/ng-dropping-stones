@@ -7,10 +7,10 @@
 
       <form [formGroup]="form">
 
-
         <div class="form-group mb-5">
           <label>Speed</label>
           <input class="form-control" formControlName="speed" type="number">
+          <small>(Formula: (200 / 100) * (10 - (level + speed)) * 10)[ms] )</small>
         </div>
 
         <div class="form-check mb-5">

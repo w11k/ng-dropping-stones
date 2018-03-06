@@ -26,7 +26,7 @@ export type SettingsActions = UpdateSettingsAction;
 
 export const InitialSettingsStore: SettingsStore = {
   forceReload: false,
-  speed: 1,
+  speed: 4,
 };
 
 export function settingsReducer(state: SettingsStore = InitialSettingsStore, action: SettingsActions): SettingsStore {
