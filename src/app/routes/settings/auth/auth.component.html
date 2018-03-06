@@ -1,0 +1,12 @@
+<h1>
+  Bitte das Passwort eingeben:
+</h1>
+
+<form [formGroup]="form" (submit)="login()">
+  <label>
+    Passwort
+    <input type="password" formControlName="password">
+  </label>
+  <button>Einloggen</button>
+</form>
+
