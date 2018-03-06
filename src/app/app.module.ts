@@ -25,6 +25,7 @@ import {localStorageSync} from 'ngrx-store-localstorage';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {AppState} from './store/state.model';
 import {environment} from '../environments/environment';
+import {HeaderModule} from "./components/header/header.module";
 
 const routes = [
   {
@@ -83,6 +84,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     HighscoreDisplayModule,
     EnterNameModule,
     GameOverModule,
+    HeaderModule,
     RouterModule.forRoot(routes),
     StoreModule.forRoot({game: tetrisReducer, settings: settingsReducer}, {metaReducers}),
     StoreDevtoolsModule.instrument({

@@ -1,15 +1,10 @@
 @import '../../../styles/colors';
 
-:host {
-  height: 100vh;
+.name-form {
+  height: 80%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
-
-.name-form {
-  display: flex;
-  flex-direction: column;
   .name-form__input {
     display: flex;
     flex-direction: column;
