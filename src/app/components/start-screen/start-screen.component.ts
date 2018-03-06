@@ -3,6 +3,7 @@ import { GamepadService } from '../../services/gamepad/gamepad.service';
 import { GamepadActions } from '../../models/gamepad/gamepad.model';
 import { Subscription } from 'rxjs/Subscription';
 import { throttleTime } from 'rxjs/operators';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-start-screen',
@@ -15,18 +16,21 @@ export class StartScreenComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('multiplayer') multiplayer: ElementRef;
   navigationSubscription: Subscription;
 
-  constructor(private gamepad: GamepadService) {
+  constructor(private gamepad: GamepadService, private router: Router) {
   }
 
   ngOnInit(): void {
     this.navigationSubscription = this.gamepad.getAllActions().pipe(
       throttleTime(300)
     ).subscribe(action => {
-      if (action === GamepadActions.Right || action === GamepadActions.Left) {
+      if (action === GamepadActions.RIGHT || action === GamepadActions.LEFT) {
         this.focusNext();
       }
-      if (action === GamepadActions.Select) {
+      if (action === GamepadActions.SELECT) {
         this.clickFocused();
+      }
+      if (action === GamepadActions.HIGHSCORE) {
+        this.router.navigate(['/highscore']);
       }
     });
   }
@@ -46,7 +50,7 @@ export class StartScreenComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.navigationSubscription.unsubscribe()
+    this.navigationSubscription.unsubscribe();
   }
 
 }

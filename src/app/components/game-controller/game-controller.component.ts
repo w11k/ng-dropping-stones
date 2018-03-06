@@ -94,27 +94,27 @@ export class GameControllerComponent implements OnInit, OnDestroy {
 
     this.gamepadSubscription = this.gamepad.getActions(this.controller).subscribe(action => {
       switch (action) {
-        case GamepadActions.Left:
+        case GamepadActions.LEFT:
           this.store.dispatch(new Left(this.player));
           break;
 
-        case GamepadActions.Right:
+        case GamepadActions.RIGHT:
           this.store.dispatch(new Right(this.player));
           break;
 
-        case GamepadActions.Rotate_Right:
+        case GamepadActions.ROTATE_RIGHT:
           this.store.dispatch(new RotateRight(this.player));
           break;
 
-        case GamepadActions.Rotate_Left:
+        case GamepadActions.ROTATE_LEFT:
           this.store.dispatch(new RotateLeft(this.player));
           break;
 
-        case GamepadActions.Down:
+        case GamepadActions.DOWN:
           this.store.dispatch(new Tick(this.player));
           break;
 
-        case GamepadActions.Drop:
+        case GamepadActions.DROP:
           this.store.dispatch(new Drop(this.player));
           break;
 

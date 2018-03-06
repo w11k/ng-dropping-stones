@@ -34,7 +34,7 @@ export class MultiGameOverComponent implements OnInit, AfterViewInit {
     this.navigationSubscription = this.gamepad.getAllActions().pipe(
       debounceTime(500)
     ).subscribe(action => {
-      if (action === GamepadActions.Select) {
+      if (action === GamepadActions.SELECT) {
         this.clickFocused();
       }
     });

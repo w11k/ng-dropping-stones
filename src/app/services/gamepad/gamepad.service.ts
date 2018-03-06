@@ -11,10 +11,11 @@ export class GamepadService {
   private buttonSubject = new Subject<TetrisGamepad>();
   private axisSubject = new Subject<TetrisGamepad>();
   private buttonMap: { [key: number]: GamepadActions } = {
-    0: GamepadActions.Rotate_Right,
-    1: GamepadActions.Rotate_Left,
-    5: GamepadActions.Drop,
-    6: GamepadActions.Select
+    0: GamepadActions.ROTATE_RIGHT,
+    1: GamepadActions.ROTATE_LEFT,
+    5: GamepadActions.DROP,
+    6: GamepadActions.HIGHSCORE,
+    7: GamepadActions.SELECT
   };
 
   constructor() {
@@ -74,12 +75,12 @@ export class GamepadService {
     });
 
     const firstAxisAction =
-      axes[0] === -1 ? GamepadActions.Left :
-        axes[0] === 1 ? GamepadActions.Right :
+      axes[0] === -1 ? GamepadActions.LEFT :
+        axes[0] === 1 ? GamepadActions.RIGHT :
           null;
 
     const secondAxisAction =
-      axes[1] === 1 ? GamepadActions.Down :
+      axes[1] === 1 ? GamepadActions.DOWN :
         null;
 
     if (firstAxisAction) {

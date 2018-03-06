@@ -1,11 +1,12 @@
 export enum GamepadActions {
-  Down = 'DOWN',
-  Left = 'LEFT',
-  Right = 'RIGHT',
-  Rotate_Right = 'ROTATE_RIGHT',
-  Rotate_Left = 'ROTATE_LEFT',
-  Drop = 'DROP',
-  Select = 'SELECT'
+  DOWN = 'DOWN',
+  LEFT = 'LEFT',
+  RIGHT = 'RIGHT',
+  ROTATE_RIGHT = 'ROTATE_RIGHT',
+  ROTATE_LEFT = 'ROTATE_LEFT',
+  DROP = 'DROP',
+  SELECT = 'SELECT',
+  HIGHSCORE = 'HIGHSCORE',
 }
 
 export interface TetrisGamepad {
