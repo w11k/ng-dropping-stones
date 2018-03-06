@@ -9,7 +9,7 @@
 //@import "~bootstrap/scss/code";
 @import "~bootstrap/scss/grid";
 //@import "~bootstrap/scss/tables";
-//@import "~bootstrap/scss/forms";
+@import "~bootstrap/scss/forms";
 //@import "~bootstrap/scss/buttons";
 //@import "~bootstrap/scss/transitions";
 //@import "~bootstrap/scss/dropdown";
@@ -34,7 +34,7 @@
 //@import "~bootstrap/scss/carousel";
 @import "~bootstrap/scss/utilities";
 
-
+@import "styles/button";
 @font-face {
   font-family: 'Press Start 2P';
   src: url('/assets/PressStart2P-Regular.ttf');

@@ -1,12 +1,21 @@
-<h1>
-  Bitte das Passwort eingeben:
-</h1>
+<div class="container">
+  <div class="ro">
+    <div class="col-md-8 offset-md-2">
+      <h1 class="mb-5">
+        Passwort eingeben:
+      </h1>
 
-<form [formGroup]="form" (submit)="login()">
-  <label>
-    Passwort
-    <input type="password" formControlName="password">
-  </label>
-  <button>Einloggen</button>
-</form>
+      <form [formGroup]="form" (submit)="login()">
 
+
+        <div class="form-group mb-5">
+          <input type="password" class="form-control"  formControlName="password"  placeholder="Passwort eingeben">
+        </div>
+
+
+        <div class="text-center">
+          <a class="tetri-button" (click)="login()">Einloggen</a></div>
+      </form>
+    </div>
+  </div>
+</div>
