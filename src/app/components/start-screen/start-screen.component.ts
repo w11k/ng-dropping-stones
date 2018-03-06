@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import { GamepadService } from '../../services/gamepad/gamepad.service';
 import { GamepadActions } from '../../models/gamepad/gamepad.model';
 import { Subscription } from 'rxjs/Subscription';
@@ -12,8 +12,8 @@ import { Router } from '@angular/router';
 })
 export class StartScreenComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  @ViewChild('singleplayer') singleplayer: ElementRef;
-  @ViewChild('multiplayer') multiplayer: ElementRef;
+  @ViewChildren('action') actions: QueryList<ElementRef>;
+  private selectedElementRef: ElementRef;
   navigationSubscription: Subscription;
 
   constructor(private gamepad: GamepadService, private router: Router) {
@@ -23,26 +23,47 @@ export class StartScreenComponent implements OnInit, AfterViewInit, OnDestroy {
     this.navigationSubscription = this.gamepad.getAllActions().pipe(
       throttleTime(300)
     ).subscribe(action => {
-      if (action === GamepadActions.RIGHT || action === GamepadActions.LEFT) {
+      if (action === GamepadActions.RIGHT) {
         this.focusNext();
-      }
-      if (action === GamepadActions.SELECT) {
+      } else if (action === GamepadActions.LEFT) {
+        this.focusPrev();
+      } else if (action === GamepadActions.SELECT) {
         this.clickFocused();
-      }
-      if (action === GamepadActions.HIGHSCORE) {
+      } else if (action === GamepadActions.HIGHSCORE) {
         this.router.navigate(['/highscore']);
       }
     });
   }
 
   ngAfterViewInit(): void {
-    this.singleplayer.nativeElement.focus();
+    this.selectedElementRef = this.actions.first;
+    this.selectedElementRef.nativeElement.focus();
   }
 
   focusNext() {
-    const element = document.activeElement;
-    const tabable = Array.from(document.querySelectorAll('a.tabable')) as HTMLElement[];
-    tabable.filter(t => t !== element)[0].focus();
+    const availableActions = this.getActions();
+    const selectedIndex = availableActions.indexOf(this.selectedElementRef);
+
+    if (selectedIndex + 1 === availableActions.length) {
+      this.selectedElementRef = availableActions[0];
+    } else {
+      this.selectedElementRef = availableActions[selectedIndex + 1];
+    }
+
+    this.selectedElementRef.nativeElement.focus();
+  }
+
+  focusPrev() {
+    const availableActions = this.getActions();
+    const selectedIndex = availableActions.indexOf(this.selectedElementRef);
+
+    if (selectedIndex === 0) {
+      this.selectedElementRef = availableActions[availableActions.length - 1];
+    } else {
+      this.selectedElementRef = availableActions[selectedIndex - 1];
+    }
+
+    this.selectedElementRef.nativeElement.focus();
   }
 
   clickFocused() {
@@ -53,4 +74,7 @@ export class StartScreenComponent implements OnInit, AfterViewInit, OnDestroy {
     this.navigationSubscription.unsubscribe();
   }
 
+  private getActions(): ElementRef[] {
+    return this.actions.map(elementRef => elementRef);
+  }
 }
