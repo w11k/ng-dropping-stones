@@ -9,4 +9,17 @@ header {
     margin: 0;
     font-size: 3em;
   }
+
+  position: relative;
+  .to-setting {
+    position: absolute;
+    right: 0;
+    font-size: 30px;
+    text-decoration: none;
+    padding: 15px;
+    top: 0;
+    &:hover {
+      color: $tetris-dark;
+    }
+  }
 }

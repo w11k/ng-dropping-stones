@@ -1,16 +1,26 @@
-<h1>Settings</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <h1 class="mb-5">
+        Settings
+      </h1>
+
+      <form [formGroup]="form">
 
 
-<form [formGroup]="form">
-  <div>
-    <label for="">Speed
-      <input formControlName="speed" type="number">
-    </label>
+        <div class="form-group mb-5">
+          <label>Speed</label>
+          <input class="form-control" formControlName="speed" type="number">
+        </div>
+
+        <div class="form-check mb-5">
+          <input class="form-check-input" formControlName="forceReload" type="checkbox">
+          <label class="form-check-label">Fore Reload?</label>
+        </div>
+
+        <a class="tetri-button"  [routerLink]="['/']">Back to Game</a>
+
+      </form>
+    </div>
   </div>
-  <div>
-    <label for="">
-      Fore Reload?
-      <input formControlName="forceReload" type="checkbox">
-    </label>
-  </div>
-</form>
+</div>
