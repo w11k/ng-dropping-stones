@@ -1,12 +1,9 @@
 @import '../../../styles/colors';
 @import '../../../styles/mixin/links';
 
-:host {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.flex-container {
+
+  height: 100%;
 
   h1 {
     font-size: 3em;
@@ -19,4 +16,8 @@
     @include nav-link;
   }
 
+  img {
+    margin-top: 70px;
+    width: 75%;
+  }
 }
