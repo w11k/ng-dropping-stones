@@ -1,16 +1,12 @@
 @import '../../../styles/colors';
 
 header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 140px;
   background: $tetris-primary;
   text-align: center;
+  padding: 15px 0;
 
   .header__logo {
-    font-size: 2em;
-    margin: 30px;
+    margin: 0;
+    font-size: 3em;
   }
 }
