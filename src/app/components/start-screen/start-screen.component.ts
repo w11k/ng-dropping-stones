@@ -3,7 +3,7 @@ import { GamepadService } from '../../services/gamepad/gamepad.service';
 import { GamepadActions } from '../../models/gamepad/gamepad.model';
 import { Subscription } from 'rxjs/Subscription';
 import { throttleTime } from 'rxjs/operators';
-import {Router} from "@angular/router";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-start-screen',
