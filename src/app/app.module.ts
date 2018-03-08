@@ -26,6 +26,8 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {AppState} from './store/state.model';
 import {environment} from '../environments/environment';
 import {HeaderModule} from "./components/header/header.module";
+import {GamepadModule} from './services/gamepad/gamepad.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 const routes = [
   {
@@ -77,6 +79,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     StartScreenModule,
     SinglePlayerModule,
     MultiplayerModule,
@@ -84,6 +87,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     HighscoreDisplayModule,
     EnterNameModule,
     GameOverModule,
+    GamepadModule,
     HeaderModule,
     RouterModule.forRoot(routes),
     StoreModule.forRoot({game: tetrisReducer, settings: settingsReducer}, {metaReducers}),

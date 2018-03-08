@@ -1,23 +1,24 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
 import { Tetris } from '../../models/tetris/tetris.model';
 import { select, Store } from '@ngrx/store';
 import { AppState } from '../../store/state.model';
-import { debounceTime, map } from 'rxjs/operators';
+import {debounce, debounceTime, filter, map, take, takeUntil, throttleTime} from 'rxjs/operators';
 import { AudioService } from '../../services/audio/audio.service';
 import { GamepadService } from '../../services/gamepad/gamepad.service';
 import { Subscription } from 'rxjs/Subscription';
 import { GamepadActions } from '../../models/gamepad/gamepad.model';
 import { Router } from '@angular/router';
+import {componentDestroyed} from 'ng2-rx-componentdestroyed';
 
 @Component({
   selector: 'app-multi-game-over',
   templateUrl: './multi-game-over.component.html',
   styleUrls: ['./multi-game-over.component.scss']
 })
-export class MultiGameOverComponent implements OnInit, AfterViewInit {
+export class MultiGameOverComponent implements OnInit, AfterViewInit, OnDestroy {
+
 
   scores: number[];
-  navigationSubscription: Subscription;
   private forceReload: boolean;
 
   constructor(private store: Store<AppState>,
@@ -38,12 +39,12 @@ export class MultiGameOverComponent implements OnInit, AfterViewInit {
       this.forceReload = forceReload;
     });
 
-    this.navigationSubscription = this.gamepad.getAllActions().pipe(
-      debounceTime(500)
+    this.gamepad.getActions(1).pipe(
+      takeUntil(componentDestroyed(this)),
+      debounceTime(250),
+      filter(action => action === GamepadActions.BACK || action === GamepadActions.OK),
     ).subscribe(action => {
-      if (action === GamepadActions.SELECT) {
-        this.clickFocused();
-      }
+      this.backToMainScreen();
     });
 
     this.audio.play('success.ogg');
@@ -58,16 +59,15 @@ export class MultiGameOverComponent implements OnInit, AfterViewInit {
     document.querySelector('a').focus();
   }
 
-  clickFocused() {
-    (<HTMLElement>document.activeElement).click();
-  }
-
   backToMainScreen() {
     if (this.forceReload) {
       window.location.href = '/';
     } else {
       this.router.navigate(['/']);
     }
+  }
+
+  ngOnDestroy(): void {
   }
 
 }

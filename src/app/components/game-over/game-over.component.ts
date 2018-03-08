@@ -3,12 +3,13 @@ import { HighscoreService } from '../../services/highscore/highscore.service';
 import { Score } from '../../models/highscore/highscore.model';
 import { select, Store } from '@ngrx/store';
 import { AppState } from '../../store/state.model';
-import { debounceTime, first, map } from 'rxjs/operators';
+import { filter, first, map, takeUntil, throttleTime} from 'rxjs/operators';
 import { Tetris } from '../../models/tetris/tetris.model';
 import { GamepadService } from '../../services/gamepad/gamepad.service';
 import { GamepadActions } from '../../models/gamepad/gamepad.model';
 import { Subscription } from 'rxjs/Subscription';
 import { Router } from '@angular/router';
+import {componentDestroyed} from 'ng2-rx-componentdestroyed';
 
 @Component({
   selector: 'app-game-over',
@@ -35,12 +36,14 @@ export class GameOverComponent implements OnInit, AfterViewInit, OnDestroy {
       this.forceReload = forceReload;
     });
 
-    this.navigationSubscription = this.gamepad.getAllActions().pipe(
-      debounceTime(500)
+
+
+    this.gamepad.getActions(1).pipe(
+      takeUntil(componentDestroyed(this)),
+      throttleTime(300),
+      filter(action => action === GamepadActions.BACK || action === GamepadActions.OK)
     ).subscribe(action => {
-      if (action === GamepadActions.SELECT) {
-        this.clickFocused();
-      }
+      this.backToMainScreen();
     });
 
     this.highscores = this.scoreService.getScores()
@@ -60,12 +63,7 @@ export class GameOverComponent implements OnInit, AfterViewInit, OnDestroy {
     document.querySelector('a').focus();
   }
 
-  clickFocused() {
-    (<HTMLElement>document.activeElement).click();
-  }
-
   ngOnDestroy(): void {
-    this.navigationSubscription.unsubscribe();
   }
 
   backToMainScreen() {

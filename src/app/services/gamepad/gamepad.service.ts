@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
-import { GamepadActions, TetrisGamepad } from '../../models/gamepad/gamepad.model';
-import { Observable } from 'rxjs/Observable';
-import { filter, map, merge, throttleTime } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {Subject} from 'rxjs/Subject';
+import {GamepadActions, TetrisGamepad} from '../../models/gamepad/gamepad.model';
+import {Observable} from 'rxjs/Observable';
+import {filter, map, merge, throttleTime} from 'rxjs/operators';
+import {environment} from '../../../environments/environment';
 
 @Injectable()
 export class GamepadService {
@@ -14,12 +15,15 @@ export class GamepadService {
     0: GamepadActions.ROTATE_RIGHT,
     1: GamepadActions.ROTATE_LEFT,
     5: GamepadActions.DROP,
-    6: GamepadActions.HIGHSCORE,
-    7: GamepadActions.SELECT
+    6: GamepadActions.BACK,
+    7: GamepadActions.OK
   };
 
   constructor() {
     this.pollingLoop();
+    if (!environment.production) {
+      this.numPadListener();
+    }
   }
 
   getAllActions(): Observable<GamepadActions> {
@@ -28,6 +32,16 @@ export class GamepadService {
     );
   }
 
+
+  /**
+   * Caution: If you want to use the Buttons keep in mind
+   * that they fire continuously. That means we don't have
+   * a keypup event or somthing like that. Rather use a
+   * debounceTime of 250 ms.
+   *
+   * A solution even better would be to change the button
+   * subject to also expose a void state. Then you could
+   * implement a real keyup event.  */
   getActions(index: number): Observable<GamepadActions> {
     const axes = this.axisSubject.asObservable().pipe(
       filter(gamepad => gamepad.index === index),
@@ -80,8 +94,10 @@ export class GamepadService {
           null;
 
     const secondAxisAction =
-      axes[1] === 1 ? GamepadActions.DOWN :
-        null;
+      axes[1] === -1 ? GamepadActions.UP :
+        axes[1] === 1 ? GamepadActions.DOWN :
+          null;
+
 
     if (firstAxisAction) {
       this.axisSubject.next({ action: firstAxisAction, index });
@@ -92,4 +108,58 @@ export class GamepadService {
 
   }
 
+
+  /**
+   * Is used to fake a gamepad during development. */
+  numPadListener() {
+
+    console.log(`
+    ###############################################################################
+    ############################# Fake GamePad enabled! ###########################
+    ###############################################################################
+
+    Use the numpad in order to fake a conntected gamepad. You can use the numbers 2,4,6,8 for down, left, right, up. 
+    
+    The turn keys are '0' and ',' - to press OK use '*' and to press back use '-' (all on the numpad)
+    `);
+
+
+    window.addEventListener('keydown', (event: KeyboardEvent) => {
+      switch (event.keyCode) {
+        case 98: // = down(2)
+          event.preventDefault();
+          this.buttonSubject.next({action: GamepadActions.DOWN, index: 1});
+          break;
+        case 100: // = left(4)
+          event.preventDefault();
+          this.buttonSubject.next({action: GamepadActions.LEFT, index: 1});
+          break;
+        case 102: // = right(6)
+          event.preventDefault();
+          this.buttonSubject.next({action: GamepadActions.RIGHT, index: 1});
+          break;
+        case 104: // = top(8)
+          event.preventDefault();
+          this.buttonSubject.next({action: GamepadActions.UP, index: 1});
+          break;
+        case 106: // = OK(*)
+          event.preventDefault();
+          this.buttonSubject.next({action: GamepadActions.OK, index: 1});
+          break;
+        case 109: // = BACK(-)
+          event.preventDefault();
+          this.buttonSubject.next({action: GamepadActions.BACK, index: 1});
+          break;
+        case 96: // = ROTATE-LEFT(0)
+          event.preventDefault();
+          this.buttonSubject.next({action: GamepadActions.ROTATE_LEFT, index: 1});
+          break;
+        case 108: // = ROTATE-RIGHT(,)
+          event.preventDefault();
+          this.buttonSubject.next({action: GamepadActions.ROTATE_RIGHT, index: 1});
+          break;
+      }
+
+    });
+  }
 }

@@ -1,13 +1,19 @@
 <form [formGroup]="nameForm" class="name-form" (ngSubmit)="submit(nameForm)">
+
+  <div class="text-center mb-5">
+    Press 'OK' to get to the next field or use 'TAB'
+  </div>
+
   <div class="name-form__input">
-    <input type="text" formControlName="name" autofocus>
-    <label>name:</label><br>
+    <input #action type="text" formControlName="name">
+    <label           [@heroState]="animated"
+    >name:</label><br>
     <pre>{{nameForm.get('name').value}}</pre>
   </div>
   <div class="name-form__input">
-    <input type="text" formControlName="email">
+    <input #action  type="text" formControlName="email">
     <label>e-mail (optional):</label><br>
     <pre>{{nameForm.get('email').value}}</pre>
   </div>
-  <button type="submit">play!</button>
+  <button #action  type="submit">play!</button>
 </form>

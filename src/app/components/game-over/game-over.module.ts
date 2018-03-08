@@ -4,7 +4,6 @@ import { GameOverComponent } from './game-over.component';
 import { HighscoreModule } from '../../services/highscore/highscore.module';
 import { RouterModule } from '@angular/router';
 import { HeaderModule } from '../header/header.module';
-import { GamepadModule } from '../../services/gamepad/gamepad.module';
 import { HighscoreListModule } from '../highscore-list/highscore-list.module';
 
 @NgModule({
@@ -13,7 +12,6 @@ import { HighscoreListModule } from '../highscore-list/highscore-list.module';
     HighscoreModule,
     RouterModule,
     HeaderModule,
-    GamepadModule,
     HighscoreListModule
   ],
   declarations: [GameOverComponent]
