@@ -10,6 +10,10 @@ import { GamepadActions } from '../../models/gamepad/gamepad.model';
 import { Subscription } from 'rxjs/Subscription';
 import { Router } from '@angular/router';
 import {componentDestroyed} from 'ng2-rx-componentdestroyed';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/delay';
+import 'rxjs/add/operator/first';
 
 @Component({
   selector: 'app-game-over',
@@ -36,8 +40,6 @@ export class GameOverComponent implements OnInit, AfterViewInit, OnDestroy {
       this.forceReload = forceReload;
     });
 
-
-
     this.gamepad.getActions(1).pipe(
       takeUntil(componentDestroyed(this)),
       throttleTime(300),
@@ -57,6 +59,8 @@ export class GameOverComponent implements OnInit, AfterViewInit, OnDestroy {
       first(),
       map((game: Tetris[]) => game[0] ? game[0].score : 0)
     ).subscribe(score => this.playerScore = score);
+
+    Observable.of(1).delay(10 * 1000).first().subscribe(() => this.backToMainScreen());
   }
 
   ngAfterViewInit(): void {

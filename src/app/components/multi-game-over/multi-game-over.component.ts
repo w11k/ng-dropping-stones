@@ -9,6 +9,10 @@ import { Subscription } from 'rxjs/Subscription';
 import { GamepadActions } from '../../models/gamepad/gamepad.model';
 import { Router } from '@angular/router';
 import {componentDestroyed} from 'ng2-rx-componentdestroyed';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/delay';
+import 'rxjs/add/operator/first';
 
 @Component({
   selector: 'app-multi-game-over',
@@ -53,6 +57,8 @@ export class MultiGameOverComponent implements OnInit, AfterViewInit, OnDestroy 
       map((games: Tetris[]) => games.map(game => game.score))
     )
       .subscribe((scores: number[]) => this.scores = scores);
+
+    Observable.of(1).delay(10 * 1000).first().subscribe(() => this.backToMainScreen());
   }
 
   ngAfterViewInit(): void {
