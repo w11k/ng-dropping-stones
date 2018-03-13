@@ -9,7 +9,7 @@
 
         <div class="form-group mb-5">
           <label>Speed</label>
-          <input class="form-control" formControlName="speed" type="number">
+          <input class="form-control" formControlName="speed" type="number" step="0.1" min="0" max="10">
           <small>(Formula: (200 / 100) * (10 - (level + speed)) * 10)[ms] )</small>
         </div>
 
