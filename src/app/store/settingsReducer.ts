@@ -1,8 +1,8 @@
 import {Action} from '@ngrx/store';
 
-
 export enum SettingActionTypes {
-  UpdateForm = 'UpdateForm'
+  UpdateForm = 'UpdateForm',
+  DeleteHighscore = 'DeleteHighscore',
 }
 
 export interface SettingsStore {
@@ -10,19 +10,23 @@ export interface SettingsStore {
   speed: number;
 }
 
-
 export class UpdateSettingsAction implements Action {
   readonly type = SettingActionTypes.UpdateForm;
   payload: Partial<SettingsStore>;
-
 
   constructor(payload: Partial<SettingsStore>) {
     this.payload = payload;
   }
 }
 
-export type SettingsActions = UpdateSettingsAction;
+export class DeleteHighscoreAction implements Action {
+  readonly type = SettingActionTypes.DeleteHighscore;
 
+  constructor() {
+  }
+}
+
+export type SettingsActions = UpdateSettingsAction;
 
 export const InitialSettingsStore: SettingsStore = {
   forceReload: false,

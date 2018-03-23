@@ -28,6 +28,9 @@ import {environment} from '../environments/environment';
 import {HeaderModule} from "./components/header/header.module";
 import {GamepadModule} from './services/gamepad/gamepad.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {EffectsModule} from '@ngrx/effects';
+import {HighscoreEffects} from './store/effects/highscore.effects';
+import {HighscoreModule} from './services/highscore/highscore.module';
 
 const routes = [
   {
@@ -89,13 +92,14 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     GameOverModule,
     GamepadModule,
     HeaderModule,
+    HighscoreModule,
     RouterModule.forRoot(routes),
     StoreModule.forRoot({game: tetrisReducer, settings: settingsReducer}, {metaReducers}),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states/**/
       logOnly: environment.production // Restrict extension to log-only mode
-    })
-
+    }),
+    EffectsModule.forRoot([HighscoreEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]

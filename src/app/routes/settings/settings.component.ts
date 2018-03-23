@@ -2,9 +2,10 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {select, Store} from '@ngrx/store';
 import {AppState} from '../../store/state.model';
-import {SettingsStore, UpdateSettingsAction} from '../../store/settingsReducer';
+import {DeleteHighscoreAction, SettingsStore, UpdateSettingsAction} from '../../store/settingsReducer';
 import {Observable} from 'rxjs/Observable';
 import {untilComponentDestroyed} from 'ng2-rx-componentdestroyed';
+import 'rxjs/add/operator/do';
 
 @Component({
   selector: 'app-settings',
@@ -20,9 +21,8 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
     this.form = this.formBuilder.group({
       speed: null,
-      forceReload: null,
+      forceReload: null
     });
-
 
     this.settings$ = this.store.pipe(select(state => state.settings));
 
@@ -30,18 +30,19 @@ export class SettingsComponent implements OnInit, OnDestroy {
       .pipe(untilComponentDestroyed(this))
       .subscribe(it => this.form.patchValue(it, {onlySelf: true, emitEvent: false}));
 
-
-    this.form.valueChanges.pipe(
-      untilComponentDestroyed(this),
-    ).subscribe(it => this.store.dispatch(new UpdateSettingsAction(it)));
-
+    this.form.valueChanges
+      .pipe(untilComponentDestroyed(this))
+      .subscribe(it => this.store.dispatch(new UpdateSettingsAction(it)));
   }
 
   ngOnInit() {
-
   }
 
   ngOnDestroy() {
+  }
+
+  deleteHighscore(): void {
+    this.store.dispatch(new DeleteHighscoreAction());
   }
 
 }

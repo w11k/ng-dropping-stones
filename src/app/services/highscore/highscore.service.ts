@@ -46,6 +46,10 @@ export class HighscoreService {
     localStorage.setItem('highscore', JSON.stringify(scores));
   }
 
+  deleteHighscore() {
+    localStorage.setItem('highscore', JSON.stringify([]));
+  }
+
 }
 
 const storageAvailable = type => {
@@ -58,7 +62,7 @@ const storageAvailable = type => {
     return true;
   } catch (e) {
     return e instanceof DOMException && (
-        // everything except Firefox
+      // everything except Firefox
       e.code === 22 ||
       // Firefox
       e.code === 1014 ||
