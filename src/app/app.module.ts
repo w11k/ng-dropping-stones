@@ -21,11 +21,12 @@ import {MultiGameOverModule} from './components/multi-game-over/multi-game-over.
 import {HighscoreDisplayComponent} from './components/highscore-display/highscore-display.component';
 import {HighscoreDisplayModule} from './components/highscore-display/highscore-display.module';
 import {settingsReducer} from './store/settingsReducer';
+import {playerReducer} from './store/reducers/highscore.reducer';
 import {localStorageSync} from 'ngrx-store-localstorage';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {AppState} from './store/state.model';
 import {environment} from '../environments/environment';
-import {HeaderModule} from "./components/header/header.module";
+import {HeaderModule} from './components/header/header.module';
 import {GamepadModule} from './services/gamepad/gamepad.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {EffectsModule} from '@ngrx/effects';
@@ -94,7 +95,11 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     HeaderModule,
     HighscoreModule,
     RouterModule.forRoot(routes),
-    StoreModule.forRoot({game: tetrisReducer, settings: settingsReducer}, {metaReducers}),
+    StoreModule.forRoot(
+      {game: tetrisReducer,
+        settings: settingsReducer,
+        player: playerReducer
+      }, {metaReducers}),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states/**/
       logOnly: environment.production // Restrict extension to log-only mode

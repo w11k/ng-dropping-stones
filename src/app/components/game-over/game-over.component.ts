@@ -3,11 +3,10 @@ import { HighscoreService } from '../../services/highscore/highscore.service';
 import { Score } from '../../models/highscore/highscore.model';
 import { select, Store } from '@ngrx/store';
 import { AppState } from '../../store/state.model';
-import { filter, first, map, takeUntil, throttleTime} from 'rxjs/operators';
+import {filter, first, map, takeUntil, tap, throttleTime} from 'rxjs/operators';
 import { Tetris } from '../../models/tetris/tetris.model';
 import { GamepadService } from '../../services/gamepad/gamepad.service';
 import { GamepadActions } from '../../models/gamepad/gamepad.model';
-import { Subscription } from 'rxjs/Subscription';
 import { Router } from '@angular/router';
 import {componentDestroyed} from 'ng2-rx-componentdestroyed';
 import { Observable } from 'rxjs/Observable';
@@ -25,7 +24,7 @@ export class GameOverComponent implements OnInit, AfterViewInit, OnDestroy {
   playerScore: number;
   highscores: Score[];
   todaysHighscores: Score[];
-  navigationSubscription: Subscription;
+  // navigationSubscription: Subscription;
   private forceReload: boolean;
 
   constructor(private scoreService: HighscoreService,
@@ -60,7 +59,11 @@ export class GameOverComponent implements OnInit, AfterViewInit, OnDestroy {
       map((game: Tetris[]) => game[0] ? game[0].score : 0)
     ).subscribe(score => this.playerScore = score);
 
-    Observable.of(1).delay(10 * 1000).first().subscribe(() => this.backToMainScreen());
+    Observable.of(1).delay(10 * 1000)
+      .first()
+      .subscribe(
+        () => this.backToMainScreen()
+      );
   }
 
   ngAfterViewInit(): void {

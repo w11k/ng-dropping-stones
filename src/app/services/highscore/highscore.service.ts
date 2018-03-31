@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Person, Score } from '../../models/highscore/highscore.model';
+import { getDate } from 'date-fns';
 
 @Injectable()
 export class HighscoreService {
@@ -15,6 +16,19 @@ export class HighscoreService {
 
   hasName(): boolean {
     return !!this.name;
+  }
+
+  get playerName(): string {
+    return this.name;
+  }
+
+  get playerScoreObject(): Object {
+    return {
+      name: this.name,
+      email: this.email,
+      score: this.getScores(),
+      date: getDate(new Date())
+    };
   }
 
   setPerson(person: Person) {
@@ -34,7 +48,7 @@ export class HighscoreService {
       );
   }
 
-  setScore(score: number) {
+  setScore(score: number) { // TODO: refactor with store/action
     const scores = this.getScores();
     const date = new Date().toString();
     scores.push({
@@ -46,8 +60,12 @@ export class HighscoreService {
     localStorage.setItem('highscore', JSON.stringify(scores));
   }
 
-  deleteHighscore() {
+  deleteHighscore(): void {
     localStorage.setItem('highscore', JSON.stringify([]));
+  }
+
+  deleteTotal(): void { // DEBUG
+    localStorage.clear();
   }
 
 }

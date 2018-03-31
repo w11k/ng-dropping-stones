@@ -8,11 +8,14 @@ import {tap} from 'rxjs/operators';
 
 @Injectable()
 export class HighscoreEffects {
-  @Effect({ dispatch: false }) deleteHighscore$: Observable<Action> = this.actions$.pipe(
-    ofType(SettingActionTypes.DeleteHighscore),
-    tap(() => this.highscoreService.deleteHighscore())
+  @Effect({ dispatch: false }) deleteHighscore$: Observable<Action> = this.actions$
+    .pipe(
+      ofType(SettingActionTypes.DeleteHighscore),
+      tap(() => this.highscoreService.deleteHighscore()),
+      tap(() => this.highscoreService.deleteTotal()) // DEBUG
   );
 
-  constructor(private actions$: Actions, private highscoreService: HighscoreService) {
+  constructor(private actions$: Actions,
+              private highscoreService: HighscoreService) {
   }
 }

@@ -8,6 +8,9 @@ import {GamepadActions} from '../../models/gamepad/gamepad.model';
 import {componentDestroyed} from 'ng2-rx-componentdestroyed';
 import {GamepadService} from '../../services/gamepad/gamepad.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {PlayerState} from '../../store/reducers/highscore.reducer';
+import {Store} from '@ngrx/store';
+import {SaveHighscore} from '../../store/actions';
 
 
 const animationDuration = 300;
@@ -37,7 +40,10 @@ export class EnterNameComponent implements OnInit, OnDestroy, AfterViewInit {
   nameForm: FormGroup;
   private selectedElementRef: ElementRef;
 
-  constructor(private router: Router, private score: HighscoreService, private gamepad: GamepadService) {
+  constructor(private router: Router,
+              private playerStore: Store<PlayerState>,
+              private score: HighscoreService,
+              private gamepad: GamepadService) {
   }
 
   ngOnInit() {
@@ -117,11 +123,18 @@ export class EnterNameComponent implements OnInit, OnDestroy, AfterViewInit {
       return;
     }
     this.score.setPerson(form.value as Person);
+    this.playerStore.dispatch(
+      new SaveHighscore({
+          name: form.value.name,
+          email: form.value.email,
+          score: 0,
+          date: new Date().toDateString()
+      })
+    );
     this.router.navigate(['single']);
   }
 
-
-  // there must be a way to do this nicer..
+  // there must be a way to do this nicer ...
   animate() {
     this.animated = 'active';
     setTimeout(() => this.animated = 'inactive', animationDuration);
