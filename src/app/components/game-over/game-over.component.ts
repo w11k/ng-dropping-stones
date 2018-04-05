@@ -1,18 +1,19 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { LocalStorageService } from '../../services/highscore/local-storage.service';
-import { Score } from '../../models/highscore/highscore.model';
-import { select, Store } from '@ngrx/store';
-import { AppState } from '../../store/state.model';
-import {filter, first, map, takeUntil, tap, throttleTime} from 'rxjs/operators';
-import { Tetris } from '../../models/tetris/tetris.model';
-import { GamepadService } from '../../services/gamepad/gamepad.service';
-import { GamepadActions } from '../../models/gamepad/gamepad.model';
-import { Router } from '@angular/router';
+import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
+import {LocalStorageService} from '../../services/highscore/local-storage.service';
+import {Score} from '../../models/highscore/highscore.model';
+import {select, Store} from '@ngrx/store';
+import {AppState} from '../../store/state.model';
+import {filter, first, map, takeUntil, throttleTime} from 'rxjs/operators';
+import {Tetris} from '../../models/tetris/tetris.model';
+import {GamepadService} from '../../services/gamepad/gamepad.service';
+import {GamepadActions} from '../../models/gamepad/gamepad.model';
+import {Router} from '@angular/router';
 import {componentDestroyed} from 'ng2-rx-componentdestroyed';
-import { Observable } from 'rxjs/Observable';
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/first';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-game-over',
@@ -24,8 +25,8 @@ export class GameOverComponent implements OnInit, AfterViewInit, OnDestroy {
   playerScore: number;
   highscores: Score[];
   todaysHighscores: Score[];
-  // navigationSubscription: Subscription;
   private forceReload: boolean;
+  private ESCSubscription: Subscription;
 
   constructor(private scoreService: LocalStorageService,
               private gamepad: GamepadService,
@@ -64,6 +65,8 @@ export class GameOverComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe(
         () => this.backToMainScreen()
       );
+
+    this.ESCSubscription = this.gamepad.abortGame();
   }
 
   ngAfterViewInit(): void {
@@ -71,6 +74,7 @@ export class GameOverComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.ESCSubscription.unsubscribe();
   }
 
   backToMainScreen() {

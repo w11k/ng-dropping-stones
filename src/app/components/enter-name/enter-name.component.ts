@@ -10,6 +10,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 import {PlayerState} from '../../store/reducers/highscore.reducer';
 import {Store} from '@ngrx/store';
 import {SaveHighscore} from '../../store/actions';
+import {Subscription} from 'rxjs/Subscription';
 
 const animationDuration = 300;
 
@@ -37,6 +38,7 @@ export class EnterNameComponent implements OnInit, OnDestroy, AfterViewInit {
 
   nameForm: FormGroup;
   private selectedElementRef: ElementRef;
+  private ESCSubscription: Subscription;
 
   constructor(private router: Router,
               private playerStore: Store<PlayerState>,
@@ -75,6 +77,8 @@ export class EnterNameComponent implements OnInit, OnDestroy, AfterViewInit {
           break;
       }
     });
+
+    this.ESCSubscription = this.gamepad.abortGame();
   }
 
   focusNext() {
@@ -110,6 +114,7 @@ export class EnterNameComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy(): void {
+    this.ESCSubscription.unsubscribe();
   }
 
   submit(form: FormGroup = this.nameForm) {

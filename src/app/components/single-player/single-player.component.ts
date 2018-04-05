@@ -13,6 +13,7 @@ import {Observable} from 'rxjs/Observable';
 import {getCurrentPlayer, PlayerState} from '../../store/reducers/highscore.reducer';
 import {UpdateHighscore} from '../../store/actions';
 import {Score} from '../../models/highscore/highscore.model';
+import {GamepadService} from '../../services/gamepad/gamepad.service';
 
 @Component({
   selector: 'app-single-player',
@@ -37,12 +38,14 @@ export class SinglePlayerComponent implements OnInit, OnDestroy {
   private playerState$: Observable<PlayerState>;
   private currentPlayerSubscription: Subscription;
   private gameOverSubscription: Subscription;
+  private ESCSubscription: Subscription;
 
   constructor(private gameStore: Store<AppState>,
               private playerStore: Store<PlayerState>,
               private audio: AudioService,
               private router: Router,
-              private score: LocalStorageService) {
+              private score: LocalStorageService,
+              private gamepad: GamepadService) {
   }
 
   ngOnInit() {
@@ -81,12 +84,15 @@ export class SinglePlayerComponent implements OnInit, OnDestroy {
         }
       });
 
+    this.ESCSubscription = this.gamepad.abortGame();
+
   }
 
   ngOnDestroy() {
     this.audio.pause();
     this.gameOverSubscription.unsubscribe();
     this.currentPlayerSubscription.unsubscribe();
+    this.ESCSubscription.unsubscribe();
   }
 
 }
