@@ -6,6 +6,7 @@ import {GamepadActions} from '../../models/gamepad/gamepad.model';
 import {debounceTime, filter, take, takeUntil} from 'rxjs/operators';
 import {componentDestroyed} from 'ng2-rx-componentdestroyed';
 import {Router} from '@angular/router';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-highscore-display',
@@ -22,6 +23,7 @@ export class HighscoreDisplayComponent implements OnInit, OnDestroy {
 
   highscores: Score[];
   todaysHighscores: Score[];
+  private ESCSubscription: Subscription;
 
   ngOnInit() {
 
@@ -41,9 +43,12 @@ export class HighscoreDisplayComponent implements OnInit, OnDestroy {
       this.router.navigate(['/']);
     });
 
+    this.ESCSubscription = this.gamepad.abortGame();
+
   }
 
   ngOnDestroy(): void {
+    this.ESCSubscription.unsubscribe();
   }
 
 }

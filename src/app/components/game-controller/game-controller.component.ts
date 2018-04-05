@@ -10,6 +10,7 @@ import {GamepadService} from '../../services/gamepad/gamepad.service';
 import {GamepadActions} from '../../models/gamepad/gamepad.model';
 import {Subscription} from 'rxjs/Subscription';
 import {interval} from 'rxjs/observable/interval';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-game-controller',
@@ -33,7 +34,7 @@ export class GameControllerComponent implements OnInit, OnDestroy {
 
   gameSpeed = 4;
 
-  constructor(private store: Store<AppState>, private gamepad: GamepadService) {
+  constructor(private store: Store<AppState>, private gamepad: GamepadService, private router: Router) {
   }
 
   @HostListener('document:keydown', ['$event'])
@@ -127,6 +128,10 @@ export class GameControllerComponent implements OnInit, OnDestroy {
 
         case GamepadActions.DROP:
           this.store.dispatch(new Drop(this.player));
+          break;
+
+        case GamepadActions.BACK:
+          this.router.navigate(['/']);
           break;
 
         default:

@@ -4,6 +4,9 @@ import {GamepadActions, TetrisGamepad} from '../../models/gamepad/gamepad.model'
 import {Observable} from 'rxjs/Observable';
 import {filter, map, merge, throttleTime} from 'rxjs/operators';
 import {environment} from '../../../environments/environment';
+import {Subscription} from 'rxjs/Subscription';
+import {fromEvent} from 'rxjs/observable/fromEvent';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class GamepadService {
@@ -19,11 +22,21 @@ export class GamepadService {
     7: GamepadActions.OK
   };
 
-  constructor() {
+  constructor(private router: Router) {
     this.pollingLoop();
     if (!environment.production) {
       this.numPadListener();
     }
+  }
+
+  abortGame(): Subscription {
+    return fromEvent(document, 'keyup')
+      .subscribe((keyboardEvent: KeyboardEvent) => {
+        if (keyboardEvent.key === 'Escape') {
+          console.log('*** ESC ***'); // DEBUG
+          this.router.navigate(['/']);
+        }
+      });
   }
 
   getAllActions(): Observable<GamepadActions> {
@@ -31,7 +44,6 @@ export class GamepadService {
       merge(this.getActions(2)),
     );
   }
-
 
   /**
    * Caution: If you want to use the Buttons keep in mind

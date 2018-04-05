@@ -1,12 +1,13 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { Init } from '../../store/actions/actions';
-import { select, Store } from '@ngrx/store';
-import { AppState } from '../../store/state.model';
-import { Keymap } from '../../models/keymap/keymap.model';
-import { Subscription } from 'rxjs/Subscription';
-import { AudioService } from '../../services/audio/audio.service';
-import { Router } from '@angular/router';
-import { Status, Tetris } from '../../models/tetris/tetris.model';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
+import {Init} from '../../store/actions/actions';
+import {select, Store} from '@ngrx/store';
+import {AppState} from '../../store/state.model';
+import {Keymap} from '../../models/keymap/keymap.model';
+import {Subscription} from 'rxjs/Subscription';
+import {AudioService} from '../../services/audio/audio.service';
+import {Router} from '@angular/router';
+import {Status, Tetris} from '../../models/tetris/tetris.model';
+import {GamepadService} from '../../services/gamepad/gamepad.service';
 
 @Component({
   selector: 'app-multiplayer',
@@ -17,6 +18,7 @@ import { Status, Tetris } from '../../models/tetris/tetris.model';
 export class MultiplayerComponent implements OnInit, OnDestroy {
 
   gameOverSubscription: Subscription;
+  private ESCSubscription: Subscription;
 
   playerOne: Keymap = {
     left: 'KeyA',
@@ -34,7 +36,10 @@ export class MultiplayerComponent implements OnInit, OnDestroy {
     drop: 'Space',
   };
 
-  constructor(private store: Store<AppState>, private audio: AudioService, private router: Router) {
+  constructor(private store: Store<AppState>,
+              private audio: AudioService,
+              private router: Router,
+              private gamepad: GamepadService) {
   }
 
   ngOnInit() {
@@ -48,10 +53,12 @@ export class MultiplayerComponent implements OnInit, OnDestroy {
         this.router.navigate(['multi-game-over']);
       }
     });
+    this.ESCSubscription = this.gamepad.abortGame();
   }
 
   ngOnDestroy() {
     this.audio.pause();
     this.gameOverSubscription.unsubscribe();
+    this.ESCSubscription.unsubscribe();
   }
 }
