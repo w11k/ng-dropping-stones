@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HighscoreService } from './highscore.service';
+import { LocalStorageService } from './local-storage.service';
 
 @NgModule({
   imports: [
     CommonModule
   ],
   declarations: [],
-  providers: [HighscoreService]
+  providers: [LocalStorageService]
 })
 export class HighscoreModule { }

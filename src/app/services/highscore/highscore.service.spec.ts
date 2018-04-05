@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { HighscoreService } from './highscore.service';
+import { LocalStorageService } from './local-storage.service';
 
-describe('HighscoreService', () => {
+describe('LocalStorageService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [HighscoreService]
+      providers: [LocalStorageService]
     });
   });
 
-  it('should be created', inject([HighscoreService], (service: HighscoreService) => {
+  it('should be created', inject([LocalStorageService], (service: LocalStorageService) => {
     expect(service).toBeTruthy();
   }));
 });

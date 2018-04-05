@@ -94,12 +94,12 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     GamepadModule,
     HeaderModule,
     HighscoreModule,
-    RouterModule.forRoot(routes),
-    StoreModule.forRoot(
-      {game: tetrisReducer,
-        settings: settingsReducer,
-        player: playerReducer
-      }, {metaReducers}),
+    RouterModule.forRoot(routes/*, { enableTracing: true }*/),
+    StoreModule.forRoot({
+      game: tetrisReducer,
+      settings: settingsReducer,
+      player: playerReducer
+    }, {metaReducers}),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states/**/
       logOnly: environment.production // Restrict extension to log-only mode

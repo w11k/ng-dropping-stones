@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {select, Store} from '@ngrx/store';
 import {AppState} from '../../store/state.model';
-import {DeleteHighscoreAction, SettingsState, UpdateSettingsAction} from '../../store/settingsReducer';
+import {SettingsState, UpdateSettingsAction} from '../../store/settingsReducer';
 import {Observable} from 'rxjs/Observable';
 import {untilComponentDestroyed} from 'ng2-rx-componentdestroyed';
 import 'rxjs/add/operator/do';
@@ -46,7 +46,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
   }
 
   deleteHighscore(): void {
-    this.store.dispatch(new DeleteHighscoreAction());
     this.playerStore.dispatch(new DeleteHighscore());
   }
 

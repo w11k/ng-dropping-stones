@@ -1,8 +1,7 @@
 import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {HighscoreService} from '../../services/highscore/highscore.service';
-import {Person} from '../../models/highscore/highscore.model';
+import {LocalStorageService} from '../../services/highscore/local-storage.service';
 import {takeUntil, throttleTime} from 'rxjs/operators';
 import {GamepadActions} from '../../models/gamepad/gamepad.model';
 import {componentDestroyed} from 'ng2-rx-componentdestroyed';
@@ -11,7 +10,6 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 import {PlayerState} from '../../store/reducers/highscore.reducer';
 import {Store} from '@ngrx/store';
 import {SaveHighscore} from '../../store/actions';
-
 
 const animationDuration = 300;
 
@@ -42,7 +40,7 @@ export class EnterNameComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(private router: Router,
               private playerStore: Store<PlayerState>,
-              private score: HighscoreService,
+              private score: LocalStorageService,
               private gamepad: GamepadService) {
   }
 
@@ -51,7 +49,6 @@ export class EnterNameComponent implements OnInit, OnDestroy, AfterViewInit {
       name: new FormControl('', [Validators.required]),
       email: new FormControl('')
     });
-
 
     this.gamepad.getActions(1).pipe(
       takeUntil(componentDestroyed(this)),
@@ -79,7 +76,6 @@ export class EnterNameComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     });
   }
-
 
   focusNext() {
     const availableActions = this.getActions();
@@ -122,7 +118,6 @@ export class EnterNameComponent implements OnInit, OnDestroy, AfterViewInit {
       this.animate();
       return;
     }
-    this.score.setPerson(form.value as Person);
     this.playerStore.dispatch(
       new SaveHighscore({
           name: form.value.name,
@@ -131,7 +126,6 @@ export class EnterNameComponent implements OnInit, OnDestroy, AfterViewInit {
           date: new Date().toDateString()
       })
     );
-    this.router.navigate(['single']);
   }
 
   // there must be a way to do this nicer ...

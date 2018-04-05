@@ -1,8 +1,7 @@
 import {Action} from '@ngrx/store';
 
 export enum SettingActionTypes {
-  UpdateForm = 'UpdateForm',
-  DeleteHighscore = 'DeleteHighscore', // TODO: replace with HighscoreAction
+  UpdateForm = 'UpdateForm'
 }
 
 export interface SettingsState {
@@ -13,10 +12,6 @@ export interface SettingsState {
 export class UpdateSettingsAction implements Action {
   readonly type = SettingActionTypes.UpdateForm;
   constructor(public payload: Partial<SettingsState>) {}
-}
-
-export class DeleteHighscoreAction implements Action {
-  readonly type = SettingActionTypes.DeleteHighscore;
 }
 
 export type SettingsActions = UpdateSettingsAction;

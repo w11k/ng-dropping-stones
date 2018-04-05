@@ -1,39 +1,14 @@
-import { Injectable } from '@angular/core';
-import { Person, Score } from '../../models/highscore/highscore.model';
-import { getDate } from 'date-fns';
+import {Injectable} from '@angular/core';
+import {Score} from '../../models/highscore/highscore.model';
+// import { getDate } from 'date-fns'; // TODO: use
 
 @Injectable()
-export class HighscoreService {
-
-  private name: string;
-  private email: string;
+export class LocalStorageService {
 
   constructor() {
     if (!storageAvailable('localStorage')) {
       alert('error, no local storage available');
     }
-  }
-
-  hasName(): boolean {
-    return !!this.name;
-  }
-
-  get playerName(): string {
-    return this.name;
-  }
-
-  get playerScoreObject(): Object {
-    return {
-      name: this.name,
-      email: this.email,
-      score: this.getScores(),
-      date: getDate(new Date())
-    };
-  }
-
-  setPerson(person: Person) {
-    this.name = person.name;
-    this.email = person.email;
   }
 
   getScores(): Score[] {
@@ -48,25 +23,43 @@ export class HighscoreService {
       );
   }
 
-  setScore(score: number) { // TODO: refactor with store/action
-    const scores = this.getScores();
-    const date = new Date().toString();
-    scores.push({
-      name: this.name,
-      email: this.email,
-      score,
-      date
-    });
-    localStorage.setItem('highscore', JSON.stringify(scores));
+  readLocalHighscore(): Array<Score> {
+    const score = JSON.parse(localStorage.getItem('highscore'));
+    return score ? score as Score[] : [];
   }
 
-  deleteHighscore(): void {
-    localStorage.setItem('highscore', JSON.stringify([]));
+  writeLocalHighscore(currentPlayer: Score): void {
+    const currentLocalStorage = this.readLocalHighscore();
+    try {
+      localStorage.setItem(
+        'highscore',
+        JSON.stringify(
+          [...currentLocalStorage, currentPlayer]
+        )
+      );
+    } catch (err) {
+      console.error('Error while writing to local storage: ', err);
+      throw err;
+    }
   }
 
-  deleteTotal(): void { // DEBUG
-    localStorage.clear();
+  deleteLocalHighscore(): void {
+    try {
+      localStorage.setItem('highscore', JSON.stringify([]));
+    } catch (err) {
+      console.error('Error while deleting from local storage: ', err);
+      throw err;
+    }
   }
+
+  // clearLocalStorage(): void {
+  //   try {
+  //     localStorage.clear();
+  //   } catch (err) {
+  //     console.error('Error while clearing local storage: ', err);
+  //     throw err;
+  //   }
+  // }
 
 }
 

@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { HighscoreService } from '../../services/highscore/highscore.service';
+import { LocalStorageService } from '../../services/highscore/local-storage.service';
 import { Score } from '../../models/highscore/highscore.model';
 import { select, Store } from '@ngrx/store';
 import { AppState } from '../../store/state.model';
@@ -27,7 +27,7 @@ export class GameOverComponent implements OnInit, AfterViewInit, OnDestroy {
   // navigationSubscription: Subscription;
   private forceReload: boolean;
 
-  constructor(private scoreService: HighscoreService,
+  constructor(private scoreService: LocalStorageService,
               private gamepad: GamepadService,
               private store: Store<AppState>,
               private router: Router) {
