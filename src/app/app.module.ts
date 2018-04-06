@@ -40,18 +40,18 @@ const routes = [
   {
     path: 'single', component: SinglePlayerComponent, canActivate: [SinglePlayerGuard]
   },
-  {
-    path: 'multi', component: MultiplayerComponent
-  },
+  // {
+  //   path: 'multi', component: MultiplayerComponent
+  // },
   {
     path: 'enter-name', component: EnterNameComponent
   },
   {
     path: 'game-over', component: GameOverComponent
   },
-  {
-    path: 'multi-game-over', component: MultiGameOverComponent
-  },
+  // {
+  //   path: 'multi-game-over', component: MultiGameOverComponent
+  // },
   {
     path: 'highscore', component: HighscoreDisplayComponent
   },
