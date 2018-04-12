@@ -2,7 +2,6 @@ import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, View
 import {GamepadService} from '../../services/gamepad/gamepad.service';
 import {GamepadActions} from '../../models/gamepad/gamepad.model';
 import {debounceTime, filter, takeUntil, throttleTime} from 'rxjs/operators';
-import {Router} from '@angular/router';
 import {componentDestroyed} from 'ng2-rx-componentdestroyed';
 
 @Component({
@@ -15,7 +14,7 @@ export class StartScreenComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChildren('action') actions: QueryList<ElementRef>;
   private selectedElementRef: ElementRef;
 
-  constructor(private gamepad: GamepadService, private router: Router) {
+  constructor(private gamepad: GamepadService) {
   }
 
   ngOnInit(): void {
@@ -43,7 +42,7 @@ export class StartScreenComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.selectedElementRef = this.actions.first;
-    this.selectedElementRef.nativeElement.focus();
+    setTimeout(() => this.selectedElementRef.nativeElement.focus(), 0);
   }
 
   focusNext() {
