@@ -2,25 +2,68 @@
 @import "../../../styles/color-animation";
 @import '../../../styles/mixin/links';
 
-.flex-container {
-  height: 90%;
+/**
+ * NOTE:
+ *  Configured to fit the game cabin.
+ *  (Looks shitty in normal browser.)
+ */
 
-  h1 {
-    margin: 0 10px;
-    text-align: center;
-    font-size: 5em;
-    animation: 2s color infinite step-end;
+.total-container {
+  margin: 5% 0 0 0;
+
+  .middle-container {
+    flex-grow: 1;
+    height: 90%;
+    margin: 3% 0 0 0;
+
+    h1 {
+      margin: 0 10px;
+      text-align: center;
+      font-size: 5em;
+      animation: 2s color infinite step-end;
+    }
+
+    .actions {
+      margin-top: 120px;
+      font-size: 1.9em;
+
+      @include nav-link;
+    }
+
+    .howto {
+      margin-top: 80px;
+      width: 100%;
+      height: auto;
+    }
+
   }
 
-  .actions {
-    margin-top: 70px;
-    font-size: 1.3em;
+  .side-container {
+    height: auto;
+    width: 100%;
 
-    @include nav-link;
+    .left-side-flex-item {
+      transform: rotate(-90deg);
+      margin: 100% 0 0 0;
+    }
+
+    .right-side-flex-item {
+      transform: rotate(90deg);
+      margin: 0 0 100% 0;
+    }
+
+    .left-tetrominoes {
+      height: auto;
+      width: 200%;
+      margin: 50% 0 0 0;
+    }
+
+    .right-tetrominoes {
+      height: auto;
+      width: 200%;
+      margin: 50% 0 0 0;
+    }
+
   }
 
-  img {
-    margin-top: 80px;
-    width: 45%;
-  }
 }
