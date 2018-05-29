@@ -1,15 +1,14 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {LocalStorageService} from '../../services/highscore/local-storage.service';
-import {Observable} from 'rxjs/Observable';
+import {Observable, of} from 'rxjs';
 import {Action, Store} from '@ngrx/store';
 import * as fromActions from '../actions';
 import {catchError, map, startWith, tap, switchMap} from 'rxjs/operators';
-import {of} from 'rxjs/observable/of';
 import {UpdateHighscore} from '../actions/highscore.action';
 import {PlayerState} from '../reducers/highscore.reducer';
 import {Router} from '@angular/router';
-import 'rxjs/add/operator/do';
+
 
 @Injectable()
 export class HighscoreEffects {

@@ -1,11 +1,8 @@
 import {Injectable} from '@angular/core';
-import {Subject} from 'rxjs/Subject';
+import {Subject, Observable, Subscription, fromEvent} from 'rxjs';
 import {GamepadActions, TetrisGamepad} from '../../models/gamepad/gamepad.model';
-import {Observable} from 'rxjs/Observable';
 import {filter, map, merge, throttleTime} from 'rxjs/operators';
 import {environment} from '../../../environments/environment';
-import {Subscription} from 'rxjs/Subscription';
-import {fromEvent} from 'rxjs/observable/fromEvent';
 import {Router} from '@angular/router';
 
 @Injectable()

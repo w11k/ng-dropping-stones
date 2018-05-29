@@ -3,7 +3,7 @@ import {Init} from '../../store/actions/actions';
 import {select, Store} from '@ngrx/store';
 import {AppState} from '../../store/state.model';
 import {Keymap} from '../../models/keymap/keymap.model';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
 import {AudioService} from '../../services/audio/audio.service';
 import {Router} from '@angular/router';
 import {Status, Tetris} from '../../models/tetris/tetris.model';

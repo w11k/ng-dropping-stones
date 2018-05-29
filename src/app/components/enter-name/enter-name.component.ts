@@ -10,7 +10,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 import {PlayerState} from '../../store/reducers/highscore.reducer';
 import {Store} from '@ngrx/store';
 import {SaveHighscore} from '../../store/actions';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
 
 const animationDuration = 300;
 

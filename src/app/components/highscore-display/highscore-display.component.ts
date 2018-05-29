@@ -6,7 +6,7 @@ import {GamepadActions} from '../../models/gamepad/gamepad.model';
 import {debounceTime, filter, take, takeUntil} from 'rxjs/operators';
 import {componentDestroyed} from 'ng2-rx-componentdestroyed';
 import {Router} from '@angular/router';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-highscore-display',

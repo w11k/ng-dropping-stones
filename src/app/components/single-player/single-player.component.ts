@@ -1,15 +1,15 @@
+
+import {first, map} from 'rxjs/operators';
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import {AppState} from '../../store/state.model';
 import {Init} from '../../store/actions/actions';
 import {Keymap} from '../../models/keymap/keymap.model';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription, Observable} from 'rxjs';
 import {AudioService} from '../../services/audio/audio.service';
-import {map} from 'rxjs/operators';
 import {Status, Tetris} from '../../models/tetris/tetris.model';
 import {Router} from '@angular/router';
 import {LocalStorageService} from '../../services/highscore/local-storage.service';
-import {Observable} from 'rxjs/Observable';
 import {getCurrentPlayer, PlayerState} from '../../store/reducers/highscore.reducer';
 import {UpdateHighscore} from '../../store/actions';
 import {Score} from '../../models/highscore/highscore.model';
@@ -59,8 +59,8 @@ export class SinglePlayerComponent implements OnInit, OnDestroy {
     this.gameStore.dispatch(new Init(1));
     this.audio.play('korobeiniki.wav', true);
 
-    this.playerState$ = this.playerStore
-      .first().pipe(
+    this.playerState$ = this.playerStore.pipe(
+      first()).pipe(
         select('player')
       ) as Observable<PlayerState>;
     this.currentPlayerSubscription =

@@ -1,6 +1,6 @@
 import {Score} from '../../models/highscore/highscore.model';
 import * as fromActions from '../actions';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 export interface PlayerState {

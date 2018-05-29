@@ -3,9 +3,9 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {select, Store} from '@ngrx/store';
 import {AppState} from '../../store/state.model';
 import {SettingsState, UpdateSettingsAction} from '../../store/settingsReducer';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {untilComponentDestroyed} from 'ng2-rx-componentdestroyed';
-import 'rxjs/add/operator/do';
+
 import {PlayerState} from '../../store/reducers/highscore.reducer';
 import {DeleteHighscore} from '../../store/actions';
 

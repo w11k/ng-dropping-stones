@@ -1,7 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {Tetromino, TetrominoType} from '../../../models/tetromino/tetromino.model';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {Observable} from 'rxjs/Observable';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {flatten} from '../../../helpers/tetromino-helpers';
 

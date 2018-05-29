@@ -1,11 +1,12 @@
+
+import {first} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {CanActivate, Router} from '@angular/router';
 import {LocalStorageService} from '../../services/highscore/local-storage.service';
 import {select, Store} from '@ngrx/store';
 import {getCurrentPlayer, PlayerState} from '../../store/reducers/highscore.reducer';
-import {Observable} from 'rxjs/Observable';
+import {Observable, Subscription} from 'rxjs';
 import {Score} from '../../models/highscore/highscore.model';
-import {Subscription} from 'rxjs/Subscription';
 
 @Injectable()
 export class SinglePlayerGuard implements CanActivate {
@@ -21,13 +22,13 @@ export class SinglePlayerGuard implements CanActivate {
 
   canActivate(): boolean {
 
-    this.playerState$ = this.playerStore
-      .first().pipe(
+    this.playerState$ = this.playerStore.pipe(
+      first()).pipe(
         select('player')
       ) as Observable<PlayerState>;
     this.currentPlayerSubscription =
-      getCurrentPlayer(this.playerState$)
-        .first()
+      getCurrentPlayer(this.playerState$).pipe(
+        first())
         .subscribe(p => this.currentPlayerScore = p);
 
     const hasName = this.currentPlayerScore.name !== '';
