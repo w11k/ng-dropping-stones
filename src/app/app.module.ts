@@ -30,7 +30,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {EffectsModule} from '@ngrx/effects';
 import {HighscoreEffects} from './store/effects/highscore.effects';
 import {HighscoreModule} from './services/highscore/highscore.module';
-import {MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 const routes = [
   {
@@ -104,8 +104,9 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
       logOnly: environment.production // Restrict extension to log-only mode
     }),
     EffectsModule.forRoot([HighscoreEffects]),
+    NgbModule.forRoot(),
   ],
-  providers: [{provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true}}, ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {

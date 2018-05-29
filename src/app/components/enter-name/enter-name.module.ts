@@ -4,8 +4,8 @@ import {EnterNameComponent} from './enter-name.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {HighscoreModule} from '../../services/highscore/highscore.module';
-import {MatDialogModule} from '@angular/material';
 import {TacComponent} from './tac/tac.component';
+import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
@@ -14,7 +14,7 @@ import {TacComponent} from './tac/tac.component';
     ReactiveFormsModule,
     RouterModule,
     HighscoreModule,
-    MatDialogModule,
+    NgbModalModule,
   ],
   declarations: [EnterNameComponent, TacComponent],
   exports: [EnterNameComponent],

@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-tac',
@@ -7,7 +8,7 @@ import {Component, OnInit} from '@angular/core';
 })
 export class TacComponent implements OnInit {
 
-  constructor() {
+  constructor(public activeModal: NgbActiveModal) {
   }
 
   ngOnInit() {

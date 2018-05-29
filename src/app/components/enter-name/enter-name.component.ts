@@ -10,8 +10,8 @@ import {PlayerState} from '../../store/reducers/highscore.reducer';
 import {Store} from '@ngrx/store';
 import {SaveHighscore} from '../../store/actions';
 import {Subscription} from 'rxjs';
-import {MatDialog} from '@angular/material';
 import {TacComponent} from './tac/tac.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-enter-name',
@@ -30,7 +30,7 @@ export class EnterNameComponent implements OnInit, OnDestroy, AfterViewInit {
               private playerStore: Store<PlayerState>,
               private score: LocalStorageService,
               private gamepad: GamepadService,
-              private dialog: MatDialog) {
+              private modalService: NgbModal) {
   }
 
   ngOnInit() {
@@ -131,7 +131,7 @@ export class EnterNameComponent implements OnInit, OnDestroy, AfterViewInit {
 
   openTac(event: MouseEvent) {
     event.preventDefault();
-    this.dialog.open(TacComponent);
+    this.modalService.open(TacComponent, {size: 'lg', centered: true});
   }
 
   private focusInput(inputId: string) {
