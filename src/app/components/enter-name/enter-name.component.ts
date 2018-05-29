@@ -2,39 +2,25 @@ import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, View
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {LocalStorageService} from '../../services/highscore/local-storage.service';
-import {takeUntil, throttleTime} from 'rxjs/operators';
+import {throttleTime} from 'rxjs/operators';
 import {GamepadActions} from '../../models/gamepad/gamepad.model';
-import {componentDestroyed} from 'ng2-rx-componentdestroyed';
+import {untilComponentDestroyed} from 'ng2-rx-componentdestroyed';
 import {GamepadService} from '../../services/gamepad/gamepad.service';
-import {animate, state, style, transition, trigger} from '@angular/animations';
 import {PlayerState} from '../../store/reducers/highscore.reducer';
 import {Store} from '@ngrx/store';
 import {SaveHighscore} from '../../store/actions';
 import {Subscription} from 'rxjs';
-
-const animationDuration = 300;
+import {MatDialog} from '@angular/material';
+import {TacComponent} from './tac/tac.component';
 
 @Component({
   selector: 'app-enter-name',
   templateUrl: './enter-name.component.html',
   styleUrls: ['./enter-name.component.scss'],
-  animations: [
-    trigger('heroState', [
-      state('inactive', style({
-        transform: 'scale(1)'
-      })),
-      state('active', style({
-        transform: 'scale(1.5)'
-      })),
-      transition('inactive => active', animate(animationDuration + 'ms ease-in')),
-      transition('active => inactive', animate(animationDuration * 2 + 'ms ease-out'))
-    ]),
-  ]
 })
 export class EnterNameComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChildren('action') actions: QueryList<ElementRef>;
-  animated: 'inactive' | 'active' = 'inactive';
 
   nameForm: FormGroup;
   private selectedElementRef: ElementRef;
@@ -43,18 +29,20 @@ export class EnterNameComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(private router: Router,
               private playerStore: Store<PlayerState>,
               private score: LocalStorageService,
-              private gamepad: GamepadService) {
+              private gamepad: GamepadService,
+              private dialog: MatDialog) {
   }
 
   ngOnInit() {
     this.nameForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
-      email: new FormControl('')
-    });
+      email: new FormControl('', [Validators.email]),
+      acceptTac: new FormControl(false),
+    }, [EmailAndTACValidator('email', 'acceptTac')]);
 
     this.gamepad.getActions(1).pipe(
-      takeUntil(componentDestroyed(this)),
       throttleTime(300),
+      untilComponentDestroyed(this)
     ).subscribe(action => {
       switch (action) {
         case GamepadActions.BACK:
@@ -95,7 +83,7 @@ export class EnterNameComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.selectFirst();
+    this.focusInput('name');
   }
 
   focusPrev() {
@@ -117,34 +105,54 @@ export class EnterNameComponent implements OnInit, OnDestroy, AfterViewInit {
     this.ESCSubscription.unsubscribe();
   }
 
-  submit(form: FormGroup = this.nameForm) {
-    if (form.invalid) {
-      this.selectFirst();
-      this.animate();
+  submit() {
+    if (this.nameForm.invalid) {
+      if (this.nameForm.get('name').invalid) {
+        this.focusInput('name');
+      } else if (this.nameForm.get('email').dirty && this.nameForm.get('email').value.length > 0) {
+        if (this.nameForm.get('email').invalid) {
+          this.focusInput('email');
+        } else if (this.nameForm.errors['tacMustBeSet']) {
+          this.focusInput('acceptTac');
+        }
+      }
       return;
     }
     this.playerStore.dispatch(
       new SaveHighscore({
-          name: form.value.name,
-          email: form.value.email,
-          score: 0,
-          date: new Date().toDateString()
+        name: this.nameForm.get('name').value,
+        email: this.nameForm.get('email').value,
+        acceptedTac: this.nameForm.get('acceptTac').value,
+        score: 0,
+        date: new Date().toDateString()
       })
     );
   }
 
-  // there must be a way to do this nicer ...
-  animate() {
-    this.animated = 'active';
-    setTimeout(() => this.animated = 'inactive', animationDuration);
+  openTac(event: MouseEvent) {
+    event.preventDefault();
+    this.dialog.open(TacComponent);
   }
 
-  private selectFirst() {
-    this.selectedElementRef = this.actions.first;
-    this.selectedElementRef.nativeElement.focus();
+  private focusInput(inputId: string) {
+    const input = this.actions.filter(action => action.nativeElement.getAttribute('id') === inputId)[0];
+
+    if (input) {
+      this.selectedElementRef = input;
+      this.selectedElementRef.nativeElement.focus();
+    }
   }
 
   private getActions(): ElementRef[] {
     return this.actions.map(elementRef => elementRef);
   }
+}
+
+export function EmailAndTACValidator(emailControlName: string, tacControlName: string) {
+  return (group: FormGroup) => {
+    const emailControl = group.controls[emailControlName];
+    const tacControl = group.controls[tacControlName];
+
+    return emailControl.dirty && !tacControl.value ? {'tacMustBeSet': true} : null;
+  };
 }

@@ -7,7 +7,6 @@ import {tetrisReducer} from './store/tetrisReducer';
 import {RouterModule} from '@angular/router';
 import {SinglePlayerModule} from './components/single-player/single-player.module';
 import {MultiplayerModule} from './components/multiplayer/multiplayer.module';
-import {MultiplayerComponent} from './components/multiplayer/multiplayer.component';
 import {SinglePlayerComponent} from './components/single-player/single-player.component';
 import {StartScreenComponent} from './components/start-screen/start-screen.component';
 import {StartScreenModule} from './components/start-screen/start-screen.module';
@@ -16,7 +15,6 @@ import {EnterNameModule} from './components/enter-name/enter-name.module';
 import {GameOverComponent} from './components/game-over/game-over.component';
 import {GameOverModule} from './components/game-over/game-over.module';
 import {SinglePlayerGuard} from './components/single-player/single-player.guard';
-import {MultiGameOverComponent} from './components/multi-game-over/multi-game-over.component';
 import {MultiGameOverModule} from './components/multi-game-over/multi-game-over.module';
 import {HighscoreDisplayComponent} from './components/highscore-display/highscore-display.component';
 import {HighscoreDisplayModule} from './components/highscore-display/highscore-display.module';
@@ -32,6 +30,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {EffectsModule} from '@ngrx/effects';
 import {HighscoreEffects} from './store/effects/highscore.effects';
 import {HighscoreModule} from './services/highscore/highscore.module';
+import {MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material';
 
 const routes = [
   {
@@ -70,7 +69,7 @@ const routes = [
 export function localStorageSyncReducer(reducer: ActionReducer<AppState>): ActionReducer<AppState> {
   return (state: AppState, action: any) => {
     const keys = ['settings'];
-    return localStorageSync({keys, rehydrate: true,})(reducer)(state, action);
+    return localStorageSync({ keys, rehydrate: true, })(reducer)(state, action);
   };
 }
 
@@ -104,9 +103,9 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
       maxAge: 25, // Retains last 25 states/**/
       logOnly: environment.production // Restrict extension to log-only mode
     }),
-    EffectsModule.forRoot([HighscoreEffects])
+    EffectsModule.forRoot([HighscoreEffects]),
   ],
-  providers: [],
+  providers: [{provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true}}, ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

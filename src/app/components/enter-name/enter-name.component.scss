@@ -5,36 +5,87 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  .name-form__input {
+  .name-form-field {
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
 
-    input {
+    input[type="text"] {
       width: 0;
       height: 0;
       border: 0;
       padding: 0;
     }
-    label {
-      font-size: 1.5em;
-      color: $tetris-dark;
+  }
+
+  .name-form-field-checkbox {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-direction: row;
+    margin-bottom: 1em;
+
+    input[type="checkbox"] {
+      // display:none and focus won't work
+      opacity: 0;
     }
-    pre {
-      display: inline;
-      font-size: 2em;
-      align-self: center;
-      min-height: 35px;
-      margin: 10px 0 50px;
+
+    input[type="checkbox"] + label .alt-checkbox {
+      margin-right: 1em;
+      display:inline-block;
+      width:19px;
+      height:19px;
+      background-color: $bg-color;
+      border: 3px solid $tetris-dark;
+      cursor: pointer;
     }
-    input:focus + label {
-      color: $tetris-primary;
+
+    input[type="checkbox"] + label .check-arrow {
+      display: none;
     }
-    input:focus ~ pre {
-      animation: 1s blink step-end infinite;
+
+    input[type="checkbox"]:checked + label .alt-checkbox {
+      border: 3px solid $tetris-light;
+    }
+
+    input[type="checkbox"]:checked + label .check-arrow {
+      display: block;
+      width: 6px;
+      height: 16px;
+      border: 4px solid $tetris-light;
+      border-top: none;
+      border-left: none;
+      transform:rotate(45deg);
+      margin: -2px 0 0 5px;
+    }
+
+    input[type="checkbox"]:focus + label .alt-checkbox {
+      border-color: $tetris-primary;
     }
   }
+
+  label {
+    font-size: 1.5em;
+    color: $tetris-light;
+  }
+
+  pre {
+    display: inline;
+    font-size: 2em;
+    align-self: center;
+    min-height: 35px;
+    margin: 10px 0 50px;
+  }
+
+  input:focus ~ label {
+    color: $tetris-primary;
+  }
+
+  input:focus ~ pre {
+    animation: 1s blink step-end infinite;
+  }
+
   button {
     color: $tetris-dark;
     padding: 10px;
@@ -49,6 +100,11 @@
     color: $tetris-primary;
     border: 5px solid $tetris-primary;
   }
+}
+
+.tac-link:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 @keyframes blink {
