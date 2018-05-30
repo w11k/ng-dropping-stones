@@ -1,18 +1,15 @@
+import {of as observableOf} from 'rxjs';
 
-import {of as observableOf,  Subscription ,  Observable } from 'rxjs';
-
-import {first, delay, debounce, debounceTime, filter, map, take, takeUntil, throttleTime} from 'rxjs/operators';
+import {debounceTime, delay, filter, first, map} from 'rxjs/operators';
 import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
-import { Tetris } from '../../models/tetris/tetris.model';
-import { select, Store } from '@ngrx/store';
-import { AppState } from '../../store/state.model';
-import { AudioService } from '../../services/audio/audio.service';
-import { GamepadService } from '../../services/gamepad/gamepad.service';
-import { GamepadActions } from '../../models/gamepad/gamepad.model';
-import { Router } from '@angular/router';
-import {componentDestroyed} from 'ng2-rx-componentdestroyed';
-
-
+import {Tetris} from '../../models/tetris/tetris.model';
+import {select, Store} from '@ngrx/store';
+import {AppState} from '../../store/state.model';
+import {AudioService} from '../../services/audio/audio.service';
+import {GamepadService} from '../../services/gamepad/gamepad.service';
+import {GamepadActions} from '../../models/gamepad/gamepad.model';
+import {Router} from '@angular/router';
+import {untilComponentDestroyed} from 'ng2-rx-componentdestroyed';
 
 
 @Component({
@@ -45,10 +42,10 @@ export class MultiGameOverComponent implements OnInit, AfterViewInit, OnDestroy 
     });
 
     this.gamepad.getActions(1).pipe(
-      takeUntil(componentDestroyed(this)),
       debounceTime(250),
       filter(action => action === GamepadActions.BACK || action === GamepadActions.OK),
-    ).subscribe(action => {
+      untilComponentDestroyed(this),
+    ).subscribe(() => {
       this.backToMainScreen();
     });
 
@@ -59,7 +56,10 @@ export class MultiGameOverComponent implements OnInit, AfterViewInit, OnDestroy 
     )
       .subscribe((scores: number[]) => this.scores = scores);
 
-    observableOf(1).pipe(delay(10 * 1000),first(),).subscribe(() => this.backToMainScreen());
+    observableOf(1).pipe(
+      delay(10 * 1000),
+      first(),
+    ).subscribe(() => this.backToMainScreen());
   }
 
   ngAfterViewInit(): void {

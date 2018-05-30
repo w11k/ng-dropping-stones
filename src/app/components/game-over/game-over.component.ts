@@ -1,6 +1,6 @@
 import {of as observableOf, Subscription} from 'rxjs';
 
-import {delay, filter, first, map, takeUntil, throttleTime} from 'rxjs/operators';
+import {delay, filter, first, map, throttleTime} from 'rxjs/operators';
 import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
 import {LocalStorageService} from '../../services/highscore/local-storage.service';
 import {Score} from '../../models/highscore/highscore.model';
@@ -10,7 +10,7 @@ import {Tetris} from '../../models/tetris/tetris.model';
 import {GamepadService} from '../../services/gamepad/gamepad.service';
 import {GamepadActions} from '../../models/gamepad/gamepad.model';
 import {Router} from '@angular/router';
-import {componentDestroyed} from 'ng2-rx-componentdestroyed';
+import {untilComponentDestroyed} from 'ng2-rx-componentdestroyed';
 
 @Component({
   selector: 'app-game-over',
@@ -38,9 +38,9 @@ export class GameOverComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.gamepad.getActions(1).pipe(
-      takeUntil(componentDestroyed(this)),
       throttleTime(300),
-      filter(action => action === GamepadActions.BACK || action === GamepadActions.OK)
+      filter(action => action === GamepadActions.BACK || action === GamepadActions.OK),
+      untilComponentDestroyed(this),
     ).subscribe(() => {
       this.backToMainScreen();
     });

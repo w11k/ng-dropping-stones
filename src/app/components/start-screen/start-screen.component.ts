@@ -1,8 +1,8 @@
 import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {GamepadService} from '../../services/gamepad/gamepad.service';
 import {GamepadActions} from '../../models/gamepad/gamepad.model';
-import {debounceTime, filter, takeUntil, throttleTime} from 'rxjs/operators';
-import {componentDestroyed} from 'ng2-rx-componentdestroyed';
+import {debounceTime, filter, throttleTime} from 'rxjs/operators';
+import {untilComponentDestroyed} from 'ng2-rx-componentdestroyed';
 
 @Component({
   selector: 'app-start-screen',
@@ -20,7 +20,7 @@ export class StartScreenComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     this.gamepad.getActions(1).pipe(
       throttleTime(300),
-      takeUntil(componentDestroyed(this))
+      untilComponentDestroyed(this),
     ).subscribe(action => {
       if (action === GamepadActions.RIGHT) {
         this.focusNext();
@@ -31,9 +31,9 @@ export class StartScreenComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.gamepad.getActions(1).pipe(
       debounceTime(280),
-      takeUntil(componentDestroyed(this)),
-      filter(it => it === GamepadActions.OK)
-    ).subscribe(action => {
+      filter(it => it === GamepadActions.OK),
+      untilComponentDestroyed(this),
+    ).subscribe(() => {
       this.clickFocused();
     });
 

@@ -3,8 +3,7 @@ import {Score} from '../../models/highscore/highscore.model';
 import {LocalStorageService} from '../../services/highscore/local-storage.service';
 import {GamepadService} from '../../services/gamepad/gamepad.service';
 import {GamepadActions} from '../../models/gamepad/gamepad.model';
-import {debounceTime, filter, take, takeUntil} from 'rxjs/operators';
-import {componentDestroyed} from 'ng2-rx-componentdestroyed';
+import {debounceTime, filter, take} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 
@@ -35,7 +34,6 @@ export class HighscoreDisplayComponent implements OnInit, OnDestroy {
       .slice(0, 8);
 
     this.gamepad.getActions(1).pipe(
-      takeUntil(componentDestroyed(this)),
       debounceTime(250),
       filter(action => action === GamepadActions.BACK || action === GamepadActions.OK),
       take(1),
