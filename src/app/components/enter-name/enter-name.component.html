@@ -15,13 +15,13 @@
   <div class="name-form-field">
     <input #action  type="text" formControlName="email" id="email">
     <label for="email">e-mail:</label><br>
-    <label>(if you want to win)</label><br>
+    <label>(für die Teilnahme am Gewinnspiel erforderlich)</label><br>
     <pre>{{nameForm.get('email').value}}</pre>
   </div>
   <ng-container *ngIf="nameForm.get('email').dirty && nameForm.get('email').value.length > 0">
     <div class="name-form-field-checkbox">
       <input #action type="checkbox" formControlName="acceptTac" id="acceptTac">
-      <label for="acceptTac"><span class="alt-checkbox"><span class="check-arrow"></span></span>Accept <a class="tac-link" (click)="openTac($event)">TAC</a> if you want to win</label>
+      <label for="acceptTac"><span class="alt-checkbox"><span class="check-arrow"></span></span>Ich akzeptiere die <a class="tac-link" (click)="openTac($event)">Teilnahmebedingungen</a> um am Gewinnspiel teilzunehmen.</label>
     </div>
   </ng-container>
   <button #action  type="submit">play!</button>
