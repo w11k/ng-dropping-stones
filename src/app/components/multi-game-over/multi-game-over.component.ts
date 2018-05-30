@@ -1,6 +1,4 @@
-import {of as observableOf} from 'rxjs';
-
-import {debounceTime, delay, filter, first, map} from 'rxjs/operators';
+import {debounceTime, filter, first, map} from 'rxjs/operators';
 import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
 import {Tetris} from '../../models/tetris/tetris.model';
 import {select, Store} from '@ngrx/store';
@@ -10,6 +8,7 @@ import {GamepadService} from '../../services/gamepad/gamepad.service';
 import {GamepadActions} from '../../models/gamepad/gamepad.model';
 import {Router} from '@angular/router';
 import {untilComponentDestroyed} from 'ng2-rx-componentdestroyed';
+import {interval} from 'rxjs/internal/observable/interval';
 
 
 @Component({
@@ -56,10 +55,11 @@ export class MultiGameOverComponent implements OnInit, AfterViewInit, OnDestroy 
     )
       .subscribe((scores: number[]) => this.scores = scores);
 
-    observableOf(1).pipe(
-      delay(10 * 1000),
-      first(),
-    ).subscribe(() => this.backToMainScreen());
+    interval(10 * 1000)
+      .pipe(
+        first(),
+        untilComponentDestroyed(this),
+      ).subscribe(() => this.backToMainScreen());
   }
 
   ngAfterViewInit(): void {
