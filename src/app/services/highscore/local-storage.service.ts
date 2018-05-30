@@ -16,11 +16,31 @@ export class LocalStorageService {
     return score ? score as Score[] : [];
   }
 
-  getTodaysScores(): Score[] {
+  getTodayScores(): Score[] {
     return this.getScores()
       .filter(score =>
         new Date(score.date).toDateString() === new Date().toDateString()
       );
+  }
+
+  getContestScores(): Score[] {
+    return this.getScores().filter(score => score.acceptedTac);
+  }
+
+  getTodayContestScores(): Score[] {
+    return this.getTodayScores().filter(score => score.acceptedTac);
+  }
+
+  getContestHighestScore(): number {
+    const allScores = this.getContestScores();
+
+    return allScores.length ? Math.max(...allScores.map(e => e.score)) : 0;
+  }
+
+  getTodayHighestScore(): number {
+    const todayScores = this.getTodayContestScores();
+
+    return todayScores.length ? Math.max(...todayScores.map(e => e.score)) : 0;
   }
 
   readLocalHighscore(): Array<Score> {

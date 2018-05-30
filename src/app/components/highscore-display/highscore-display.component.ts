@@ -27,10 +27,10 @@ export class HighscoreDisplayComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.highscores = this.highscoreService.getScores()
+    this.highscores = this.highscoreService.getContestScores()
       .sort((a, b) => b.score - a.score)
       .slice(0, 8);
-    this.todaysHighscores = this.highscoreService.getTodaysScores()
+    this.todaysHighscores = this.highscoreService.getTodayContestScores()
       .sort((a, b) => b.score - a.score)
       .slice(0, 8);
 
@@ -38,8 +38,8 @@ export class HighscoreDisplayComponent implements OnInit, OnDestroy {
       takeUntil(componentDestroyed(this)),
       debounceTime(250),
       filter(action => action === GamepadActions.BACK || action === GamepadActions.OK),
-      take(1)
-    ).subscribe(action => {
+      take(1),
+    ).subscribe(() => {
       this.router.navigate(['/']);
     });
 

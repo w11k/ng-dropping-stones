@@ -1,5 +1,4 @@
-
-import {of as observableOf, Observable, Subscription} from 'rxjs';
+import {of as observableOf, Subscription} from 'rxjs';
 
 import {delay, filter, first, map, takeUntil, throttleTime} from 'rxjs/operators';
 import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
@@ -42,14 +41,14 @@ export class GameOverComponent implements OnInit, AfterViewInit, OnDestroy {
       takeUntil(componentDestroyed(this)),
       throttleTime(300),
       filter(action => action === GamepadActions.BACK || action === GamepadActions.OK)
-    ).subscribe(action => {
+    ).subscribe(() => {
       this.backToMainScreen();
     });
 
-    this.highscores = this.scoreService.getScores()
+    this.highscores = this.scoreService.getContestScores()
       .sort((a, b) => b.score - a.score)
       .slice(0, 8);
-    this.todaysHighscores = this.scoreService.getTodaysScores()
+    this.todaysHighscores = this.scoreService.getTodayContestScores()
       .sort((a, b) => b.score - a.score)
       .slice(0, 8);
     this.store.pipe(
@@ -58,8 +57,11 @@ export class GameOverComponent implements OnInit, AfterViewInit, OnDestroy {
       map((game: Tetris[]) => game[0] ? game[0].score : 0)
     ).subscribe(score => this.playerScore = score);
 
-    observableOf(1).pipe(delay(10 * 1000),
-      first(),)
+    observableOf(1)
+      .pipe(
+        delay(10 * 1000),
+        first(),
+      )
       .subscribe(
         () => this.backToMainScreen()
       );

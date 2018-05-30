@@ -1,11 +1,10 @@
-
 import {first, map} from 'rxjs/operators';
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import {AppState} from '../../store/state.model';
-import {Init} from '../../store/actions/actions';
+import {Init} from '../../store/actions';
 import {Keymap} from '../../models/keymap/keymap.model';
-import {Subscription, Observable} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {AudioService} from '../../services/audio/audio.service';
 import {Status, Tetris} from '../../models/tetris/tetris.model';
 import {Router} from '@angular/router';
@@ -49,12 +48,8 @@ export class SinglePlayerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
-    const today = this.score.getTodaysScores();
-    const all = this.score.getScores();
-
-    this.todaysHighscore = today.length ? Math.max(...today.map(e => e.score)) : 0;
-    this.allTimeHighscore = all.length ? Math.max(...all.map(e => e.score)) : 0;
+    this.todaysHighscore = this.score.getTodayHighestScore();
+    this.allTimeHighscore = this.score.getContestHighestScore();
 
     this.gameStore.dispatch(new Init(1));
     this.audio.play('korobeiniki.wav', true);
