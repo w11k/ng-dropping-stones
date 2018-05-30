@@ -57,6 +57,10 @@ const routes = [
   {
     path: 'settings',
     loadChildren: './routes/settings/settings.module#SettingsModule'
+  },
+  {
+    path: 'winner',
+    loadChildren: './routes/winner/winner.module#WinnerModule'
   }
 ];
 

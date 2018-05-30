@@ -1,0 +1,9 @@
+<div class="d-flex flex-row justify-content-center title">
+  Todays Winners! Congratulations to:
+</div>
+
+<ul class="d-flex flex-column justify-content-center">
+  <li class="position-{{position}} align-self-center" *ngFor="let winner of winners$ | async as winners; index as position" title=" ({{winner.email}})">
+    {{winner.name}}: {{winner.score}} Points
+  </li>
+</ul>
