@@ -28,8 +28,8 @@ export class SelectComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.form.get('winners').value === '' || this.form.get('winners').value.length === 0 || this.form.get('winners').value.length > 3) {
-      alert('Please Select the 3 Winners.');
+    if (this.form.get('winners').value === '' || this.form.get('winners').value.length === 0) {
+      alert('Please Select at least one Winner.');
       return;
     }
 

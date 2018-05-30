@@ -38,6 +38,7 @@ export class EnterNameComponent implements OnInit, OnDestroy, AfterViewInit {
       name: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.email]),
       acceptTac: new FormControl(false),
+      acceptNewsletter: new FormControl(false),
     }, [EmailAndTACValidator('email', 'acceptTac')]);
 
     this.gamepad.getActions(1).pipe(
@@ -123,6 +124,7 @@ export class EnterNameComponent implements OnInit, OnDestroy, AfterViewInit {
         name: this.nameForm.get('name').value,
         email: this.nameForm.get('email').value,
         acceptedTac: this.nameForm.get('acceptTac').value,
+        acceptNewsletter: this.nameForm.get('acceptNewsletter').value,
         score: 0,
         date: new Date().toDateString()
       })

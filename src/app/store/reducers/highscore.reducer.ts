@@ -9,7 +9,7 @@ export interface PlayerState {
 }
 
 export const initialState: PlayerState = {
-  currentPlayer: { name: '', email: '', acceptedTac: false, score: 0, date: '' },
+  currentPlayer: {name: '', email: '', acceptedTac: false, acceptNewsletter: false, score: 0, date: ''},
   players: []
 };
 

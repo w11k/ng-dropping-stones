@@ -21,7 +21,11 @@
   <ng-container *ngIf="nameForm.get('email').dirty && nameForm.get('email').value.length > 0">
     <div class="name-form-field-checkbox">
       <input #action type="checkbox" formControlName="acceptTac" id="acceptTac">
-      <label for="acceptTac"><span class="alt-checkbox"><span class="check-arrow"></span></span>Ich akzeptiere die <a class="tac-link" (click)="openTac($event)">Teilnahmebedingungen</a> um am Gewinnspiel teilzunehmen.</label>
+      <label for="acceptTac"><span class="alt-checkbox"><span class="check-arrow"></span></span>Ich willige ein, dass meine Daten zur Teilnahme am Gewinnspiel gespeichert werden und akzeptiere die <a class="tac-link" (click)="openTac($event)">Datenschutzerklärung</a></label>
+    </div>
+    <div class="name-form-field-checkbox">
+      <input #action type="checkbox" formControlName="acceptNewsletter" id="acceptNewsletter">
+      <label for="acceptNewsletter"><span class="alt-checkbox"><span class="check-arrow"></span></span>Ich willige ein, dass meine Daten zur Teilname am Angular-Newsletter gespeichert werden und akzeptiere die <a class="tac-link" (click)="openTac($event)">Datenschutzerklärung"</a>.</label>
     </div>
   </ng-container>
   <button #action  type="submit">play!</button>

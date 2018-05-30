@@ -2,6 +2,7 @@ export interface Person {
   name: string;
   email: string;
   acceptedTac: boolean;
+  acceptNewsletter: boolean;
 }
 
 export interface Score extends Person {
