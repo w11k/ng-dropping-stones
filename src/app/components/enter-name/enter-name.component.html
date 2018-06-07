@@ -1,7 +1,7 @@
 <form [formGroup]="nameForm"
       class="name-form"
       (keydown.enter)="$event.preventDefault()"
-      (ngSubmit)="submit(nameForm)">
+      (ngSubmit)="submit()">
 
   <div class="text-center mb-5">
     Press 'OK' to get to the next field or use 'TAB'
