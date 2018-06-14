@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
-import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-auth',
@@ -23,7 +22,7 @@ export class AuthComponent implements OnInit {
 
 
   login() {
-    if (environment.production === false || this.form.get('password').value === 'ui-router') {
+    if (this.form.get('password').value === 'ui-router') {
       this.router.navigate(['/settings/internal']);
     }
   }
