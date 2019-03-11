@@ -1,3 +1,8 @@
+<ng-container *ngIf="counter > 0">
+  <h1> {{countdown$ | async}} </h1>
+</ng-container>
+
+<ng-container *ngIf="counter === 0">
 <app-game-controller [player]="0" [controller]="1" [keymap]="playerOne"></app-game-controller>
 <div class="scores">
   <h2>today's highscore:</h2>
@@ -5,3 +10,4 @@
   <h2>all time highscore:</h2>
   <p>{{allTimeHighscore}}</p>
 </div>
+</ng-container>
