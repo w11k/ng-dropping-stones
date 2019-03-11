@@ -1,4 +1,4 @@
-import {first, map, switchMap} from 'rxjs/operators';
+import {first, map, startWith, switchMap} from 'rxjs/operators';
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import {AppState} from '../../store/state.model';
@@ -51,7 +51,7 @@ export class SinglePlayerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.counter = 4;
+    this.counter = 3;
     this.simulateCountdown();
 
     this.todaysHighscore = this.score.getTodayHighestScore();
@@ -97,7 +97,7 @@ export class SinglePlayerComponent implements OnInit, OnDestroy {
 
   simulateCountdown(): void {
     if (this.counter > 0) {
-      this.countdown$ = interval(1000).pipe(map(() => --this.counter));
+      this.countdown$ = interval(1000).pipe(map(() => --this.counter), startWith(3));
     }
   }
 }
