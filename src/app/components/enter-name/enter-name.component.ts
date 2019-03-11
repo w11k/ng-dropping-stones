@@ -12,7 +12,6 @@ import {SaveHighscore} from '../../store/actions';
 import {Subscription} from 'rxjs';
 import {TacComponent} from './tac/tac.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {Key} from 'readline';
 
 @Component({
   selector: 'app-enter-name',
@@ -132,13 +131,6 @@ export class EnterNameComponent implements OnInit, OnDestroy, AfterViewInit {
     );
   }
 
-  checkSelection(e: KeyboardEvent) {
-    // strg + A pressed
-    if (e.ctrlKey && e.which === 65) {
-      console.log('huhu');
-    }
-  }
-
   openTac(event: MouseEvent) {
     event.preventDefault();
     this.modalService.open(TacComponent, {size: 'lg', centered: true});
@@ -150,6 +142,9 @@ export class EnterNameComponent implements OnInit, OnDestroy, AfterViewInit {
     if (input) {
       this.selectedElementRef = input;
       this.selectedElementRef.nativeElement.focus();
+      if (inputId === 'email') {
+        this.selectedElementRef.nativeElement.select();
+      }
     }
   }
 
