@@ -51,7 +51,8 @@ export class SinglePlayerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.counter = 6;
+    this.counter = 4;
+    this.simulateCountdown();
 
     this.todaysHighscore = this.score.getTodayHighestScore();
     this.allTimeHighscore = this.score.getContestHighestScore();
@@ -85,8 +86,6 @@ export class SinglePlayerComponent implements OnInit, OnDestroy {
       });
 
     this.ESCSubscription = this.gamepad.abortGame();
-
-    this.simulateCountdown();
   }
 
   ngOnDestroy() {
