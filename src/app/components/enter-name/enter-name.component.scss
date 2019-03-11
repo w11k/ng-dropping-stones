@@ -78,6 +78,10 @@
     margin: 10px 0 50px;
   }
 
+  pre::selection {
+    background-color: $tetris-primary !important;
+  }
+
   input:focus ~ label {
     color: $tetris-primary;
   }

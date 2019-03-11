@@ -12,6 +12,7 @@ import {SaveHighscore} from '../../store/actions';
 import {Subscription} from 'rxjs';
 import {TacComponent} from './tac/tac.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Key} from 'readline';
 
 @Component({
   selector: 'app-enter-name',
@@ -129,6 +130,13 @@ export class EnterNameComponent implements OnInit, OnDestroy, AfterViewInit {
         date: new Date().toDateString()
       })
     );
+  }
+
+  checkSelection(e: KeyboardEvent) {
+    // strg + A pressed
+    if (e.ctrlKey && e.which === 65) {
+      console.log('huhu');
+    }
   }
 
   openTac(event: MouseEvent) {

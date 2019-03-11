@@ -13,7 +13,7 @@
     <pre>{{nameForm.get('name').value}}</pre>
   </div>
   <div class="name-form-field">
-    <input #action  type="text" formControlName="email" id="email">
+    <input #action onfocus="this.select()" (keyup)="checkSelection($event)" type="text" formControlName="email" id="email">
     <label for="email">e-mail:</label><br>
     <label>(für die Teilnahme am Gewinnspiel erforderlich)</label><br>
     <pre>{{nameForm.get('email').value}}</pre>
