@@ -8,15 +8,15 @@
   </div>
 
   <div class="name-form-field">
-    <input #action type="text" formControlName="name" (keydown.enter)="focusNext()" id="name">
-    <label for="name">name:</label><br>
-    <pre>{{nameForm.get('name').value}}</pre>
+    <label for="name" id="namelabel">name:</label><br>
+    <input #action autocomplete="off" type="text" formControlName="name" (keydown.enter)="focusNext()" (focus)="colorLabel('name', 1)" (focusout)="colorLabel('name', 2)" id="name">
+    <!--<pre class="pseudo-input">{{nameForm.get('name').value}}</pre>-->
   </div>
   <div class="name-form-field">
-    <input #action type="text" (keydown.enter)="focusNext()" formControlName="email" id="email">
-    <label for="email">e-mail:</label><br>
+    <label for="email" id="emaillabel">e-mail:</label><br>
     <label>(für die Teilnahme am Gewinnspiel erforderlich)</label><br>
-    <pre>{{nameForm.get('email').value}}</pre>
+    <input #action autocomplete="off" type="text" (keydown.enter)="focusNext()" (focus)="colorLabel('email', 1)" (focusout)="colorLabel('email', 2)" formControlName="email" id="email">
+    <!--<pre class="pseudo-input">{{nameForm.get('email').value}}</pre>-->
   </div>
   <ng-container *ngIf="nameForm.get('email').dirty && nameForm.get('email').value.length > 0">
     <div class="name-form-field-checkbox">

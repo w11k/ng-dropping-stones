@@ -12,10 +12,14 @@
     text-align: center;
 
     input[type="text"] {
-      width: 0;
-      height: 0;
       border: 0;
-      padding: 0;
+      background-color: $bg-color;
+      font-size: 2em;
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
+      width: 50%;
+      margin-left: 25%;
+      text-align: center;
     }
   }
 
@@ -76,10 +80,6 @@
     align-self: center;
     min-height: 35px;
     margin: 10px 0 50px;
-  }
-
-  pre::selection {
-    background-color: $tetris-primary !important;
   }
 
   input:focus ~ label {
