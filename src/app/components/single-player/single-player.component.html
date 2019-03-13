@@ -1,8 +1,6 @@
-<ng-container *ngIf="counter > 0">
-  <h1> {{countdown$ | async}} </h1>
-</ng-container>
+<app-countdown *ngIf="!ready" (onFinished)="ready = true"></app-countdown>
 
-<ng-container *ngIf="counter === 0">
+<ng-container *ngIf="ready">
 <app-game-controller [player]="0" [controller]="1" [keymap]="playerOne"></app-game-controller>
 <div class="scores">
   <h2>today's highscore:</h2>

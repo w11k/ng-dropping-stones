@@ -41,6 +41,7 @@ export class SinglePlayerComponent implements OnInit, OnDestroy {
   private currentPlayerSubscription: Subscription;
   private gameOverSubscription: Subscription;
   private ESCSubscription: Subscription;
+  ready: boolean = false;
 
   constructor(private gameStore: Store<AppState>,
               private playerStore: Store<PlayerState>,

@@ -3,11 +3,12 @@ import {Init} from '../../store/actions/actions';
 import {select, Store} from '@ngrx/store';
 import {AppState} from '../../store/state.model';
 import {Keymap} from '../../models/keymap/keymap.model';
-import {Subscription} from 'rxjs';
+import {interval, Observable, Subscription} from 'rxjs';
 import {AudioService} from '../../services/audio/audio.service';
 import {Router} from '@angular/router';
 import {Status, Tetris} from '../../models/tetris/tetris.model';
 import {GamepadService} from '../../services/gamepad/gamepad.service';
+import {map, startWith} from 'rxjs/operators';
 
 @Component({
   selector: 'app-multiplayer',
@@ -35,6 +36,7 @@ export class MultiplayerComponent implements OnInit, OnDestroy {
     tick: 'ArrowDown',
     drop: 'Space',
   };
+  ready: boolean = false;
 
   constructor(private store: Store<AppState>,
               private audio: AudioService,
@@ -61,4 +63,5 @@ export class MultiplayerComponent implements OnInit, OnDestroy {
     this.gameOverSubscription.unsubscribe();
     this.ESCSubscription.unsubscribe();
   }
+
 }

@@ -31,6 +31,9 @@ import {EffectsModule} from '@ngrx/effects';
 import {HighscoreEffects} from './store/effects/highscore.effects';
 import {HighscoreModule} from './services/highscore/highscore.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {MultiplayerComponent} from './components/multiplayer/multiplayer.component';
+import {MultiGameOverComponent} from './components/multi-game-over/multi-game-over.component';
+import {CountdownModule} from './components/countdown/countdown.module';
 
 const routes = [
   {
@@ -39,18 +42,18 @@ const routes = [
   {
     path: 'single', component: SinglePlayerComponent, canActivate: [SinglePlayerGuard]
   },
-  // {
-  //   path: 'multi', component: MultiplayerComponent
-  // },
+  {
+    path: 'multi', component: MultiplayerComponent
+  },
   {
     path: 'enter-name', component: EnterNameComponent
   },
   {
     path: 'game-over', component: GameOverComponent
   },
-  // {
-  //   path: 'multi-game-over', component: MultiGameOverComponent
-  // },
+  {
+    path: 'multi-game-over', component: MultiGameOverComponent
+  },
   {
     path: 'highscore', component: HighscoreDisplayComponent
   },

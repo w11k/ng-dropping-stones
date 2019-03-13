@@ -4,12 +4,14 @@ import { SinglePlayerComponent } from './single-player.component';
 import { GameControllerModule } from '../game-controller/game-controller.module';
 import { AudioModule } from '../../services/audio/audio.module';
 import { SinglePlayerGuard } from './single-player.guard';
+import {CountdownModule} from '../countdown/countdown.module';
 
 @NgModule({
   imports: [
     CommonModule,
     GameControllerModule,
-    AudioModule
+    AudioModule,
+    CountdownModule
   ],
   declarations: [
     SinglePlayerComponent
