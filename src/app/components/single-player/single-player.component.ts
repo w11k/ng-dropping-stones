@@ -30,9 +30,6 @@ export class SinglePlayerComponent implements OnInit, OnDestroy {
     drop: 'Space',
   };
 
-  counter: number;
-  countdown$: Observable<number>;
-
   todaysHighscore: number;
   allTimeHighscore: number;
 
@@ -41,7 +38,7 @@ export class SinglePlayerComponent implements OnInit, OnDestroy {
   private currentPlayerSubscription: Subscription;
   private gameOverSubscription: Subscription;
   private ESCSubscription: Subscription;
-  ready: boolean = false;
+  ready = false;
 
   constructor(private gameStore: Store<AppState>,
               private playerStore: Store<PlayerState>,
@@ -52,8 +49,6 @@ export class SinglePlayerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.counter = 3;
-    this.simulateCountdown();
 
     this.todaysHighscore = this.score.getTodayHighestScore();
     this.allTimeHighscore = this.score.getContestHighestScore();
@@ -94,11 +89,5 @@ export class SinglePlayerComponent implements OnInit, OnDestroy {
     this.gameOverSubscription.unsubscribe();
     this.currentPlayerSubscription.unsubscribe();
     this.ESCSubscription.unsubscribe();
-  }
-
-  simulateCountdown(): void {
-    if (this.counter > 0) {
-      this.countdown$ = interval(1000).pipe(map(() => --this.counter), startWith(3));
-    }
   }
 }

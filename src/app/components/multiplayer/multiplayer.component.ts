@@ -36,7 +36,7 @@ export class MultiplayerComponent implements OnInit, OnDestroy {
     tick: 'ArrowDown',
     drop: 'Space',
   };
-  ready: boolean = false;
+  ready = false;
 
   constructor(private store: Store<AppState>,
               private audio: AudioService,
