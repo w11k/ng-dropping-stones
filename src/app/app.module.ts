@@ -6,7 +6,6 @@ import {ActionReducer, MetaReducer, StoreModule} from '@ngrx/store';
 import {tetrisReducer} from './store/tetrisReducer';
 import {RouterModule} from '@angular/router';
 import {SinglePlayerModule} from './components/single-player/single-player.module';
-import {MultiplayerModule} from './components/multiplayer/multiplayer.module';
 import {SinglePlayerComponent} from './components/single-player/single-player.component';
 import {StartScreenComponent} from './components/start-screen/start-screen.component';
 import {StartScreenModule} from './components/start-screen/start-screen.module';
@@ -15,7 +14,6 @@ import {EnterNameModule} from './components/enter-name/enter-name.module';
 import {GameOverComponent} from './components/game-over/game-over.component';
 import {GameOverModule} from './components/game-over/game-over.module';
 import {SinglePlayerGuard} from './components/single-player/single-player.guard';
-import {MultiGameOverModule} from './components/multi-game-over/multi-game-over.module';
 import {HighscoreDisplayComponent} from './components/highscore-display/highscore-display.component';
 import {HighscoreDisplayModule} from './components/highscore-display/highscore-display.module';
 import {settingsReducer} from './store/settingsReducer';
@@ -31,9 +29,6 @@ import {EffectsModule} from '@ngrx/effects';
 import {HighscoreEffects} from './store/effects/highscore.effects';
 import {HighscoreModule} from './services/highscore/highscore.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {MultiplayerComponent} from './components/multiplayer/multiplayer.component';
-import {MultiGameOverComponent} from './components/multi-game-over/multi-game-over.component';
-import {CountdownModule} from './components/countdown/countdown.module';
 
 const routes = [
   {
@@ -42,18 +37,18 @@ const routes = [
   {
     path: 'single', component: SinglePlayerComponent, canActivate: [SinglePlayerGuard]
   },
-  {
-    path: 'multi', component: MultiplayerComponent
-  },
+  // {
+  //   path: 'multi', component: MultiplayerComponent
+  // },
   {
     path: 'enter-name', component: EnterNameComponent
   },
   {
     path: 'game-over', component: GameOverComponent
   },
-  {
-    path: 'multi-game-over', component: MultiGameOverComponent
-  },
+  // {
+  //   path: 'multi-game-over', component: MultiGameOverComponent
+  // },
   {
     path: 'highscore', component: HighscoreDisplayComponent
   },
@@ -92,8 +87,8 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     BrowserAnimationsModule,
     StartScreenModule,
     SinglePlayerModule,
-    MultiplayerModule,
-    MultiGameOverModule,
+    // MultiplayerModule,
+    // MultiGameOverModule,
     HighscoreDisplayModule,
     EnterNameModule,
     GameOverModule,
