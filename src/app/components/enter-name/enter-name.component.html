@@ -8,25 +8,25 @@
   </div>
 
   <div class="name-form-field">
-    <input #action type="text" formControlName="name" id="name">
-    <label for="name">name:</label><br>
-    <pre>{{nameForm.get('name').value}}</pre>
+    <label for="name" id="namelabel">name:</label><br>
+    <input #action autocomplete="off" type="text" formControlName="name" (keydown.enter)="focusNext()" (focus)="colorLabel('name', 1)" (focusout)="colorLabel('name', 2)" id="name">
+    <!--<pre class="pseudo-input">{{nameForm.get('name').value}}</pre>-->
   </div>
   <div class="name-form-field">
-    <input #action  type="text" formControlName="email" id="email">
-    <label for="email">e-mail:</label><br>
+    <label for="email" id="emaillabel">e-mail:</label><br>
     <label>(für die Teilnahme am Gewinnspiel erforderlich)</label><br>
-    <pre>{{nameForm.get('email').value}}</pre>
+    <input #action autocomplete="off" type="text" (keydown.enter)="focusNext()" (focus)="colorLabel('email', 1)" (focusout)="colorLabel('email', 2)" formControlName="email" id="email">
+    <!--<pre class="pseudo-input">{{nameForm.get('email').value}}</pre>-->
   </div>
   <ng-container *ngIf="nameForm.get('email').dirty && nameForm.get('email').value.length > 0">
     <div class="name-form-field-checkbox">
-      <input #action type="checkbox" formControlName="acceptTac" id="acceptTac">
+      <input #action type="checkbox" formControlName="acceptTac" (keydown.enter)="focusNext()" id="acceptTac">
       <label for="acceptTac"><span class="alt-checkbox"><span class="check-arrow"></span></span>Ich willige ein, dass meine Daten zur Teilnahme am Gewinnspiel gespeichert werden und akzeptiere die <a class="tac-link" (click)="openTac($event)">Datenschutzerklärung</a></label>
     </div>
     <div class="name-form-field-checkbox">
-      <input #action type="checkbox" formControlName="acceptNewsletter" id="acceptNewsletter">
+      <input #action type="checkbox" formControlName="acceptNewsletter" (keydown.enter)="focusNext()" id="acceptNewsletter">
       <label for="acceptNewsletter"><span class="alt-checkbox"><span class="check-arrow"></span></span>Ich willige ein, dass meine Daten zur Teilname am Angular-Newsletter gespeichert werden und akzeptiere die <a class="tac-link" (click)="openTac($event)">Datenschutzerklärung"</a>.</label>
     </div>
   </ng-container>
-  <button #action  type="submit">play!</button>
+  <button #action (keydown.enter)="focusNext()" type="submit">play!</button>
 </form>

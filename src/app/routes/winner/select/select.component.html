@@ -1,12 +1,12 @@
-<div class="container">
-  <div class="row">
+<div class="container fullheight">
+  <div class="row fullheight">
     <div class="col-md-8 offset-md-2">
-      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="mx-2">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="mx-2 fullheight">
         <p>Select the 3 Winners for Today</p>
-        <select class="form-control" formControlName="winners" multiple>
+        <button type="submit" class="tetri-button mt-2">Show Winners</button>
+        <select class="form-control" formControlName="winners" id="selectwinners" multiple>
           <option *ngFor="let score of todayContestScores" [value]="score">{{getScoreLabel(score)}}</option>
         </select>
-        <button type="submit" class="tetri-button mt-2">Show Winners</button>
       </form>
     </div>
   </div>

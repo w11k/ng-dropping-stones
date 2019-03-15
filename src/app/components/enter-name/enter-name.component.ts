@@ -9,7 +9,7 @@ import {GamepadService} from '../../services/gamepad/gamepad.service';
 import {PlayerState} from '../../store/reducers/highscore.reducer';
 import {Store} from '@ngrx/store';
 import {SaveHighscore} from '../../store/actions';
-import {Subscription} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {TacComponent} from './tac/tac.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
@@ -131,6 +131,17 @@ export class EnterNameComponent implements OnInit, OnDestroy, AfterViewInit {
     );
   }
 
+  // type=1 for color orange, type=2 for color white
+  colorLabel(id: string, type: number) {
+    if (type === 1) {
+      document.getElementById(`${id}label`).style.color = '#ee5d26';
+    } else if (type === 2) {
+      document.getElementById(`${id}label`).style.color = '#eee';
+    } else {
+      console.log('Invalid type');
+    }
+  }
+
   openTac(event: MouseEvent) {
     event.preventDefault();
     this.modalService.open(TacComponent, {size: 'lg', centered: true});
@@ -142,6 +153,9 @@ export class EnterNameComponent implements OnInit, OnDestroy, AfterViewInit {
     if (input) {
       this.selectedElementRef = input;
       this.selectedElementRef.nativeElement.focus();
+      if (inputId === 'email') {
+        this.selectedElementRef.nativeElement.select();
+      }
     }
   }
 

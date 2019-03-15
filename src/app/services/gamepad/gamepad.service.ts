@@ -71,7 +71,7 @@ export class GamepadService {
       this.gamepads = navigator.getGamepads();
       for (let i = 0; i < 4; i++) {
         const gamepad = this.gamepads[i];
-        if (gamepad === null) {
+        if (gamepad === null || gamepad === undefined) {
           continue;
         }
         const buttons = gamepad.buttons

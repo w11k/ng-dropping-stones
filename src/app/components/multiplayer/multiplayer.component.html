@@ -1,2 +1,6 @@
-<app-game-controller [player]="0" [controller]="1" [keymap]="playerOne"></app-game-controller>
-<app-game-controller [player]="1" [controller]="2" [keymap]="playerTwo"></app-game-controller>
+<app-countdown *ngIf="!ready" (onFinished)="ready = true"></app-countdown>
+
+<ng-container *ngIf="ready">
+  <app-game-controller [player]="0" [controller]="1" [keymap]="playerOne"></app-game-controller>
+  <app-game-controller [player]="1" [controller]="2" [keymap]="playerTwo"></app-game-controller>
+</ng-container>

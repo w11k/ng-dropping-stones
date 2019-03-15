@@ -1,10 +1,10 @@
-import {first, map} from 'rxjs/operators';
+import {first, map, startWith, switchMap} from 'rxjs/operators';
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import {AppState} from '../../store/state.model';
 import {Init} from '../../store/actions';
 import {Keymap} from '../../models/keymap/keymap.model';
-import {Observable, Subscription} from 'rxjs';
+import {interval, Observable, Subscription, timer} from 'rxjs';
 import {AudioService} from '../../services/audio/audio.service';
 import {Status, Tetris} from '../../models/tetris/tetris.model';
 import {Router} from '@angular/router';
@@ -38,6 +38,7 @@ export class SinglePlayerComponent implements OnInit, OnDestroy {
   private currentPlayerSubscription: Subscription;
   private gameOverSubscription: Subscription;
   private ESCSubscription: Subscription;
+  ready = false;
 
   constructor(private gameStore: Store<AppState>,
               private playerStore: Store<PlayerState>,
@@ -48,6 +49,7 @@ export class SinglePlayerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
     this.todaysHighscore = this.score.getTodayHighestScore();
     this.allTimeHighscore = this.score.getContestHighestScore();
 
@@ -56,8 +58,8 @@ export class SinglePlayerComponent implements OnInit, OnDestroy {
 
     this.playerState$ = this.playerStore.pipe(
       first()).pipe(
-        select('player')
-      ) as Observable<PlayerState>;
+      select('player')
+    ) as Observable<PlayerState>;
     this.currentPlayerSubscription =
       getCurrentPlayer(this.playerState$)
         .subscribe(p => this.currentPlayerScore = p);
@@ -80,7 +82,6 @@ export class SinglePlayerComponent implements OnInit, OnDestroy {
       });
 
     this.ESCSubscription = this.gamepad.abortGame();
-
   }
 
   ngOnDestroy() {
@@ -89,5 +90,4 @@ export class SinglePlayerComponent implements OnInit, OnDestroy {
     this.currentPlayerSubscription.unsubscribe();
     this.ESCSubscription.unsubscribe();
   }
-
 }
