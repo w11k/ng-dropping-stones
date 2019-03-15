@@ -10,7 +10,7 @@ import {Tetris} from '../../models/tetris/tetris.model';
 import {GamepadService} from '../../services/gamepad/gamepad.service';
 import {GamepadActions} from '../../models/gamepad/gamepad.model';
 import {Router} from '@angular/router';
-import {untilComponentDestroyed} from 'ng2-rx-componentdestroyed';
+import {untilComponentDestroyed} from '@w11k/ngx-componentdestroyed';
 import {interval} from 'rxjs/internal/observable/interval';
 
 @Component({

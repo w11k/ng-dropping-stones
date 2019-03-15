@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {interval, Observable} from 'rxjs';
 import {map, startWith, tap} from 'rxjs/operators';
-import {untilComponentDestroyed} from 'ng2-rx-componentdestroyed';
+import {untilComponentDestroyed} from '@w11k/ngx-componentdestroyed';
 
 @Component({
   selector: 'app-countdown',

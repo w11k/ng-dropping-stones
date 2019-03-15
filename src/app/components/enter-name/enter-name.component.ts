@@ -4,12 +4,12 @@ import {Router} from '@angular/router';
 import {LocalStorageService} from '../../services/highscore/local-storage.service';
 import {throttleTime} from 'rxjs/operators';
 import {GamepadActions} from '../../models/gamepad/gamepad.model';
-import {untilComponentDestroyed} from 'ng2-rx-componentdestroyed';
+import {untilComponentDestroyed} from '@w11k/ngx-componentdestroyed';
 import {GamepadService} from '../../services/gamepad/gamepad.service';
 import {PlayerState} from '../../store/reducers/highscore.reducer';
 import {Store} from '@ngrx/store';
 import {SaveHighscore} from '../../store/actions';
-import {Observable, Subscription} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {TacComponent} from './tac/tac.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
