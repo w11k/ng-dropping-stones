@@ -7,8 +7,8 @@ import {AudioService} from '../../services/audio/audio.service';
 import {GamepadService} from '../../services/gamepad/gamepad.service';
 import {GamepadActions} from '../../models/gamepad/gamepad.model';
 import {Router} from '@angular/router';
-import {untilComponentDestroyed} from 'ng2-rx-componentdestroyed';
-import {interval} from 'rxjs/internal/observable/interval';
+import {untilComponentDestroyed} from '@w11k/ngx-componentdestroyed';
+import {interval} from 'rxjs';
 
 
 @Component({

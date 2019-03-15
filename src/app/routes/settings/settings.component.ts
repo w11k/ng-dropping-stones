@@ -4,7 +4,7 @@ import {select, Store} from '@ngrx/store';
 import {AppState} from '../../store/state.model';
 import {SettingsState, UpdateSettingsAction} from '../../store/settingsReducer';
 import {Observable} from 'rxjs';
-import {untilComponentDestroyed} from 'ng2-rx-componentdestroyed';
+import {untilComponentDestroyed} from '@w11k/ngx-componentdestroyed';
 
 import {PlayerState} from '../../store/reducers/highscore.reducer';
 import {DeleteHighscore} from '../../store/actions';

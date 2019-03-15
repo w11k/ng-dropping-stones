@@ -4,8 +4,8 @@ import {LocalStorageService} from '../../services/highscore/local-storage.servic
 import {Observable, of} from 'rxjs';
 import {Action, Store} from '@ngrx/store';
 import * as fromActions from '../actions';
-import {catchError, map, startWith, tap, switchMap} from 'rxjs/operators';
-import {UpdateHighscore} from '../actions/highscore.action';
+import {catchError, map, tap} from 'rxjs/operators';
+import {UpdateHighscore} from '../actions';
 import {PlayerState} from '../reducers/highscore.reducer';
 import {Router} from '@angular/router';
 
@@ -27,8 +27,8 @@ export class HighscoreEffects {
 
   @Effect() updateHighscore$: Observable<Action> =
     this.actions$
-      .ofType(fromActions.UPDATE_HIGHSCORE)
       .pipe(
+        ofType(fromActions.UPDATE_HIGHSCORE),
         map((action: UpdateHighscore) => this.highscoreService.writeLocalHighscore(action.payload)),
         map(() => new fromActions.UpdateHighscoreSuccess()),
         catchError(() => of(new fromActions.UpdateHighscoreFail()))
@@ -36,8 +36,8 @@ export class HighscoreEffects {
 
   @Effect() deleteHighscore$: Observable<Action> =
     this.actions$
-    .ofType(fromActions.DELETE_HIGHSCORE)
     .pipe(
+      ofType(fromActions.DELETE_HIGHSCORE),
       map(() => this.highscoreService.deleteLocalHighscore()),
       map(() => new fromActions.DeleteHighscoreSuccess()),
       catchError(() => of(new fromActions.DeleteHighscoreFail()))
