@@ -4,6 +4,7 @@ services:
 
 stages:
   - build
+  - deploy
 
 web-build:
   stage: build
@@ -18,13 +19,18 @@ web-build:
   tags:
     - linux
 
-
-arcade-build:
-  stage: build
+web-deploy:
+  stage: deploy
   image: node:8-alpine
   script:
-    - npm install
-    - npm run build:aracde
+    - apk update
+    - apk add openssh
+    - ls -la /dist
+    - ssh-add <(echo "hudson_private_ssh_key")
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - ssh jenkins@w11k.de rm -rf /srv/www/www.w11k.de-ng-dropping-stones/*
+    - scp dist/* jenkins@w11k.de:/srv/www/www.w11k.de-ng-dropping-stones/
   artifacts:
     paths:
       - dist/
