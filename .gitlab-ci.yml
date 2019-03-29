@@ -20,12 +20,14 @@ web-build:
     - linux
 
 web-deploy:
+  dependencies:
+    - web-build
   stage: deploy
   image: node:8-alpine
   script:
     - apk update
     - apk add openssh
-    - ls -la /dist
+    - ls -la
     - ssh-add <(echo "hudson_private_ssh_key")
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
