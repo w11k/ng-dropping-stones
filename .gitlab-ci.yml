@@ -1,0 +1,38 @@
+image: docker:latest
+services:
+  - docker:dind
+
+stages:
+  - build
+  - deploy
+
+web-build:
+  stage: build
+  image: node:8-alpine
+  script:
+    - npm install
+    - npm run build:w11k.de
+  artifacts:
+    paths:
+      - dist/
+    expire_in: 1 week
+  only: master
+  tags:
+    - linux
+
+web-deploy:
+  stage: deploy
+  image: kroniak/ssh-client
+  script:
+    - ls -la
+    - ls -la dist/
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - echo "$HUDSON_PRIVATE_SSH_KEY" > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - ssh deploy@w11k.de rm -rf /srv/www/vhosts/www.w11k.de-ng-dropping-stones/*
+    - scp -r dist/* deploy@w11k.de:/srv/www/vhosts/www.w11k.de-ng-dropping-stones/
+  when: manual
+  tags:
+    - linux

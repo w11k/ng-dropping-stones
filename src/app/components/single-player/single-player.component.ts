@@ -54,7 +54,7 @@ export class SinglePlayerComponent implements OnInit, OnDestroy {
     this.allTimeHighscore = this.score.getContestHighestScore();
 
     this.gameStore.dispatch(new Init(1));
-    this.audio.play('korobeiniki.wav', true);
+    this.audio.play('korobeiniki.mp3', true);
 
     this.playerState$ = this.playerStore.pipe(
       first()).pipe(
