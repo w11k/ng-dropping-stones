@@ -46,7 +46,7 @@ export class MultiplayerComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.store.dispatch(new Init(2));
-    this.audio.play('SugarplumFairy.wav', true);
+    this.audio.play('SugarplumFairy.mp3', true);
 
     this.gameOverSubscription = this.store.pipe(
       select('game'),
