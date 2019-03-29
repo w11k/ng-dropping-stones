@@ -22,7 +22,7 @@ export class AudioService {
   }
 
   play(filename: string, loop = false) {
-    this.audio.src = `/assets/${filename}`;
+    this.audio.src = `assets/${filename}`;
     this.audio.load();
     this.audio.loop = loop;
     this.audio.play();
