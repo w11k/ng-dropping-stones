@@ -16,7 +16,7 @@ web-build:
     paths:
       - dist/
     expire_in: 1 week
-  when: manual
+  only: master
   tags:
     - linux
 
