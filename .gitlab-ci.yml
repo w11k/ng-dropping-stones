@@ -28,9 +28,9 @@ web-deploy:
     - apk update
     - apk add openssh
     - ls -la
-    - echo "hudson_private_ssh_key"
-    - echo "$hudson_private_ssh_key"
-    - ssh-add <(echo "hudson_private_ssh_key")
+    - echo "HUDSON_PRIVATE_SSH_KEY"
+    - echo "$HUDSON_PRIVATE_SSH_KEY"
+    - ssh-add <(echo "$HUDSON_PRIVATE_SSH_KEY")
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
     - ssh jenkins@w11k.de rm -rf /srv/www/www.w11k.de-ng-dropping-stones/*
