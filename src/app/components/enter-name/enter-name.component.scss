@@ -21,6 +21,10 @@
       margin-left: 25%;
       text-align: center;
     }
+
+    input[type="text"]:focus {
+      outline: none;
+    }
   }
 
   .name-form-field-checkbox {

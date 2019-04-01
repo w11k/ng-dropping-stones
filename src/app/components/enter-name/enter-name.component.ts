@@ -12,6 +12,7 @@ import {SaveHighscore} from '../../store/actions';
 import {Subscription} from 'rxjs';
 import {TacComponent} from './tac/tac.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-enter-name',
@@ -25,6 +26,7 @@ export class EnterNameComponent implements OnInit, OnDestroy, AfterViewInit {
   nameForm: FormGroup;
   private selectedElementRef: ElementRef;
   private ESCSubscription: Subscription;
+  private readonly web = environment.web;
 
   constructor(private router: Router,
               private playerStore: Store<PlayerState>,
