@@ -30,8 +30,8 @@ web-deploy:
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
     - echo "$HUDSON_PRIVATE_SSH_KEY" > ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
-    - ssh deploy@w11k.de rm -rf /srv/www/www.w11k.de-ng-dropping-stones/*
-    - scp dist/* deploy@w11k.de:/srv/www/www.w11k.de-ng-dropping-stones/
+    - ssh deploy@w11k.de rm -rf /srv/www/vhosts/www.w11k.de-ng-dropping-stones/*
+    - scp dist/* deploy@w11k.de:/srv/www/vhosts/www.w11k.de-ng-dropping-stones/
   artifacts:
     paths:
       - dist/
