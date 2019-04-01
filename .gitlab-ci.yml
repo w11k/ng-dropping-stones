@@ -20,7 +20,7 @@ web-build:
     - linux
 
 web-deploy:
-    stage: deploy
+  stage: deploy
   image: kroniak/ssh-client
   script:
     - ls -la
@@ -32,7 +32,5 @@ web-deploy:
     - chmod 600 ~/.ssh/id_rsa
     - ssh deploy@w11k.de rm -rf /srv/www/vhosts/www.w11k.de-ng-dropping-stones/*
     - scp dist/* deploy@w11k.de:/srv/www/vhosts/www.w11k.de-ng-dropping-stones/
-#  dependencies:
-#    - web-build
   tags:
     - linux
