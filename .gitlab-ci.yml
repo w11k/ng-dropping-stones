@@ -25,6 +25,7 @@ web-deploy:
   stage: deploy
   image: kroniak/ssh-client
   script:
+    - ls -la
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
