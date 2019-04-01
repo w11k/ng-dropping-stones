@@ -23,16 +23,13 @@ web-deploy:
   dependencies:
     - web-build
   stage: deploy
-  image: node:8-alpine
+  image: kroniak/ssh-client
   script:
-    - apk update
-    - apk add openssh
-    - ls -la
-    - echo "HUDSON_PRIVATE_SSH_KEY"
-    - echo "$HUDSON_PRIVATE_SSH_KEY"
-    - ssh-add <(echo "$HUDSON_PRIVATE_SSH_KEY")
     - mkdir -p ~/.ssh
-    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - chmod 700 ~/.ssh
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - echo "$HUDSON_PRIVATE_SSH_KEY" > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
     - ssh jenkins@w11k.de rm -rf /srv/www/www.w11k.de-ng-dropping-stones/*
     - scp dist/* jenkins@w11k.de:/srv/www/www.w11k.de-ng-dropping-stones/
   artifacts:
