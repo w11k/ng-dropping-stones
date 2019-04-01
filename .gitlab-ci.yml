@@ -31,6 +31,6 @@ web-deploy:
     - echo "$HUDSON_PRIVATE_SSH_KEY" > ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
     - ssh deploy@w11k.de rm -rf /srv/www/vhosts/www.w11k.de-ng-dropping-stones/*
-    - scp dist/* deploy@w11k.de:/srv/www/vhosts/www.w11k.de-ng-dropping-stones/
+    - scp -r dist/* deploy@w11k.de:/srv/www/vhosts/www.w11k.de-ng-dropping-stones/
   tags:
     - linux
