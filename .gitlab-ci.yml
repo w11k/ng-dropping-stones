@@ -28,6 +28,8 @@ web-deploy:
     - apk update
     - apk add openssh
     - ls -la
+    - echo "hudson_private_ssh_key"
+    - echo "$hudson_private_ssh_key"
     - ssh-add <(echo "hudson_private_ssh_key")
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
