@@ -6,6 +6,7 @@ import {GamepadActions} from '../../models/gamepad/gamepad.model';
 import {debounceTime, filter, take} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {Subscription} from 'rxjs';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-highscore-display',
@@ -23,6 +24,7 @@ export class HighscoreDisplayComponent implements OnInit, OnDestroy {
   highscores: Score[];
   todaysHighscores: Score[];
   private ESCSubscription: Subscription;
+  readonly web = environment.web;
 
   ngOnInit() {
 

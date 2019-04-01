@@ -12,6 +12,7 @@ import {GamepadActions} from '../../models/gamepad/gamepad.model';
 import {Router} from '@angular/router';
 import {untilComponentDestroyed} from '@w11k/ngx-componentdestroyed';
 import {interval} from 'rxjs/internal/observable/interval';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-game-over',
@@ -25,6 +26,7 @@ export class GameOverComponent implements OnInit, AfterViewInit, OnDestroy {
   todaysHighscores: Score[];
   private forceReload: boolean;
   private ESCSubscription: Subscription;
+  readonly web = environment.web;
 
   constructor(private scoreService: LocalStorageService,
               private gamepad: GamepadService,

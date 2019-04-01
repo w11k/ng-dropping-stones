@@ -49,7 +49,8 @@
 
 body {
   background-color: $bg-color;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
   margin: 0;
   padding: 0;
 }

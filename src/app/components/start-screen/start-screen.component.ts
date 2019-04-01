@@ -3,6 +3,7 @@ import {GamepadService} from '../../services/gamepad/gamepad.service';
 import {GamepadActions} from '../../models/gamepad/gamepad.model';
 import {debounceTime, filter, throttleTime} from 'rxjs/operators';
 import {untilComponentDestroyed} from '@w11k/ngx-componentdestroyed';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-start-screen',
@@ -13,6 +14,7 @@ export class StartScreenComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChildren('action') actions: QueryList<ElementRef>;
   private selectedElementRef: ElementRef;
+  private readonly web = environment.web;
 
   constructor(private gamepad: GamepadService) {
   }

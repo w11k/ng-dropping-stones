@@ -11,14 +11,54 @@
       Dropping Stones!
     </h1>
     <div class="actions">
-      <a routerLink="/enter-name" #action class="tabable">PLAY</a>
-      <!--<a routerLink="/enter-name" #action class="tabable">Singleplayer</a>-->
-      <!--<a routerLink="/multi" #action class="tabable">Multiplayer</a>-->
+      <a *ngIf="!web" routerLink="/enter-name" #action class="tabable">PLAY</a>
+      <ng-container *ngIf="web">
+        <a routerLink="/enter-name" #action class="tabable">Singleplayer</a>
+        <a routerLink="/multi" #action class="tabable">Multiplayer</a>
+      </ng-container>
       <a routerLink="/highscore" #action class="tabable">Highscore</a>
     </div>
-    <div class="align-self-end">
+    <div class="align-self-end" *ngIf="!web">
       <img class="howto" src="assets/howto.png" alt="HowToControls">
     </div>
+    <div *ngIf="web">
+        <table>
+          <tr>
+            <th colspan="2"><h4>Player 1 (Multi)</h4></th>
+            <th colspan="2"><h4>Player 2 (Single)</h4></th>
+          </tr>
+          <tr>
+            <td>Key 'E'</td>
+            <td>Drop</td>
+            <td>Space</td>
+            <td>Drop</td>
+          </tr>
+          <tr>
+            <td>Key 'W'</td>
+            <td>Rotate</td>
+            <td>Arrow up</td>
+            <td>Rotate</td>
+          </tr>
+          <tr>
+            <td>Key 'A'</td>
+            <td>Move left</td>
+            <td>Arrow left</td>
+            <td>Move left</td>
+          </tr>
+          <tr>
+            <td>Key 'D'</td>
+            <td>Move right</td>
+            <td>Arrow right</td>
+            <td>Move right</td>
+          </tr>
+          <tr>
+            <td>Key 'S'</td>
+            <td>Falling faster</td>
+            <td>Arrow down</td>
+            <td>Falling faster</td>
+          </tr>
+        </table>
+      </div>
   </div>
 
   <div class="d-flex flex-row side-container">

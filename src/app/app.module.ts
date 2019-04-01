@@ -29,6 +29,11 @@ import {EffectsModule} from '@ngrx/effects';
 import {HighscoreEffects} from './store/effects/highscore.effects';
 import {HighscoreModule} from './services/highscore/highscore.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {MultiplayerModule} from './components/multiplayer/multiplayer.module';
+import {MultiGameOverModule} from './components/multi-game-over/multi-game-over.module';
+import {MultiplayerComponent} from './components/multiplayer/multiplayer.component';
+import {MultiGameOverComponent} from './components/multi-game-over/multi-game-over.component';
+import {WebGuard} from './web.guard';
 
 const routes = [
   {
@@ -37,18 +42,20 @@ const routes = [
   {
     path: 'single', component: SinglePlayerComponent, canActivate: [SinglePlayerGuard]
   },
-  // {
-  //   path: 'multi', component: MultiplayerComponent
-  // },
+  {
+    path: 'multi', component: MultiplayerComponent,
+    canActivate: [WebGuard]
+  },
   {
     path: 'enter-name', component: EnterNameComponent
   },
   {
     path: 'game-over', component: GameOverComponent
   },
-  // {
-  //   path: 'multi-game-over', component: MultiGameOverComponent
-  // },
+  {
+    path: 'multi-game-over', component: MultiGameOverComponent,
+    canActivate: [WebGuard]
+  },
   {
     path: 'highscore', component: HighscoreDisplayComponent
   },
@@ -87,8 +94,8 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     BrowserAnimationsModule,
     StartScreenModule,
     SinglePlayerModule,
-    // MultiplayerModule,
-    // MultiGameOverModule,
+    MultiplayerModule,
+    MultiGameOverModule,
     HighscoreDisplayModule,
     EnterNameModule,
     GameOverModule,
@@ -108,7 +115,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     EffectsModule.forRoot([HighscoreEffects]),
     NgbModule.forRoot(),
   ],
-  providers: [],
+  providers: [WebGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {

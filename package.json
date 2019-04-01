@@ -5,8 +5,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host 0.0.0.0",
-    "build": "ng build --aot",
+    "start:arcade": "ng serve --host 0.0.0.0 --configuration=arcade",
     "build:w11k.de": "ng build --aot --base-href='/ng-dropping-stones/'",
+    "build:arcade": "ng build --aot --configuration=arcade",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

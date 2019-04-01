@@ -1,4 +1,4 @@
-<div class="row margin-top">
+<div class="row" [class.margin-top]="!web">
   <div class="col">
     <app-highscore-list heading="today's highscore:" [highscores]="todaysHighscores"></app-highscore-list>
   </div>
