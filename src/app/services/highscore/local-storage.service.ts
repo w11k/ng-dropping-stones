@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Score} from '../../models/highscore/highscore.model';
+import {environment} from '../../../environments/environment';
 // import { getDate } from 'date-fns'; // TODO: use
 
 @Injectable()
@@ -24,11 +25,11 @@ export class LocalStorageService {
   }
 
   getContestScores(): Score[] {
-    return this.getScores().filter(score => score.acceptedTac);
+    return this.getScores().filter(score => score.acceptedTac || environment.web);
   }
 
   getTodayContestScores(): Score[] {
-    return this.getTodayScores().filter(score => score.acceptedTac);
+    return this.getTodayScores().filter(score => score.acceptedTac || environment.web);
   }
 
   getContestHighestScore(): number {
