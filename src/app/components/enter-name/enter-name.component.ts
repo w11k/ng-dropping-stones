@@ -26,7 +26,7 @@ export class EnterNameComponent implements OnInit, OnDestroy, AfterViewInit {
   nameForm: FormGroup;
   private selectedElementRef: ElementRef;
   private ESCSubscription: Subscription;
-  private readonly web = environment.web;
+  readonly web = environment.web;
 
   constructor(private router: Router,
               private playerStore: Store<PlayerState>,
