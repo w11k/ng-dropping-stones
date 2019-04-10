@@ -3,6 +3,8 @@ import {LocalStorageService} from '../../../services/highscore/local-storage.ser
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Score} from '../../../models/highscore/highscore.model';
 import {Router} from '@angular/router';
+import {environment} from '../../../../environments/environment';
+import {AngularFireDatabase} from '@angular/fire/database';
 
 @Component({
   selector: 'app-select',
@@ -13,18 +15,41 @@ export class SelectComponent implements OnInit {
 
   form: FormGroup;
   todayContestScores: Score[];
+  readonly web = environment.web;
 
   constructor(private storageService: LocalStorageService,
               private fb: FormBuilder,
-              private router: Router) {
+              private router: Router,
+              private db: AngularFireDatabase) {
   }
 
   ngOnInit() {
-    this.todayContestScores = this.storageService.getTodayContestScores();
-    this.todayContestScores.sort((a: Score, b: Score) => b.score - a.score);
+    if (this.web) {
+      this.getHighscoresFromDB();
+    } else {
+      this.getHighscoresFromLocalStorage();
+    }
+
     this.form = this.fb.group({
       winners: '',
     });
+  }
+
+  private getHighscoresFromLocalStorage() {
+    this.todayContestScores = this.storageService.getTodayContestScores();
+    this.todayContestScores.sort((a: Score, b: Score) => b.score - a.score);
+  }
+
+  private getHighscoresFromDB() {
+    this.db.list('highscore')
+      .valueChanges()
+      .subscribe(highscores => {
+        const todayHighscores: Score[] = highscores as Score[];
+        // todays
+        this.todayContestScores = todayHighscores
+          .filter(highscore => new Date(highscore.date).toDateString() === new Date().toDateString())
+          .sort((a: Score, b: Score) => b.score - a.score);
+      });
   }
 
   onSubmit() {
@@ -39,6 +64,10 @@ export class SelectComponent implements OnInit {
   }
 
   getScoreLabel(score: Score): string {
-    return `${score.score} ${score.name} (${score.email})`;
+    if (this.web) {
+      return `${score.score} ${score.name}`;
+    } else {
+      return `${score.score} ${score.name} (${score.email})`;
+    }
   }
 }

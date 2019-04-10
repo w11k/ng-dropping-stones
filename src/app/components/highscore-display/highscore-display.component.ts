@@ -7,6 +7,7 @@ import {debounceTime, filter, take} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {environment} from '../../../environments/environment';
+import {AngularFireDatabase} from '@angular/fire/database';
 
 @Component({
   selector: 'app-highscore-display',
@@ -18,7 +19,8 @@ export class HighscoreDisplayComponent implements OnInit, OnDestroy {
   constructor(private highscoreService: LocalStorageService,
               // private playerStore: Store<PlayerState>,
               private gamepad: GamepadService,
-              private router: Router) {
+              private router: Router,
+              private db: AngularFireDatabase) {
   }
 
   highscores: Score[];
@@ -27,13 +29,11 @@ export class HighscoreDisplayComponent implements OnInit, OnDestroy {
   readonly web = environment.web;
 
   ngOnInit() {
-
-    this.highscores = this.highscoreService.getContestScores()
-      .sort((a, b) => b.score - a.score)
-      .slice(0, 8);
-    this.todaysHighscores = this.highscoreService.getTodayContestScores()
-      .sort((a, b) => b.score - a.score)
-      .slice(0, 8);
+    if (this.web) {
+      this.getHighscoresFromDB();
+    } else {
+      this.getHighscoresFromLocalStorage();
+    }
 
     this.gamepad.getActions(1).pipe(
       debounceTime(250),
@@ -45,6 +45,36 @@ export class HighscoreDisplayComponent implements OnInit, OnDestroy {
 
     this.ESCSubscription = this.gamepad.abortGame();
 
+  }
+
+  private getHighscoresFromLocalStorage() {
+    this.highscores = this.highscoreService.getContestScores()
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 8);
+    this.todaysHighscores = this.highscoreService.getTodayContestScores()
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 8);
+  }
+
+  private getHighscoresFromDB() {
+    this.db.list('highscore')
+      .valueChanges()
+      .subscribe(highscores => {
+        let todayHighscores: Score[] = highscores as Score[];
+        // todays
+        todayHighscores = todayHighscores
+          .filter(highscore => new Date(highscore.date).toDateString() === new Date().toDateString())
+          .sort((a: Score, b: Score) => b.score - a.score)
+          .slice(0, 8);
+
+        // all time
+        highscores = highscores
+          .sort((a: Score, b: Score) => b.score - a.score)
+          .slice(0, 8);
+
+        this.todaysHighscores = todayHighscores as Score[];
+        this.highscores = highscores as Score[];
+      });
   }
 
   ngOnDestroy(): void {

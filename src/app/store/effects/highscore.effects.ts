@@ -8,15 +8,19 @@ import {catchError, map, tap} from 'rxjs/operators';
 import {UpdateHighscore} from '../actions';
 import {PlayerState} from '../reducers/highscore.reducer';
 import {Router} from '@angular/router';
+import {environment} from '../../../environments/environment';
+import {AngularFireDatabase} from '@angular/fire/database';
 
 
 @Injectable()
 export class HighscoreEffects {
+  readonly  web = environment.web;
 
   constructor(private actions$: Actions,
               private router: Router,
               private playerStore: Store<PlayerState>,
-              private highscoreService: LocalStorageService) {
+              private highscoreService: LocalStorageService,
+              private db: AngularFireDatabase) {
   }
 
   @Effect({ dispatch: false }) saveHighscore$: Observable<Action> =
@@ -29,7 +33,13 @@ export class HighscoreEffects {
     this.actions$
       .pipe(
         ofType(fromActions.UPDATE_HIGHSCORE),
-        map((action: UpdateHighscore) => this.highscoreService.writeLocalHighscore(action.payload)),
+        map((action: UpdateHighscore) => {
+          if (this.web) {
+            this.db.database.ref('highscore').push(action.payload);
+          } else {
+            this.highscoreService.writeLocalHighscore(action.payload);
+          }
+        }),
         map(() => new fromActions.UpdateHighscoreSuccess()),
         catchError(() => of(new fromActions.UpdateHighscoreFail()))
       );

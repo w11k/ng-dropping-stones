@@ -13,6 +13,7 @@ import {Router} from '@angular/router';
 import {untilComponentDestroyed} from '@w11k/ngx-componentdestroyed';
 import {interval} from 'rxjs/internal/observable/interval';
 import {environment} from '../../../environments/environment';
+import {AngularFireDatabase} from '@angular/fire/database';
 
 @Component({
   selector: 'app-game-over',
@@ -31,7 +32,8 @@ export class GameOverComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(private scoreService: LocalStorageService,
               private gamepad: GamepadService,
               private store: Store<AppState>,
-              private router: Router) {
+              private router: Router,
+              private db: AngularFireDatabase) {
   }
 
   ngOnInit() {
@@ -48,12 +50,12 @@ export class GameOverComponent implements OnInit, AfterViewInit, OnDestroy {
       this.backToMainScreen();
     });
 
-    this.highscores = this.scoreService.getContestScores()
-      .sort((a, b) => b.score - a.score)
-      .slice(0, 8);
-    this.todaysHighscores = this.scoreService.getTodayContestScores()
-      .sort((a, b) => b.score - a.score)
-      .slice(0, 8);
+    if (this.web) {
+      this.getHighscoresFromDB();
+    } else {
+      this.getHighscoresFromLocalStorage();
+    }
+
     this.store.pipe(
       select('game'),
       first(),
@@ -69,6 +71,36 @@ export class GameOverComponent implements OnInit, AfterViewInit, OnDestroy {
       );
 
     this.ESCSubscription = this.gamepad.abortGame();
+  }
+
+  private getHighscoresFromLocalStorage() {
+    this.highscores = this.scoreService.getContestScores()
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 8);
+    this.todaysHighscores = this.scoreService.getTodayContestScores()
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 8);
+  }
+
+  private getHighscoresFromDB() {
+    this.db.list('highscore')
+      .valueChanges()
+      .subscribe(highscores => {
+        let todayHighscores: Score[] = highscores as Score[];
+        // todays
+        todayHighscores = todayHighscores
+          .filter(highscore => new Date(highscore.date).toDateString() === new Date().toDateString())
+          .sort((a: Score, b: Score) => b.score - a.score)
+          .slice(0, 8);
+
+        // all time
+        highscores = highscores
+          .sort((a: Score, b: Score) => b.score - a.score)
+          .slice(0, 8);
+
+        this.todaysHighscores = todayHighscores as Score[];
+        this.highscores = highscores as Score[];
+      });
   }
 
   ngAfterViewInit(): void {
