@@ -14,7 +14,7 @@ export class StartScreenComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChildren('action') actions: QueryList<ElementRef>;
   private selectedElementRef: ElementRef;
-  private readonly web = environment.web;
+  readonly web = environment.web;
 
   constructor(private gamepad: GamepadService) {
   }
