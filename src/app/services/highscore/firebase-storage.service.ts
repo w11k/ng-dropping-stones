@@ -9,6 +9,7 @@ export class FirebaseStorageService extends StorageService {
 
   constructor(private db: AngularFireDatabase) {
     super();
+    console.log('Started with Firebase Storage Service');
   }
 
   deleteHighscore(): void {

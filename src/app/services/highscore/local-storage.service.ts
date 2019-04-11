@@ -9,6 +9,7 @@ export class LocalStorageService extends StorageService{
 
   constructor() {
     super();
+    console.log('Started with Locale Storage Service');
     if (!storageAvailable('localStorage')) {
       alert('error, no local storage available');
     }
