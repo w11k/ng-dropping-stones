@@ -2,7 +2,6 @@ import {Subscription} from 'rxjs';
 
 import {filter, first, map, throttleTime} from 'rxjs/operators';
 import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
-import {LocalStorageService} from '../../services/highscore/local-storage.service';
 import {Score} from '../../models/highscore/highscore.model';
 import {select, Store} from '@ngrx/store';
 import {AppState} from '../../store/state.model';
@@ -14,6 +13,7 @@ import {untilComponentDestroyed} from '@w11k/ngx-componentdestroyed';
 import {interval} from 'rxjs/internal/observable/interval';
 import {environment} from '../../../environments/environment';
 import {AngularFireDatabase} from '@angular/fire/database';
+import { StorageService } from '../../services/highscore/storage.service';
 
 @Component({
   selector: 'app-game-over',
@@ -29,7 +29,7 @@ export class GameOverComponent implements OnInit, AfterViewInit, OnDestroy {
   private ESCSubscription: Subscription;
   readonly web = environment.web;
 
-  constructor(private scoreService: LocalStorageService,
+  constructor(private scoreService: StorageService,
               private gamepad: GamepadService,
               private store: Store<AppState>,
               private router: Router,

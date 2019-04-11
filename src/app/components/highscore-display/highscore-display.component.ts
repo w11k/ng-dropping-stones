@@ -8,6 +8,7 @@ import {Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {AngularFireDatabase} from '@angular/fire/database';
+import { StorageService } from '../../services/highscore/storage.service';
 
 @Component({
   selector: 'app-highscore-display',
@@ -16,7 +17,7 @@ import {AngularFireDatabase} from '@angular/fire/database';
 })
 export class HighscoreDisplayComponent implements OnInit, OnDestroy {
 
-  constructor(private highscoreService: LocalStorageService,
+  constructor(private highscoreService: StorageService,
               // private playerStore: Store<PlayerState>,
               private gamepad: GamepadService,
               private router: Router,

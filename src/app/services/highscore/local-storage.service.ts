@@ -1,11 +1,13 @@
 import {Injectable} from '@angular/core';
 import {Score} from '../../models/highscore/highscore.model';
+import { StorageService } from './storage.service';
 // import { getDate } from 'date-fns'; // TODO: use
 
 @Injectable()
-export class LocalStorageService {
+export class LocalStorageService extends StorageService{
 
   constructor() {
+    super();
     if (!storageAvailable('localStorage')) {
       alert('error, no local storage available');
     }
@@ -48,7 +50,7 @@ export class LocalStorageService {
     return score ? score as Score[] : [];
   }
 
-  writeLocalHighscore(currentPlayer: Score): void {
+  saveHighscore(currentPlayer: Score): void {
     const currentLocalStorage = this.readLocalHighscore();
     try {
       localStorage.setItem(
@@ -63,7 +65,7 @@ export class LocalStorageService {
     }
   }
 
-  deleteLocalHighscore(): void {
+  deleteHighscore(): void {
     try {
       localStorage.setItem('highscore', JSON.stringify([]));
     } catch (err) {
@@ -71,16 +73,6 @@ export class LocalStorageService {
       throw err;
     }
   }
-
-  // clearLocalStorage(): void {
-  //   try {
-  //     localStorage.clear();
-  //   } catch (err) {
-  //     console.error('Error while clearing local storage: ', err);
-  //     throw err;
-  //   }
-  // }
-
 }
 
 const storageAvailable = type => {

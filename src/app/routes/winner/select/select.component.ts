@@ -5,6 +5,7 @@ import {Score} from '../../../models/highscore/highscore.model';
 import {Router} from '@angular/router';
 import {environment} from '../../../../environments/environment';
 import {AngularFireDatabase} from '@angular/fire/database';
+import { StorageService } from '../../../services/highscore/storage.service';
 
 @Component({
   selector: 'app-select',
@@ -17,7 +18,7 @@ export class SelectComponent implements OnInit {
   todayContestScores: Score[];
   readonly web = environment.web;
 
-  constructor(private storageService: LocalStorageService,
+  constructor(private storageService: StorageService,
               private fb: FormBuilder,
               private router: Router,
               private db: AngularFireDatabase) {

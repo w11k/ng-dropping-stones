@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {LocalStorageService} from '../../services/highscore/local-storage.service';
 import {Observable, of} from 'rxjs';
 import {Action, Store} from '@ngrx/store';
 import * as fromActions from '../actions';
@@ -10,6 +9,7 @@ import {PlayerState} from '../reducers/highscore.reducer';
 import {Router} from '@angular/router';
 import {environment} from '../../../environments/environment';
 import {AngularFireDatabase} from '@angular/fire/database';
+import { StorageService } from '../../services/highscore/storage.service';
 
 
 @Injectable()
@@ -19,7 +19,7 @@ export class HighscoreEffects {
   constructor(private actions$: Actions,
               private router: Router,
               private playerStore: Store<PlayerState>,
-              private highscoreService: LocalStorageService,
+              private highscoreService: StorageService,
               private db: AngularFireDatabase) {
   }
 
@@ -37,7 +37,7 @@ export class HighscoreEffects {
           if (this.web) {
             this.db.database.ref('highscore').push(action.payload);
           } else {
-            this.highscoreService.writeLocalHighscore(action.payload);
+            this.highscoreService.saveHighscore(action.payload);
           }
         }),
         map(() => new fromActions.UpdateHighscoreSuccess()),
@@ -48,7 +48,7 @@ export class HighscoreEffects {
     this.actions$
     .pipe(
       ofType(fromActions.DELETE_HIGHSCORE),
-      map(() => this.highscoreService.deleteLocalHighscore()),
+      map(() => this.highscoreService.deleteHighscore()),
       map(() => new fromActions.DeleteHighscoreSuccess()),
       catchError(() => of(new fromActions.DeleteHighscoreFail()))
     );
