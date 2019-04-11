@@ -16,7 +16,9 @@ export class FirebaseStorageService extends StorageService {
   }
 
   async getContestHighestScore(): Promise<number> {
-    return -999;
+    const descScores = (await this.getContestScores()).sort(((a, b) => b.score - a.score)).map(value => value.score);
+
+    return descScores.length > 0 ? descScores[0] : 0;
   }
 
   async getContestScores(): Promise<Score[]> {
@@ -41,7 +43,9 @@ export class FirebaseStorageService extends StorageService {
   }
 
   async getTodayHighestScore(): Promise<number> {
-    return -999;
+    const descScores = (await this.getTodayContestScores()).sort(((a, b) => b.score - a.score)).map(value => value.score);
+
+    return descScores.length > 0 ? descScores[0] : 0;
   }
 
   async getTodayScores(): Promise<Score[]> {
