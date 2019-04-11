@@ -2,7 +2,6 @@
 import {first} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {CanActivate, Router} from '@angular/router';
-import {LocalStorageService} from '../../services/highscore/local-storage.service';
 import {select, Store} from '@ngrx/store';
 import {getCurrentPlayer, PlayerState} from '../../store/reducers/highscore.reducer';
 import {Observable, Subscription} from 'rxjs';
@@ -15,8 +14,7 @@ export class SinglePlayerGuard implements CanActivate {
   private currentPlayerSubscription: Subscription;
   private currentPlayerScore: Score;
 
-  constructor(private score: LocalStorageService,
-              private playerStore: Store<PlayerState>,
+  constructor(private playerStore: Store<PlayerState>,
               private router: Router) {
   }
 

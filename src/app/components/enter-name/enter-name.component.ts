@@ -1,7 +1,6 @@
 import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {LocalStorageService} from '../../services/highscore/local-storage.service';
 import {throttleTime} from 'rxjs/operators';
 import {GamepadActions} from '../../models/gamepad/gamepad.model';
 import {untilComponentDestroyed} from '@w11k/ngx-componentdestroyed';
@@ -30,7 +29,6 @@ export class EnterNameComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(private router: Router,
               private playerStore: Store<PlayerState>,
-              private score: LocalStorageService,
               private gamepad: GamepadService,
               private modalService: NgbModal) {
   }

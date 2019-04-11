@@ -1,12 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Score} from '../../models/highscore/highscore.model';
-import {LocalStorageService} from '../../services/highscore/local-storage.service';
 import {GamepadService} from '../../services/gamepad/gamepad.service';
 import {GamepadActions} from '../../models/gamepad/gamepad.model';
 import {debounceTime, filter, take} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {environment} from '../../../environments/environment';
+import { StorageService } from '../../services/highscore/storage.service';
 
 @Component({
   selector: 'app-highscore-display',
@@ -15,7 +15,7 @@ import {environment} from '../../../environments/environment';
 })
 export class HighscoreDisplayComponent implements OnInit, OnDestroy {
 
-  constructor(private highscoreService: LocalStorageService,
+  constructor(private highscoreService: StorageService,
               // private playerStore: Store<PlayerState>,
               private gamepad: GamepadService,
               private router: Router) {
@@ -26,12 +26,11 @@ export class HighscoreDisplayComponent implements OnInit, OnDestroy {
   private ESCSubscription: Subscription;
   readonly web = environment.web;
 
-  ngOnInit() {
-
-    this.highscores = this.highscoreService.getContestScores()
+  async ngOnInit() {
+    this.highscores = (await this.highscoreService.getContestScores())
       .sort((a, b) => b.score - a.score)
       .slice(0, 8);
-    this.todaysHighscores = this.highscoreService.getTodayContestScores()
+    this.todaysHighscores = (await this.highscoreService.getTodayContestScores())
       .sort((a, b) => b.score - a.score)
       .slice(0, 8);
 

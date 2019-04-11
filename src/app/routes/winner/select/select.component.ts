@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {LocalStorageService} from '../../../services/highscore/local-storage.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Score} from '../../../models/highscore/highscore.model';
 import {Router} from '@angular/router';
+import {environment} from '../../../../environments/environment';
+import { StorageService } from '../../../services/highscore/storage.service';
 
 @Component({
   selector: 'app-select',
@@ -13,15 +14,17 @@ export class SelectComponent implements OnInit {
 
   form: FormGroup;
   todayContestScores: Score[];
+  readonly web = environment.web;
 
-  constructor(private storageService: LocalStorageService,
+  constructor(private storageService: StorageService,
               private fb: FormBuilder,
               private router: Router) {
   }
 
-  ngOnInit() {
-    this.todayContestScores = this.storageService.getTodayContestScores();
+  async ngOnInit() {
+    this.todayContestScores = await this.storageService.getTodayContestScores();
     this.todayContestScores.sort((a: Score, b: Score) => b.score - a.score);
+
     this.form = this.fb.group({
       winners: '',
     });
@@ -39,6 +42,6 @@ export class SelectComponent implements OnInit {
   }
 
   getScoreLabel(score: Score): string {
-    return `${score.score} ${score.name} (${score.email})`;
+    return this.storageService.getScoreLabel(score);
   }
 }

@@ -34,6 +34,8 @@ import {MultiGameOverModule} from './components/multi-game-over/multi-game-over.
 import {MultiplayerComponent} from './components/multiplayer/multiplayer.component';
 import {MultiGameOverComponent} from './components/multi-game-over/multi-game-over.component';
 import {WebGuard} from './web.guard';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 const routes = [
   {
@@ -114,6 +116,8 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     }),
     EffectsModule.forRoot([HighscoreEffects]),
     NgbModule.forRoot(),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule
   ],
   providers: [WebGuard],
   bootstrap: [AppComponent]

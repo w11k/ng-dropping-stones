@@ -1,45 +1,48 @@
-import {Injectable} from '@angular/core';
-import {Score} from '../../models/highscore/highscore.model';
-import {environment} from '../../../environments/environment';
+import { Injectable } from '@angular/core';
+import { Score } from '../../models/highscore/highscore.model';
+import { StorageService } from './storage.service';
+
 // import { getDate } from 'date-fns'; // TODO: use
 
 @Injectable()
-export class LocalStorageService {
+export class LocalStorageService extends StorageService{
 
   constructor() {
+    super();
+    console.log('Started with Locale Storage Service');
     if (!storageAvailable('localStorage')) {
       alert('error, no local storage available');
     }
   }
 
-  getScores(): Score[] {
+  async getScores(): Promise<Score[]> {
     const score = JSON.parse(localStorage.getItem('highscore'));
     return score ? score as Score[] : [];
   }
 
-  getTodayScores(): Score[] {
-    return this.getScores()
+  async getTodayScores(): Promise<Score[]> {
+    return (await this.getScores())
       .filter(score =>
         new Date(score.date).toDateString() === new Date().toDateString()
       );
   }
 
-  getContestScores(): Score[] {
-    return this.getScores().filter(score => score.acceptedTac || environment.web);
+  async getContestScores(): Promise<Score[]> {
+    return (await this.getScores()).filter(score => score.acceptedTac);
   }
 
-  getTodayContestScores(): Score[] {
-    return this.getTodayScores().filter(score => score.acceptedTac || environment.web);
+  async getTodayContestScores(): Promise<Score[]> {
+    return (await this.getTodayScores()).filter(score => score.acceptedTac);
   }
 
-  getContestHighestScore(): number {
-    const allScores = this.getContestScores();
+  async getContestHighestScore(): Promise<number> {
+    const allScores = await this.getContestScores();
 
     return allScores.length ? Math.max(...allScores.map(e => e.score)) : 0;
   }
 
-  getTodayHighestScore(): number {
-    const todayScores = this.getTodayContestScores();
+  async getTodayHighestScore(): Promise<number> {
+    const todayScores = await this.getTodayContestScores();
 
     return todayScores.length ? Math.max(...todayScores.map(e => e.score)) : 0;
   }
@@ -49,7 +52,7 @@ export class LocalStorageService {
     return score ? score as Score[] : [];
   }
 
-  writeLocalHighscore(currentPlayer: Score): void {
+  saveHighscore(currentPlayer: Score): void {
     const currentLocalStorage = this.readLocalHighscore();
     try {
       localStorage.setItem(
@@ -64,7 +67,7 @@ export class LocalStorageService {
     }
   }
 
-  deleteLocalHighscore(): void {
+  deleteHighscore(): void {
     try {
       localStorage.setItem('highscore', JSON.stringify([]));
     } catch (err) {
@@ -73,15 +76,9 @@ export class LocalStorageService {
     }
   }
 
-  // clearLocalStorage(): void {
-  //   try {
-  //     localStorage.clear();
-  //   } catch (err) {
-  //     console.error('Error while clearing local storage: ', err);
-  //     throw err;
-  //   }
-  // }
-
+  getScoreLabel(score: Score): string {
+    return `${score.score} ${score.name} (${score.email})`;
+  }
 }
 
 const storageAvailable = type => {

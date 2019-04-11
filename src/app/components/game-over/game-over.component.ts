@@ -2,7 +2,6 @@ import {Subscription} from 'rxjs';
 
 import {filter, first, map, throttleTime} from 'rxjs/operators';
 import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
-import {LocalStorageService} from '../../services/highscore/local-storage.service';
 import {Score} from '../../models/highscore/highscore.model';
 import {select, Store} from '@ngrx/store';
 import {AppState} from '../../store/state.model';
@@ -13,6 +12,7 @@ import {Router} from '@angular/router';
 import {untilComponentDestroyed} from '@w11k/ngx-componentdestroyed';
 import {interval} from 'rxjs/internal/observable/interval';
 import {environment} from '../../../environments/environment';
+import { StorageService } from '../../services/highscore/storage.service';
 
 @Component({
   selector: 'app-game-over',
@@ -28,13 +28,13 @@ export class GameOverComponent implements OnInit, AfterViewInit, OnDestroy {
   private ESCSubscription: Subscription;
   readonly web = environment.web;
 
-  constructor(private scoreService: LocalStorageService,
+  constructor(private scoreService: StorageService,
               private gamepad: GamepadService,
               private store: Store<AppState>,
               private router: Router) {
   }
 
-  ngOnInit() {
+  async ngOnInit() {
 
     this.store.select((state: AppState) => state.settings.forceReload).subscribe(forceReload => {
       this.forceReload = forceReload;
@@ -48,12 +48,13 @@ export class GameOverComponent implements OnInit, AfterViewInit, OnDestroy {
       this.backToMainScreen();
     });
 
-    this.highscores = this.scoreService.getContestScores()
+    this.highscores = (await this.scoreService.getContestScores())
       .sort((a, b) => b.score - a.score)
       .slice(0, 8);
-    this.todaysHighscores = this.scoreService.getTodayContestScores()
+    this.todaysHighscores = (await this.scoreService.getTodayContestScores())
       .sort((a, b) => b.score - a.score)
       .slice(0, 8);
+
     this.store.pipe(
       select('game'),
       first(),

@@ -1,18 +1,18 @@
-import {first, map, startWith, switchMap} from 'rxjs/operators';
+import {first, map} from 'rxjs/operators';
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import {AppState} from '../../store/state.model';
 import {Init} from '../../store/actions';
 import {Keymap} from '../../models/keymap/keymap.model';
-import {interval, Observable, Subscription, timer} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {AudioService} from '../../services/audio/audio.service';
 import {Status, Tetris} from '../../models/tetris/tetris.model';
 import {Router} from '@angular/router';
-import {LocalStorageService} from '../../services/highscore/local-storage.service';
 import {getCurrentPlayer, PlayerState} from '../../store/reducers/highscore.reducer';
 import {UpdateHighscore} from '../../store/actions';
 import {Score} from '../../models/highscore/highscore.model';
 import {GamepadService} from '../../services/gamepad/gamepad.service';
+import { StorageService } from '../../services/highscore/storage.service';
 
 @Component({
   selector: 'app-single-player',
@@ -44,14 +44,14 @@ export class SinglePlayerComponent implements OnInit, OnDestroy {
               private playerStore: Store<PlayerState>,
               private audio: AudioService,
               private router: Router,
-              private score: LocalStorageService,
+              private score: StorageService,
               private gamepad: GamepadService) {
   }
 
-  ngOnInit() {
+  async ngOnInit() {
 
-    this.todaysHighscore = this.score.getTodayHighestScore();
-    this.allTimeHighscore = this.score.getContestHighestScore();
+    this.todaysHighscore = await this.score.getTodayHighestScore();
+    this.allTimeHighscore = await this.score.getContestHighestScore();
 
     this.gameStore.dispatch(new Init(1));
     this.audio.play('korobeiniki.mp3', true);
