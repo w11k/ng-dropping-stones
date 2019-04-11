@@ -4,10 +4,6 @@ import { Score } from '../../models/highscore/highscore.model';
 @Injectable()
 export abstract class StorageService {
 
-  abstract getScores(): Promise<Score[]>;
-
-  abstract getTodayScores(): Promise<Score[]>;
-
   abstract getContestScores(): Promise<Score[]>;
 
   abstract getTodayContestScores(): Promise<Score[]>;

@@ -13,6 +13,7 @@ export class FirebaseStorageService extends StorageService {
   }
 
   deleteHighscore(): void {
+    // not implemented for firebase
   }
 
   async getContestHighestScore(): Promise<number> {
@@ -29,10 +30,6 @@ export class FirebaseStorageService extends StorageService {
       ).toPromise();
   }
 
-  async getScores(): Promise<Score[]> {
-    return [];
-  }
-
   getTodayContestScores(): Promise<Score[]> {
     return this.db.list<Score>('highscore')
       .valueChanges()
@@ -46,10 +43,6 @@ export class FirebaseStorageService extends StorageService {
     const descScores = (await this.getTodayContestScores()).sort(((a, b) => b.score - a.score)).map(value => value.score);
 
     return descScores.length > 0 ? descScores[0] : 0;
-  }
-
-  async getTodayScores(): Promise<Score[]> {
-    return [];
   }
 
   saveHighscore(currentPlayer: Score): void {
