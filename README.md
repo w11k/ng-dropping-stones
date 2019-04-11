@@ -1,9 +1,10 @@
 # NgDroppingStones
-A small Tetris Clone to play in the browser or an arcade machine.
+A small Tetris Clone to play in the browser or a rapsberry based arcade machine.
 
 Playable with a Joystick or the Keyboard.
 
-##Demo
+## Demo
+
 https://www.w11k.de/ng-dropping-stones/
 
 ## About
