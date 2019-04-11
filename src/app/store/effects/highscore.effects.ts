@@ -19,8 +19,7 @@ export class HighscoreEffects {
   constructor(private actions$: Actions,
               private router: Router,
               private playerStore: Store<PlayerState>,
-              private highscoreService: StorageService,
-              private db: AngularFireDatabase) {
+              private highscoreService: StorageService) {
   }
 
   @Effect({ dispatch: false }) saveHighscore$: Observable<Action> =
@@ -34,11 +33,7 @@ export class HighscoreEffects {
       .pipe(
         ofType(fromActions.UPDATE_HIGHSCORE),
         map((action: UpdateHighscore) => {
-          if (this.web) {
-            this.db.database.ref('highscore').push(action.payload);
-          } else {
-            this.highscoreService.saveHighscore(action.payload);
-          }
+          this.highscoreService.saveHighscore(action.payload);
         }),
         map(() => new fromActions.UpdateHighscoreSuccess()),
         catchError(() => of(new fromActions.UpdateHighscoreFail()))

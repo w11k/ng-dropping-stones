@@ -1,10 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {LocalStorageService} from '../../../services/highscore/local-storage.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Score} from '../../../models/highscore/highscore.model';
 import {Router} from '@angular/router';
 import {environment} from '../../../../environments/environment';
-import {AngularFireDatabase} from '@angular/fire/database';
 import { StorageService } from '../../../services/highscore/storage.service';
 
 @Component({
@@ -20,37 +18,16 @@ export class SelectComponent implements OnInit {
 
   constructor(private storageService: StorageService,
               private fb: FormBuilder,
-              private router: Router,
-              private db: AngularFireDatabase) {
+              private router: Router) {
   }
 
-  ngOnInit() {
-    if (this.web) {
-      this.getHighscoresFromDB();
-    } else {
-      this.getHighscoresFromLocalStorage();
-    }
+  async ngOnInit() {
+    this.todayContestScores = await this.storageService.getTodayContestScores();
+    this.todayContestScores.sort((a: Score, b: Score) => b.score - a.score);
 
     this.form = this.fb.group({
       winners: '',
     });
-  }
-
-  private getHighscoresFromLocalStorage() {
-    this.todayContestScores = this.storageService.getTodayContestScores();
-    this.todayContestScores.sort((a: Score, b: Score) => b.score - a.score);
-  }
-
-  private getHighscoresFromDB() {
-    this.db.list('highscore')
-      .valueChanges()
-      .subscribe(highscores => {
-        const todayHighscores: Score[] = highscores as Score[];
-        // todays
-        this.todayContestScores = todayHighscores
-          .filter(highscore => new Date(highscore.date).toDateString() === new Date().toDateString())
-          .sort((a: Score, b: Score) => b.score - a.score);
-      });
   }
 
   onSubmit() {
@@ -65,10 +42,6 @@ export class SelectComponent implements OnInit {
   }
 
   getScoreLabel(score: Score): string {
-    if (this.web) {
-      return `${score.score} ${score.name}`;
-    } else {
-      return `${score.score} ${score.name} (${score.email})`;
-    }
+    return this.storageService.getScoreLabel(score);
   }
 }

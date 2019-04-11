@@ -48,10 +48,10 @@ export class SinglePlayerComponent implements OnInit, OnDestroy {
               private gamepad: GamepadService) {
   }
 
-  ngOnInit() {
+  async ngOnInit() {
 
-    this.todaysHighscore = this.score.getTodayHighestScore();
-    this.allTimeHighscore = this.score.getContestHighestScore();
+    this.todaysHighscore = await this.score.getTodayHighestScore();
+    this.allTimeHighscore = await this.score.getContestHighestScore();
 
     this.gameStore.dispatch(new Init(1));
     this.audio.play('korobeiniki.mp3', true);

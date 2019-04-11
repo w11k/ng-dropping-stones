@@ -4,19 +4,21 @@ import { Score } from '../../models/highscore/highscore.model';
 @Injectable()
 export abstract class StorageService {
 
-  abstract getScores(): Score[];
+  abstract getScores(): Promise<Score[]>;
 
-  abstract getTodayScores(): Score[];
+  abstract getTodayScores(): Promise<Score[]>;
 
-  abstract getContestScores(): Score[];
+  abstract getContestScores(): Promise<Score[]>;
 
-  abstract getTodayContestScores(): Score[];
+  abstract getTodayContestScores(): Promise<Score[]>;
 
-  abstract getContestHighestScore(): number;
+  abstract getContestHighestScore(): Promise<number>;
 
-  abstract getTodayHighestScore(): number;
+  abstract getTodayHighestScore(): Promise<number>;
 
   abstract saveHighscore(currentPlayer: Score): void;
 
   abstract deleteHighscore(): void;
+
+  abstract getScoreLabel(score: Score): string;
 }
