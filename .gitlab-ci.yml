@@ -19,7 +19,7 @@ arcade-build:
   only:
     - master
   tags:
-    - pi
+    - linux
 
 web-build:
   stage: build
