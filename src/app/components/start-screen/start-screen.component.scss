@@ -23,8 +23,12 @@
       animation: 2s color infinite step-end;
     }
 
-    .actions {
+    .help-text {
+
       margin-top: 120px;
+    }
+
+    .actions {
       font-size: 1.9em;
 
       @include nav-link;
