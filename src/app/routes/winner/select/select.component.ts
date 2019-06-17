@@ -19,15 +19,15 @@ export class SelectComponent implements OnInit {
   constructor(private storageService: StorageService,
               private fb: FormBuilder,
               private router: Router) {
+
+    this.form = this.fb.group({
+      winners: '',
+    });
   }
 
   async ngOnInit() {
     this.todayContestScores = await this.storageService.getTodayContestScores();
     this.todayContestScores.sort((a: Score, b: Score) => b.score - a.score);
-
-    this.form = this.fb.group({
-      winners: '',
-    });
   }
 
   onSubmit() {

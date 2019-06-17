@@ -1,7 +1,15 @@
+@import '../../../styles/color-animation';
+
+h1 {
+  font-size: 4em;
+  text-align: center;
+  animation: 1s color infinite step-end;
+  margin: 50px;
+}
 
 .title {
   margin-top: 5rem;
-  font-size: x-large;
+  //font-size: x-large;
 }
 
 ul {
