@@ -42,8 +42,11 @@ h1 {
     text-align: center;
   }
 
+
   @include nav-link;
+
   a {
+    font-size: 1.9em;
     text-align: center;
   }
 

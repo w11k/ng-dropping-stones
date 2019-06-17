@@ -1,9 +1,12 @@
 <h1 [class.margin-top]="!web">GAME OVER</h1>
 <div class="row">
   <div class="col player-result">
+    <h1>{{currentPlayer?.name}}</h1>
     <h2>your score:</h2>
     <p class="player-result__score">{{this.playerScore}}</p>
-    <a (click)="backToMainScreen()">back to <br/> main screen</a>
+    <a #action (click)="replay()">Play again</a>
+    <a #action (click)="backToMainScreen()">back to <br/> main screen</a>
+
   </div>
   <div class="col">
     <app-highscore-list heading="today's highscore:" [highscores]="todaysHighscores"></app-highscore-list>

@@ -1,7 +1,7 @@
-import {Subscription} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 
 import {filter, first, map, throttleTime} from 'rxjs/operators';
-import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {Score} from '../../models/highscore/highscore.model';
 import {select, Store} from '@ngrx/store';
 import {AppState} from '../../store/state.model';
@@ -13,6 +13,9 @@ import {untilComponentDestroyed} from '@w11k/ngx-componentdestroyed';
 import {interval} from 'rxjs/internal/observable/interval';
 import {environment} from '../../../environments/environment';
 import { StorageService } from '../../services/highscore/storage.service';
+import {getCurrentPlayer, PlayerState} from '../../store/reducers/highscore.reducer';
+import {SaveHighscore} from '../../store/actions';
+import {FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-game-over',
@@ -27,10 +30,16 @@ export class GameOverComponent implements OnInit, AfterViewInit, OnDestroy {
   private forceReload: boolean;
   private ESCSubscription: Subscription;
   readonly web = environment.web;
+  private playerState$: Observable<PlayerState>;
+  private currentPlayerSubscription: Subscription;
+  private currentPlayer: Score;
+  @ViewChildren('action') actions: QueryList<ElementRef>;
+  private selectedElementRef: ElementRef;
 
   constructor(private scoreService: StorageService,
               private gamepad: GamepadService,
               private store: Store<AppState>,
+              private playerStore: Store<PlayerState>,
               private router: Router) {
   }
 
@@ -42,10 +51,17 @@ export class GameOverComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.gamepad.getActions(1).pipe(
       throttleTime(300),
-      filter(action => action === GamepadActions.BACK || action === GamepadActions.OK),
       untilComponentDestroyed(this),
-    ).subscribe(() => {
-      this.backToMainScreen();
+    ).subscribe(action => {
+      if (action === GamepadActions.BACK) {
+        this.backToMainScreen();
+      } else if (action === GamepadActions.OK) {
+        this.replay();
+      } else if (action === GamepadActions.RIGHT) {
+        this.focusNext();
+      } else if (action === GamepadActions.LEFT) {
+        this.focusPrev();
+      }
     });
 
     this.highscores = (await this.scoreService.getContestScores())
@@ -61,6 +77,17 @@ export class GameOverComponent implements OnInit, AfterViewInit, OnDestroy {
       map((game: Tetris[]) => game[0] ? game[0].score : 0)
     ).subscribe(score => this.playerScore = score);
 
+    this.playerState$ = this.playerStore.pipe(
+      first()).pipe(
+      select('player')
+    ) as Observable<PlayerState>;
+    this.currentPlayerSubscription =
+      getCurrentPlayer(this.playerState$)
+        .subscribe(p => {
+          this.currentPlayer = p;
+        });
+
+    // back to main screen after 10 seconds
     interval(10 * 1000)
       .pipe(
         first(),
@@ -73,11 +100,55 @@ export class GameOverComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    document.querySelector('a').focus();
+    this.selectedElementRef = this.actions.first;
+    setTimeout(() => this.selectedElementRef.nativeElement.focus(), 0);
   }
+
+  focusNext() {
+    const availableActions = this.getActions();
+    const selectedIndex = availableActions.indexOf(this.selectedElementRef);
+
+    if (selectedIndex + 1 === availableActions.length) {
+      this.selectedElementRef = availableActions[0];
+    } else {
+      this.selectedElementRef = availableActions[selectedIndex + 1];
+    }
+
+    this.selectedElementRef.nativeElement.focus();
+  }
+
+  focusPrev() {
+    const availableActions = this.getActions();
+    const selectedIndex = availableActions.indexOf(this.selectedElementRef);
+
+    if (selectedIndex === 0) {
+      this.selectedElementRef = availableActions[availableActions.length - 1];
+    } else {
+      this.selectedElementRef = availableActions[selectedIndex - 1];
+    }
+
+    this.selectedElementRef.nativeElement.focus();
+  }
+
+  private getActions(): ElementRef[] {
+    return this.actions.map(elementRef => elementRef);
+  }
+
 
   ngOnDestroy(): void {
     this.ESCSubscription.unsubscribe();
+  }
+
+  replay() {
+    const newPayload: Score = {
+      ...this.currentPlayer,
+      score: 0,
+      date: new Date().toDateString()
+    };
+
+    this.playerStore.dispatch(
+      new SaveHighscore(newPayload)
+    );
   }
 
   backToMainScreen() {
@@ -87,5 +158,4 @@ export class GameOverComponent implements OnInit, AfterViewInit, OnDestroy {
       this.router.navigate(['/']);
     }
   }
-
 }
