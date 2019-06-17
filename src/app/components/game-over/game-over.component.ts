@@ -1,6 +1,6 @@
 import {Observable, Subscription} from 'rxjs';
 
-import {filter, first, map, throttleTime} from 'rxjs/operators';
+import {first, map, throttleTime} from 'rxjs/operators';
 import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {Score} from '../../models/highscore/highscore.model';
 import {select, Store} from '@ngrx/store';
@@ -12,10 +12,9 @@ import {Router} from '@angular/router';
 import {untilComponentDestroyed} from '@w11k/ngx-componentdestroyed';
 import {interval} from 'rxjs/internal/observable/interval';
 import {environment} from '../../../environments/environment';
-import { StorageService } from '../../services/highscore/storage.service';
+import {StorageService} from '../../services/highscore/storage.service';
 import {getCurrentPlayer, PlayerState} from '../../store/reducers/highscore.reducer';
 import {SaveHighscore} from '../../store/actions';
-import {FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-game-over',
@@ -32,7 +31,7 @@ export class GameOverComponent implements OnInit, AfterViewInit, OnDestroy {
   readonly web = environment.web;
   private playerState$: Observable<PlayerState>;
   private currentPlayerSubscription: Subscription;
-  private currentPlayer: Score;
+  currentPlayer: Score;
   @ViewChildren('action') actions: QueryList<ElementRef>;
   private selectedElementRef: ElementRef;
 
