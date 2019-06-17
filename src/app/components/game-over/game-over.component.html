@@ -1,11 +1,10 @@
 <h1 [class.margin-top]="!web">GAME OVER</h1>
 <div class="row">
   <div class="col player-result">
-    <h1>{{currentPlayer?.name}}</h1>
-    <h2>your score:</h2>
+    <h2>{{currentPlayer?.name}}s score:</h2>
     <p class="player-result__score">{{this.playerScore}}</p>
     <a #action (click)="replay()" class="tabable">Play again (Ok)</a>
-    <a #action (click)="backToMainScreen()" class="tabable">main screen (Back)</a>
+    <a #action (click)="backToMainScreen()" class="tabable">Main screen (Back)</a>
 
   </div>
   <div class="col">

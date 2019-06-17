@@ -87,13 +87,13 @@ export class GameOverComponent implements OnInit, AfterViewInit, OnDestroy {
         });
 
     // back to main screen after 10 seconds
-    interval(10 * 1000)
+    /*interval(30 * 1000)
       .pipe(
         first(),
         untilComponentDestroyed(this),
       ).subscribe(
         () => this.backToMainScreen()
-      );
+      );*/
 
     this.ESCSubscription = this.gamepad.abortGame();
   }
