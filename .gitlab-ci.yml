@@ -6,6 +6,21 @@ stages:
   - build
   - deploy
 
+arcade-build:
+  stage: build
+  image: node:8-alpine
+  script:
+    - npm install
+    - npm run build:arcade
+  artifacts:
+    paths:
+      - dist/
+    expire_in: 1 week
+  only:
+    - master
+  tags:
+    - pi
+
 web-build:
   stage: build
   image: node:8-alpine

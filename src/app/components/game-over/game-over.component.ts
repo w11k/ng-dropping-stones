@@ -56,11 +56,11 @@ export class GameOverComponent implements OnInit, AfterViewInit, OnDestroy {
         this.backToMainScreen();
       } else if (action === GamepadActions.OK) {
         this.replay();
-      } else if (action === GamepadActions.RIGHT) {
+      } /*else if (action === GamepadActions.RIGHT) {
         this.focusNext();
       } else if (action === GamepadActions.LEFT) {
         this.focusPrev();
-      }
+      }*/
     });
 
     this.highscores = (await this.scoreService.getContestScores())
@@ -99,10 +99,10 @@ export class GameOverComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.selectedElementRef = this.actions.first;
-    setTimeout(() => this.selectedElementRef.nativeElement.focus(), 0);
+    // this.selectedElementRef = this.actions.first;
+    // setTimeout(() => this.selectedElementRef.nativeElement.focus(), 0);
   }
-
+/*
   focusNext() {
     const availableActions = this.getActions();
     const selectedIndex = availableActions.indexOf(this.selectedElementRef);
@@ -131,7 +131,7 @@ export class GameOverComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private getActions(): ElementRef[] {
     return this.actions.map(elementRef => elementRef);
-  }
+  }*/
 
 
   ngOnDestroy(): void {

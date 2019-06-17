@@ -136,18 +136,22 @@ export class GamepadService {
     window.addEventListener('keydown', (event: KeyboardEvent) => {
       switch (event.keyCode) {
         case 98: // = down(2)
+        case 40: // = down(mac)
           event.preventDefault();
           this.buttonSubject.next({action: GamepadActions.DOWN, index: 1});
           break;
         case 100: // = left(4)
+        case 37: // = left(mac)
           event.preventDefault();
           this.buttonSubject.next({action: GamepadActions.LEFT, index: 1});
           break;
         case 102: // = right(6)
+        case 39: // = left(mac)
           event.preventDefault();
           this.buttonSubject.next({action: GamepadActions.RIGHT, index: 1});
           break;
         case 104: // = top(8)
+        case 38: // = top(8)
           event.preventDefault();
           this.buttonSubject.next({action: GamepadActions.UP, index: 1});
           break;

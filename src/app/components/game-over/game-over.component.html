@@ -4,8 +4,8 @@
     <h1>{{currentPlayer?.name}}</h1>
     <h2>your score:</h2>
     <p class="player-result__score">{{this.playerScore}}</p>
-    <a #action (click)="replay()">Play again</a>
-    <a #action (click)="backToMainScreen()">back to <br/> main screen</a>
+    <a #action (click)="replay()" class="tabable">Play again (Ok)</a>
+    <a #action (click)="backToMainScreen()" class="tabable">main screen (Back)</a>
 
   </div>
   <div class="col">
