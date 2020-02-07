@@ -12,7 +12,7 @@ https://www.w11k.de/ng-dropping-stones/
 Inspired by [w11k NgrxTetris](https://github.com/w11k/ngrx-tetris) 
 and [Angular + Redux Tetris](https://github.com/DavidBanksNZ/ng-tetris).
 
-## Setuo
+## Setup
 
 * `npm install`
 * `npm start`
