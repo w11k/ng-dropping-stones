@@ -36,6 +36,7 @@ import {MultiGameOverComponent} from './components/multi-game-over/multi-game-ov
 import {WebGuard} from './web.guard';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { FooterComponent } from './components/footer/footer.component';
 
 const routes = [
   {
@@ -90,6 +91,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
 @NgModule({
   declarations: [
     AppComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

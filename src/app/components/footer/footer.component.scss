@@ -1,0 +1,28 @@
+////@import "../../../styling/variables";
+//
+.footer-settings {
+  font-size: 16px;
+  font-family: Arial;
+  margin-left: 50px;
+  margin-right: 50px;
+  background: #8D8D8D;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  li {
+    a {
+      text-decoration: none;
+      color: inherit; /* get form section blue*/
+      &:hover {
+        text-decoration: underline;
+      }
+
+      &:focus {
+        opacity: .7;
+      }
+    }
+  }
+}
