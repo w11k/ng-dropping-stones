@@ -29,7 +29,7 @@
     "@ngrx/store": "^7.3.0",
     "@ngrx/store-devtools": "7.3.0",
     "@w11k/ngx-componentdestroyed": "4.1.4",
-    "bootstrap": "4.0.0",
+    "bootstrap": "4.3.1",
     "clone": "^2.1.1",
     "core-js": "^2.4.1",
     "date-fns": "^1.29.0",
